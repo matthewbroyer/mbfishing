@@ -30,11 +30,21 @@ None of these use accounts or API keys. None are called until the person uses th
 - Weather: "Weather data by Open-Meteo.com", CC BY 4.0. Credited in `privacy.html#credits` and in the More tab footer.
 - Place search: Photon, with OpenStreetMap data. Credited in `privacy.html#credits`.
 
+## Species guide content (`species-data.js`)
+
+The Species tab's text is written in our own words from the pages listed under each species (shown in the app as a numbered "Sources" list with links). Nothing is copied wholesale, and the sources are not affiliated with or endorsing this app. Sources used:
+
+- Take Me Fishing, Recreational Boating & Fishing Foundation: https://www.takemefishing.org
+- Maine Dept. of Inland Fisheries & Wildlife, Minnesota DNR, Massachusetts Division of Marine Fisheries, Oregon Dept. of Fish & Wildlife, North Carolina Wildlife Resources Commission, Texas Parks & Wildlife Dept., NOAA Fisheries (specific pages are linked per species)
+
+Rules for adding or editing a species: only cite a page you actually read, tie each line to its source with the `^1,2` markers, and keep wording your own. Regions (`r:` codes) are our own rough grouping, not a range map. Source links open other sites only when tapped, so no new host is needed in the CSP.
+
 ## Fonts, images, icons, media
 
 - **Fonts:** none loaded. The app uses the system font stack of the visitor's device.
 - **Icons in the interface:** emoji, drawn by the visitor's own device font. No icon library.
 - **App icon** (`icon-192.png`, `icon-512.png`): created for this project. No stock or third-party artwork.
+- **Fish drawings** (`fish-art.js`): original illustrations drawn in code for this project. They are simplified, not photos.
 - **Photos:** only the visitor's own, stored on their device.
 - **Music, video, stock images:** none.
 

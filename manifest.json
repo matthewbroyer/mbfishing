@@ -1,6 +1,6 @@
 {
-  "name": "mbfishing.online",
-  "short_name": "mbfishing",
+  "name": "Fishing",
+  "short_name": "Fishing",
   "description": "Log a fish with one tap. No account. Your catches are saved in your browser.",
   "start_url": "./",
   "scope": "./",

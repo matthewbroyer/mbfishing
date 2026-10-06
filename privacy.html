@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'">
-<title>Privacy · mbfishing.online</title>
+<title>Fishing | Privacy</title>
 <meta name="description" content="What mbfishing.online stores on your device and which free outside services it contacts.">
 <link rel="icon" href="icon-192.png">
 <style>
@@ -47,7 +47,7 @@ li{margin-bottom:6px}
 <ul>
 <li><b>Your log:</b> catches (species, size, weight, lure, technique, kept or released, water temperature, notes, time, and GPS coordinates if you allowed location), trips (start and end, notes, a weather snapshot, coordinates), and spots (name, type, notes, coordinates). Stored in your browser’s local storage.</li>
 <li><b>Your photos:</b> stored in your browser’s database.</li>
-<li><b>Preferences:</b> units, whether weather is on, your species and lure lists, light or dark mode, and whether you have seen the intro and notices.</li>
+<li><b>Preferences:</b> units, whether weather is on, your fishing region, your species and lure lists, light or dark mode, and whether you have seen the intro and notices.</li>
 <li><b>Backup folder (optional):</b> if you choose a backup folder in Chrome or Edge, your browser remembers permission to save into it, in its own database on this device. The app can see the folder’s name, not its full path, and only writes the backup files you ask for.</li>
 <li><b>Saved copies for offline use:</b> the app’s own files, the map code after you first open the map, and map tiles you have viewed.</li>
 </ul>
@@ -74,6 +74,11 @@ li{margin-bottom:6px}
 <h3>Directions (Google Maps)</h3>
 <p>When: you tap Directions on a spot.</p>
 <p>Sent: a Google Maps link that contains that spot’s coordinates opens in a new tab. Google’s privacy policy applies from there.</p>
+</div>
+<div class="card">
+<h3>Species guide source links</h3>
+<p>When: you tap a source link on a Species page.</p>
+<p>Sent: nothing from the app. The link opens the source’s own website (for example Take Me Fishing or a state wildlife agency) in a new tab, and that site’s privacy practices apply. The guide itself is part of the app and loads from this site, so it works offline.</p>
 </div>
 <div class="card">
 <h3>Sharing and exporting</h3>
@@ -113,6 +118,7 @@ li{margin-bottom:6px}
 <li><a href="https://open-meteo.com/" rel="noopener">Weather data by Open-Meteo.com</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a>.</li>
 <li>Map display: <a href="https://leafletjs.com" rel="noopener">Leaflet</a> (BSD-2-Clause), <a href="https://maplibre.org" rel="noopener">MapLibre GL JS</a> (BSD-3-Clause) and maplibre-gl-leaflet (ISC). Their license texts are in <a href="vendor/LICENSES.txt">vendor/LICENSES.txt</a>.</li>
 <li>Icons in the app are emoji drawn by your device’s own font. The moon phase is calculated on your device.</li>
+<li>Species guide: tips are summarized in our own words from the sources listed on each species page (mainly Take Me Fishing and state and federal wildlife agencies). They are not affiliated with or endorsing this app. Fish drawings are original illustrations made for this app.</li>
 </ul>
 </main>
 </body>

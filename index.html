@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-fiPEsQ5bOzJhbm74oOKdNxeUp9l1c4qz5b6QWow0oIM='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-Z+g3jmj0guZJv0f0Y/wv4+wsEr1GlGfOXCNyfgc34M8='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>mbfishing.online</title>
+<title>Fishing | Log</title>
 <meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
 <meta name="theme-color" content="#566f08">
 <script>var __t="light";try{if(localStorage.getItem("mbfishing.theme")==="dark")__t="dark"}catch(e){}document.documentElement.setAttribute("data-theme",__t)</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="mbfishing">
+<meta name="apple-mobile-web-app-title" content="Fishing">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
@@ -44,7 +44,7 @@ img{display:block}
 main{flex:1;min-height:0;overflow:auto;position:relative;-webkit-overflow-scrolling:touch}
 body.noscroll main{overflow:hidden}
 .view{padding:14px 14px 30px;max-width:760px;margin:0 auto}
-#nav{flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+#nav{flex:none;display:grid;grid-template-columns:repeat(6,1fr);background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
 #nav button{background:none;border:0;padding:7px 0 6px;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:11px;font-weight:650;color:var(--muted);min-height:58px;position:relative}
 #nav .ic{font-size:21px;line-height:1.15}
 #nav button[aria-current=page]{color:var(--accent)}
@@ -532,6 +532,28 @@ img.logo{display:inline-block;vertical-align:-6px;margin-right:8px;border-radius
 .bk-loc{display:flex;align-items:center;gap:6px 10px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
 .bk-loc b{min-width:0;overflow-wrap:anywhere}
 label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:13.5px;font-weight:500;color:var(--ink);min-height:var(--ctl)}
+
+/* Species guide */
+.sp-th,.sp-art{background:#f4f5f7;border-radius:10px;padding:3px}
+.sp-th{flex:none;width:92px}
+.sp-th svg,.sp-art svg{display:block;width:100%;height:auto}
+.sp-art{max-width:480px;margin:0 auto 8px;padding:6px}
+.sp-hero h2{margin:6px 0 0;font-size:22px;line-height:1.2}
+.sp-item{margin-bottom:8px}
+.bl{margin:6px 0 0;padding-left:20px}
+.bl li{margin:0 0 7px;line-height:1.45}
+.cite{font-size:11px;color:var(--muted);font-weight:600;margin-left:2px;white-space:nowrap}
+.sp-sec h4{margin:16px 0 0;font-size:13px;font-weight:700;color:var(--ink-2)}
+.card>.sp-sec:first-child h4,.card>.sp-sec:first-child .fact:first-child{margin-top:0}
+.fact{margin:6px 0 0;line-height:1.45}
+.srcs{margin:0;padding-left:22px}
+.srcs li{margin:0 0 12px;line-height:1.35}
+.srcs a{color:var(--accent);font-weight:600;word-break:break-word}
+.lnk{border:0;background:none;color:var(--accent);font-weight:650;padding:0 0 0 4px;min-height:32px;text-decoration:underline}
+.item.rg[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}
+.rgchk{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--line-strong);display:grid;place-items:center;font-weight:800;color:var(--accent-ink)}
+.rg[aria-pressed=true] .rgchk{background:var(--accent);border-color:var(--accent)}
+#ob-rg .item{margin-bottom:6px}
 </style>
 </head>
 <body>
@@ -572,6 +594,7 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
     </aside>
   </section>
   <section id="v-stats" class="view" hidden></section>
+  <section id="v-species" class="view" hidden></section>
   <section id="v-more" class="view" hidden></section>
 </main>
 <nav id="nav" aria-label="Main">
@@ -580,6 +603,7 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
   <button data-act="go" data-v="catches"><span class="ic">🐟</span>Catches</button>
   <button data-act="go" data-v="map"><span class="ic">🗺️</span>Map</button>
   <button data-act="go" data-v="stats"><span class="ic">📊</span>Stats</button>
+  <button data-act="go" data-v="species"><span class="ic">📖</span>Species</button>
   <button data-act="go" data-v="more" id="nav-more"><span class="ic">⚙️</span>More</button>
 </nav>
 <button id="totop" data-act="totop" aria-label="Back to top">↑</button>
@@ -596,6 +620,8 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
 <input type="file" id="gal" accept="image/*" multiple hidden>
 <input type="file" id="imp" accept=".json,.zip,.gpx,application/json,application/zip,application/gpx+xml,text/xml" hidden>
 <noscript><p style="padding:20px">mbfishing.online needs JavaScript turned on.</p></noscript>
+<script src="fish-art.js"></script>
+<script src="species-data.js"></script>
 <script>
 'use strict';
 /* =====================================================================
@@ -632,7 +658,7 @@ const hl=h=>{h=((h%24)+24)%24;return (h%12||12)+(h<12?' AM':' PM')};
 const KEY='fishlog.v1';
 const DEFAULT_SPECIES=['Largemouth Bass','Smallmouth Bass','Chain Pickerel','Black Crappie','Yellow Perch','Pumpkinseed','Bluegill','Brook Trout','Brown Trout','Rainbow Trout','Northern Pike','Walleye','Striped Bass','Bluefish','Mackerel','Flounder','Tautog'];
 const DEFAULT_LURES=['Senko','Ned Rig','Spinnerbait','Jig','Crankbait','Topwater','Spoon','Inline Spinner','Live Worm','Minnow'];
-const DEF_SETTINGS=()=>({units:'imperial',weather:true,species:[...DEFAULT_SPECIES],lures:[...DEFAULT_LURES],lure:'',lastSpecies:'',lastSpotId:null,lastBackup:0,persistAsked:false});
+const DEF_SETTINGS=()=>({units:'imperial',weather:true,regions:[],species:[...DEFAULT_SPECIES],lures:[...DEFAULT_LURES],lure:'',lastSpecies:'',lastSpotId:null,lastBackup:0,persistAsked:false});
 /* ---------- data hygiene ----------
    Everything that comes from storage or from an imported file is rebuilt field by field:
    ids must be plain tokens, numbers must be real numbers in a sane range, text is capped.
@@ -671,7 +697,7 @@ function cleanSpot(x){
 function cleanSettings(s){
   s=s&&typeof s==='object'?s:{};
   const d=DEF_SETTINGS(),list=(a,def)=>Array.isArray(a)?[...new Set(a.map(v=>cstr(v,80).trim()).filter(Boolean))].slice(0,300):def;
-  return{units:s.units==='metric'?'metric':'imperial',weather:s.weather!==false,species:list(s.species,d.species),lures:list(s.lures,d.lures),lure:cstr(s.lure,80),lastSpecies:cstr(s.lastSpecies,80),lastSpotId:cid(s.lastSpotId),lastBackup:cnum(s.lastBackup,0,T_MAX)||0,persistAsked:!!s.persistAsked};
+  return{units:s.units==='metric'?'metric':'imperial',weather:s.weather!==false,regions:(Array.isArray(s.regions)?[...new Set(s.regions.filter(r=>typeof r==='string'&&/^[a-z]{2}$/.test(r)))].slice(0,12):[]),species:list(s.species,d.species),lures:list(s.lures,d.lures),lure:cstr(s.lure,80),lastSpecies:cstr(s.lastSpecies,80),lastSpotId:cid(s.lastSpotId),lastBackup:cnum(s.lastBackup,0,T_MAX)||0,persistAsked:!!s.persistAsked};
 }
 function cleanList(a,fn,max){
   const seen=new Set(),out=[];
@@ -1441,16 +1467,16 @@ function celebrate(c,prev){
    ===================================================================== */
 function go(tab){
   V.tab=tab;
-  for(const t of['log','catches','map','stats','more'])$('#v-'+t).hidden=t!==tab;
+  for(const t of['log','catches','map','stats','species','more'])$('#v-'+t).hidden=t!==tab;
   $$('#nav button').forEach(b=>{if(b.dataset.v===tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
   $('#main').scrollTop=0;
-  $('#view-h').textContent={log:'Log',catches:'Catches',map:'Map',stats:'Stats',more:'More'}[tab]||'';
+  $('#view-h').textContent={log:'Log',catches:'Catches',map:'Map',stats:'Stats',species:'Species',more:'More'}[tab]||'';setTitle();
   refresh();updateScroll();
   if(tab==='map')openMapTab();
 }
 function refresh(){
   updatePill();
-  const r={log:renderLog,catches:renderCatches,map:()=>M.map&&renderMap(),stats:renderStats,more:renderMore}[V.tab];
+  const r={log:renderLog,catches:renderCatches,map:()=>M.map&&renderMap(),stats:renderStats,species:renderSpecies,more:renderMore}[V.tab];
   if(r)r();
   const nag=backupDue();$('#nav-more').querySelector('.dot')?.remove();
   if(nag)$('#nav-more').insertAdjacentHTML('beforeend','<i class="dot"></i>');
@@ -1602,11 +1628,167 @@ setInterval(()=>{
   if(!freshPos(3*6e4))getPos(8000);
 },30000);
 
+/* =====================================================================
+   Species guide (Species tab) + fishing regions
+   Data comes from species-data.js and fish-art.js, loaded before this script.
+   Nothing in this section touches the network; source links open other sites only when tapped.
+   ===================================================================== */
+const G=Array.isArray(window.SPECIES)?window.SPECIES:[],GREG=Array.isArray(window.SPECIES_REGIONS)?window.SPECIES_REGIONS:[],GSRC=window.SPECIES_SRC||null;
+const REG_IDS=new Set(GREG.map(r=>r.id));
+const gById=new Map(G.map(s=>[s.id,s]));
+const gPop=new Map(G.map(s=>[s.id,Object.fromEntries(String(s.r||'').split(' ').filter(Boolean).map(t=>[t.slice(0,2),+t[2]||0]))]));
+const popIn=(s,regs)=>regs.reduce((m,r)=>Math.max(m,(gPop.get(s.id)||{})[r]||0),0);
+const regName=id=>(GREG.find(r=>r.id===id)||{}).n||id;
+const regLabel=regs=>regs.length<=2?regs.map(regName).join(' + '):regName(regs[0])+' + '+(regs.length-1)+' more';
+const ALL_REG=GREG.map(r=>r.id),popSum=(s,regs)=>regs.reduce((m,r)=>m+((gPop.get(s.id)||{})[r]||0),0);
+/* most-caught first: top rating in your regions, then rating summed over them, then how widely it's popular, then A–Z */
+const regCmp=regs=>(a,b)=>popIn(b,regs)-popIn(a,regs)||popSum(b,regs)-popSum(a,regs)||popSum(b,ALL_REG)-popSum(a,ALL_REG)||a.n.localeCompare(b.n);
+const regionList=regs=>G.filter(s=>popIn(s,regs)>0).sort(regCmp(regs));
+const WATER={f:'Freshwater',s:'Saltwater',b:'Fresh & salt'};
+const artOf=(s,cls)=>window.FishArt?window.FishArt.draw(Object.assign({s:s.id},s.art),{cls:cls||'fish-svg'}):'';
+const hostOf=u=>{try{return new URL(u).hostname.replace(/^www\./,'')}catch(e){return''}};
+const cite=t=>esc(t).replace(/\s*\^([\d,]+)/g,(m,g)=>`<sup class="cite" title="From source ${g.replace(/,/g,' and ')}">[${g}]</sup>`);
+
+/* a logged name like "Summer Flounder (Fluke)" or "Mackerel" -> its guide entry, when it's clear which one */
+let GNAME=null;
+function guideFor(name){
+  if(!G.length)return null;
+  if(!GNAME){
+    GNAME=new Map();const cnt=new Map(),own=[];
+    for(const s of G){
+      for(const k of[s.n.toLowerCase(),s.n.replace(/\s*\(.*?\)\s*/g,' ').trim().toLowerCase(),s.id.replace(/-/g,' ')])if(!GNAME.has(k))GNAME.set(k,s);
+      for(const a of new Set(s.al||[])){const k=a.toLowerCase();cnt.set(k,(cnt.get(k)||0)+1);own.push([k,s])}
+    }
+    for(const[k,s]of own)if(cnt.get(k)===1&&!GNAME.has(k))GNAME.set(k,s); // a nickname counts only if it belongs to one species
+  }
+  return GNAME.get(String(name||'').trim().toLowerCase())||null;
+}
+function gStats(s){
+  const cs=db.catches.filter(c=>guideFor(c.species)===s);
+  return{n:cs.length,best:bestOf(cs),last:cs.reduce((m,c)=>Math.max(m,c.t),0)};
+}
+
+/* Picking regions rewrites the species list on Log: that region's fish (most-caught first) plus any species you added yourself.
+   No region = the original starter list. Fish already logged always stay available. */
+function applyRegions(sel){
+  sel=[...new Set(sel)].filter(id=>REG_IDS.has(id));
+  const prev=db.settings.regions||[];
+  const prevBase=new Set(prev.length?regionList(prev).map(s=>s.n):DEFAULT_SPECIES);
+  const mine=db.settings.species.filter(n=>!prevBase.has(n));
+  db.settings.regions=sel;
+  db.settings.species=[...new Set([...(sel.length?regionList(sel).map(s=>s.n):DEFAULT_SPECIES),...mine])];
+  quickOrder=null;save();
+}
+
+/* ---------- region picker ---------- */
+let RG=null;
+function rgItems(sel,act){
+  return GREG.map(r=>`<button class="item rg" data-act="${act}" data-id="${r.id}" aria-pressed="${sel.has(r.id)}"><span class="rgchk" aria-hidden="true">${sel.has(r.id)?'✓':''}</span><span class="grow"><b>${esc(r.n)}</b><br><span class="muted sm">${esc(r.s)}</span></span></button>`).join('');
+}
+function openRegionSheet(){
+  if(!GREG.length){toast('The species data didn’t load. Reload the page.');return}
+  RG=new Set(db.settings.regions||[]);
+  openSheet('Where do you fish?',`<p class="muted sm" style="margin-top:0">Pick your region and Log and the species list show fish caught there. Pick more than one if you travel. Fish you’ve already logged stay. Nothing is sent anywhere.</p>
+    <div id="rg-list">${rgItems(RG,'rg-toggle')}</div>
+    <div class="row gap mt"><button class="btn" data-act="rg-clear">Show everything</button><button class="btn primary grow" data-act="rg-save">Save</button></div>
+    <p class="muted sm" style="margin:10px 0 0">Regions are our own rough grouping, so a fish can turn up outside the regions listed. “Show everything” goes back to the starter list.</p>`);
+}
+ACT['region-open']=()=>openRegionSheet();
+ACT['rg-toggle']=el=>{if(!RG)return;const id=el.dataset.id;RG.has(id)?RG.delete(id):RG.add(id);$('#rg-list').innerHTML=rgItems(RG,'rg-toggle');const b=$(`#rg-list [data-id="${id}"]`);if(b)b.focus()};
+ACT['rg-save']=()=>{
+  const sel=RG?[...RG]:[];applyRegions(sel);RG=null;closeSheet();refresh();
+  const r=db.settings.regions;toast(r.length?`📍 ${esc(regLabel(r))}: ${pl(regionList(r).length,'species','species')} in your list`:'Back to the starter species list',[],4500);
+};
+ACT['rg-clear']=()=>{applyRegions([]);RG=null;closeSheet();refresh();toast('Back to the starter species list',[],3500)};
+
+/* ---------- Species tab ---------- */
+V.spW='';V.spQ='';V.spAll='';V.spId=null;V.spLim=30;
+function setTitle(){
+  const n={log:'Log',catches:'Catches',map:'Map',stats:'Stats',species:'Species',more:'More'};
+  const s=V.tab==='species'&&V.spId?gById.get(V.spId):null;
+  document.title='Fishing | '+(s?s.n:n[V.tab]||'Log');
+}
+function spRow(s,n){
+  return`<button class="item sp-item" data-act="sp-open" data-id="${s.id}"><span class="sp-th">${artOf(s)}</span><span class="grow"><b>${esc(s.n)}</b><br><span class="muted sm"><i>${esc(s.sci)}</i> · ${WATER[s.w]||''}</span>${n?`<br><span class="muted sm">🎣 You’ve logged ${n}</span>`:''}</span><span class="muted" aria-hidden="true">›</span></button>`;
+}
+function spListHTML(){
+  const regs=db.settings.regions||[],q=(V.spQ||'').trim().toLowerCase(),mine=regs.length&&V.spAll!=='1'&&!q;
+  let list=G.filter(s=>V.spW==='f'?s.w!=='s':V.spW==='s'?s.w!=='f':true);
+  if(mine)list=list.filter(s=>popIn(s,regs)>0);
+  if(q)list=list.filter(s=>(s.n+' '+s.sci+' '+(s.al||[]).join(' ')).toLowerCase().includes(q));
+  list.sort(regs.length?regCmp(regs):(a,b)=>a.n.localeCompare(b.n));
+  const cnt=new Map();db.catches.forEach(c=>{const g=guideFor(c.species);if(g)cnt.set(g.id,(cnt.get(g.id)||0)+1)});
+  const shown=list.slice(0,V.spLim);
+  return(shown.map(s=>spRow(s,cnt.get(s.id)||0)).join('')||'<div class="card muted" style="text-align:center">No species match. Try a different name or filter.</div>')
+    +(list.length>shown.length?`<button class="btn block" data-act="sp-more">Show more (${list.length-shown.length} left)</button>`:'')
+    +`<p class="muted sm" style="text-align:center;margin:6px 0 0">${pl(list.length,'species','species')}${q?' (searching all regions)':''}</p>`;
+}
+function renderSpecies(){
+  const el=$('#v-species');
+  if(!G.length||!window.FishArt){el.innerHTML='<div class="card muted">The species guide didn’t load. Reload the page. If it keeps happening, check that species-data.js and fish-art.js are uploaded next to index.html.</div>';return}
+  const s=V.spId&&gById.get(V.spId);
+  if(s){renderSpeciesDetail(s);return}
+  const regs=db.settings.regions||[];
+  el.innerHTML=`<div class="toolbar"><input type="search" id="sp-find" placeholder="Search fish, e.g. walleye or fluke" value="${esc(V.spQ)}" data-inp="sp-find" autocomplete="off" aria-label="Search species">
+    <div class="chips">
+      <button class="chip ${regs.length?'on':'ghost'}" data-act="region-open">📍 ${regs.length?esc(regLabel(regs)):'Set your region'}</button>
+      ${regs.length?`<button class="chip" data-act="set" data-k="spAll" data-v="${V.spAll==='1'?'':'1'}" aria-pressed="${V.spAll==='1'}">${V.spAll==='1'?'Showing all regions':'Show all regions'}</button>`:''}
+      ${[['','All water'],['f','Freshwater'],['s','Saltwater']].map(([k,l])=>`<button class="chip ${V.spW===k?'on':''}" data-act="set" data-k="spW" data-v="${k}" aria-pressed="${V.spW===k}">${l}</button>`).join('')}
+    </div></div>
+    <div class="mt" id="sp-list">${spListHTML()}</div>
+    <p class="muted sm" style="margin:16px 2px 0">Tips here are summarized from the sources listed on each page. Drawings are simplified illustrations, not photos.</p>`;
+}
+INP['sp-find']=el=>{V.spQ=el.value;V.spLim=30;const l=$('#sp-list');if(l)l.innerHTML=spListHTML()};
+ACT['sp-more']=()=>{V.spLim+=40;const l=$('#sp-list');if(l)l.innerHTML=spListHTML()};
+let spScroll=0;
+ACT['sp-open']=el=>{
+  if(!V.spId)spScroll=$('#main').scrollTop;
+  V.spId=el.dataset.id;go('species');$('#main').scrollTop=0;
+};
+ACT['sp-back']=()=>{V.spId=null;go('species');$('#main').scrollTop=spScroll};
+
+function renderSpeciesDetail(s){
+  const el=$('#v-species'),regs=db.settings.regions||[],st=gStats(s);
+  const sec=(t,h)=>h?`<div class="sp-sec"><h4>${t}</h4>${h}</div>`:'';
+  const bl=a=>a&&a.length?`<ul class="bl">${a.map(x=>`<li>${cite(x)}</li>`).join('')}</ul>`:'';
+  const fact=(k,v)=>v?`<p class="fact"><b>${k}:</b> ${cite(v)}</p>`:'';
+  const where=GREG.filter(r=>((gPop.get(s.id)||{})[r.id]||0)>=2).map(r=>r.n);
+  const lk=(s.lk||[]).map(([name,txt])=>{
+    const g=guideFor(name)||guideFor(String(name).split(/\s*\/\s*/)[0]),has=/\^\d/.test(txt||'');
+    return`<li><b>${esc(name)}</b>${has?': '+cite(txt):''}${g&&g!==s?` <button class="lnk" data-act="sp-open" data-id="${g.id}">See ${esc(g.n)} ›</button>`:''}</li>`;
+  }).join('');
+  const srcs=(s.src||[]).map((_,i)=>GSRC&&GSRC.info(s,i+1)).filter(Boolean);
+  const catchHtml=sec('Best baits and lures',s.bait?`<p style="margin:4px 0 0">${cite(s.bait)}</p>`:'')+sec('How to fish for it',bl(s.tech))+sec('Where to look',bl(s.where))+sec('When',bl(s.when))+sec('Good to know',bl(s.tip));
+  el.innerHTML=`<div class="sp-det">
+    <button class="btn sm" data-act="sp-back">‹ All species</button>
+    <div class="card sp-hero mt">
+      <div class="sp-art">${artOf(s,'fish-svg')}</div>
+      <h2>${esc(s.n)}</h2>
+      <p class="muted" style="margin:2px 0 0"><i>${esc(s.sci)}</i> · ${WATER[s.w]||''}</p>
+      ${(s.al||[]).length?`<p class="muted sm" style="margin:6px 0 0">Also called: ${esc((s.al||[]).slice(0,5).join(', '))}</p>`:''}
+      ${where.length?`<p class="muted sm" style="margin:6px 0 0">Commonly caught in: ${esc(where.join(', '))}</p>`:''}
+      <p class="muted sm" style="margin:8px 0 0">Illustration, not a photo. Colors and markings vary with age, season and water.</p>
+    </div>
+    <button class="btn primary tall block mt" data-act="sp-log" data-sp="${esc(s.n)}">🎣 Log a ${esc(s.n)}</button>
+    ${st.n?`<p class="muted sm" style="text-align:center;margin:8px 0 0">You’ve logged ${pl(st.n,'fish','fish')}${st.best?` · best ${esc(sizeStr(st.best))}`:''} · last ${esc(fmtDateY(st.last))}</p>`:''}
+    <h3>How to identify it</h3>
+    <div class="card">${bl(s.idm)}${lk?`<div class="sp-sec"><h4>Easily confused with</h4><ul class="bl">${lk}</ul></div>`:''}${(s.sz||s.rng)?`<div class="sp-sec">${fact('Size',s.sz)}${fact('Range',s.rng)}</div>`:''}</div>
+    ${catchHtml?`<h3>How to catch it</h3><div class="card">${catchHtml}</div>`:''}
+    <h3>Sources</h3>
+    <div class="card">
+      <ol class="srcs">${srcs.map(r=>`<li id="src-${r.n}"><a href="${esc(r.u)}" target="_blank" rel="noopener noreferrer">${esc(r.t)}</a><br><span class="muted sm">${esc(r.p)}${r.p?' · ':''}${esc(hostOf(r.u))}</span></li>`).join('')}</ol>
+      <p class="muted sm" style="margin:8px 0 0">Summarized in our own words from the pages above. The numbers like [1,2] show which pages each line comes from. Links open those sites in a new tab. We aren’t affiliated with or endorsed by them, and pages change. Check your state’s rules for seasons, size and bag limits before you keep a fish.</p>
+    </div>
+  </div>`;
+  setTitle();
+}
+
 /* ---------- pickers (species / lure / spot) ---------- */
 function openSpeciesPicker(){
   const all=speciesOrder();
   const body=openSheet('Which fish?',`
     <input id="sp-q" placeholder="Search or type a new species" autocomplete="off" data-inp="sp-q">
+    ${G.length?((db.settings.regions||[]).length?`<p class="muted sm" style="margin:8px 0 0">Fish for ${esc(regLabel(db.settings.regions))}, plus anything you’ve logged. <button class="btn sm link" data-act="region-open" style="min-height:44px;padding:0 6px">Change region</button></p>`:`<p class="muted sm" style="margin:8px 0 0"><button class="btn sm link" data-act="region-open" style="min-height:44px;padding:0 6px">📍 Set your region</button> to see fish from your area.</p>`):''}
     <div class="chips" id="sp-list" style="margin-top:12px"></div>`);
   const draw=q=>{
     q=(q||'').trim();const f=all.filter(s=>s.toLowerCase().includes(q.toLowerCase()));
@@ -2254,6 +2436,9 @@ async function renderMore(){
   <div class="card">
     <label style="margin-top:0">Units</label>
     <div class="seg"><button data-act="units" data-v="imperial" aria-pressed="${!U()}">in · lb · °F</button><button data-act="units" data-v="metric" aria-pressed="${U()}">cm · kg · °C</button></div>
+    <label>Fishing region</label>
+    <div class="row gap"><span class="grow">${(db.settings.regions||[]).length?esc(db.settings.regions.map(regName).join(', ')):'Not set'}</span><button class="btn sm" data-act="region-open">${(db.settings.regions||[]).length?'Change':'Set region'}</button></div>
+    <p class="muted sm" style="margin:6px 0 0">Sets which fish show on Log and in the species list, and what the Species page lists first.</p>
     <label>Weather on trip start</label>
     <div class="seg"><button data-act="wx" data-v="1" aria-pressed="${db.settings.weather}">On</button><button data-act="wx" data-v="0" aria-pressed="${!db.settings.weather}">Off</button></div>
     <p class="muted sm" style="margin:6px 0 0">When on, your location, rounded to about 1 km, goes to Open-Meteo (free, no account) when a trip starts. You get a snapshot of temperature, sky and wind. Don’t rely on it for safety decisions.</p>
@@ -2316,8 +2501,9 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.6.0';
+const APP_VERSION='1.7.0';
 const RELEASES=[
+ {v:'1.7.0',d:'October 2026',n:['Now called Fishing: the installed app name and every browser tab read “Fishing | page name”','New Species page: 74 North American freshwater and saltwater fish with ID tips, how to catch them, and numbered source links','Pick your region (More → Settings, or when you first open the app) and Log shows the fish caught where you fish','Drawings are simplified illustrations, not photos, and the guide works offline']},
  {v:'1.6.0',d:'October 2026',n:['New look: a compact, desktop-style layout with square panels, a chartreuse accent and almost no animation','Choose where backups go: every export now asks where to save, or pick a backup folder once and it’s remembered','Save backup now writes your data as JSON (the file to restore from), with an optional CSV copy for spreadsheets','A “Backed up last” line sits above the backup buttons and shows when, what and where','Opens in light mode every time; dark mode is remembered only if you pick it','Import opens at your backup folder']},
  {v:'1.5.0',d:'October 2026',n:['Privacy and Terms pages, linked from More','Safer imports: backup, ZIP and GPX files are checked before anything is saved','Keyboard and screen-reader fixes: skip link, dialogs keep focus, clearer headings','Less precise locations sent for weather and place search, and map code now loads from this site']},
  {v:'1.4.0',d:'October 2026',n:['Get started faster: a skippable 3-step intro and a setup checklist','Easier to tap: every button is at least 44 px, and Backup, Filters and Settings show the basics first','Fix mistakes fast: Undo after deleting a catch, trip or spot, and a check for mistyped sizes']},
@@ -2366,7 +2552,7 @@ const FAQ=[
   {id:'where',q:'Where is my data stored?',a:'<p>Only in this browser on this device: entries in local storage, photos in the browser’s database. There is no account and no server copy. Clear this site’s data, or switch browsers or devices, and it’s gone. Back up regularly.</p>'},
   {id:'backup',q:'How do I back up, or move to a new phone or computer?',a:'<ul><li>More → <b>Save backup now</b> saves your data as a JSON file. That’s the file to restore from. Turn on “Also save a CSV copy” if you want a spreadsheet version too.</li><li>More → <b>Back up everything</b> saves one ZIP with your data <i>and</i> every photo.</li><li>On the new device, open mbfishing.online, tap More → <b>Import</b>, pick the file and tap Merge.</li><li>JSON has data only, no photos. CSV opens in a spreadsheet but can’t be restored.</li></ul>'},
   {id:'folder',q:'Can I choose where backups are saved?',a:'<ul><li><b>Chrome or Edge on a computer:</b> More → <b>Choose folder…</b> once. After that, <b>Save backup now</b> writes straight into it. Every other export asks where to save and opens there. The browser only tells the app the folder’s <i>name</i>, never its full path, and may ask you to allow saving there again after you reopen the app.</li><li>Chrome won’t accept Documents, Desktop or Downloads themselves. Make a folder inside one and pick that.</li><li><b>Firefox, Safari and phones</b> can’t remember a folder, so backups go to the Downloads folder.</li></ul>'},
-  {id:'privacy',q:'What leaves my device?',a:'<p>Only these, and only when you use them. Each one also sees your IP address:</p><ul><li><b>Place search</b> sends what you type, plus a rough area (about 11 km), to Photon, a free OpenStreetMap service.</li><li><b>Weather</b> sends your location, rounded to about 1 km, to Open-Meteo when a trip starts. Turn it off in More → Settings.</li><li><b>The map</b> loads map tiles from OpenFreeMap. They see the area you’re viewing.</li><li><b>Directions</b> opens Google Maps with that spot’s location, only when you tap it.</li></ul><p>Your catches, photos and notes never leave. The app has no account, no analytics, no ads and sets no cookies. Whoever hosts this site may keep ordinary server logs.</p><p><a class="btn sm" href="privacy.html" target="_blank" rel="noopener">Read the full privacy page</a></p>'},
+  {id:'privacy',q:'What leaves my device?',a:'<p>Only these, and only when you use them. Each one also sees your IP address:</p><ul><li><b>Place search</b> sends what you type, plus a rough area (about 11 km), to Photon, a free OpenStreetMap service.</li><li><b>Weather</b> sends your location, rounded to about 1 km, to Open-Meteo when a trip starts. Turn it off in More → Settings.</li><li><b>The map</b> loads map tiles from OpenFreeMap. They see the area you’re viewing.</li><li><b>Directions</b> opens Google Maps with that spot’s location, only when you tap it.</li><li><b>Species guide source links</b> open other websites only when you tap one. The guide itself loads from this site and works offline.</li></ul><p>Your catches, photos and notes never leave. The app has no account, no analytics, no ads and sets no cookies. Whoever hosts this site may keep ordinary server logs.</p><p><a class="btn sm" href="privacy.html" target="_blank" rel="noopener">Read the full privacy page</a></p>'},
   {id:'rules',q:'Does it tell me what’s legal to keep?',a:'<p>No. It only records what you enter. Check your state’s fishing rules for licenses, size and bag limits, seasons and closed waters. Ask permission before fishing on private property.</p>'},
   {id:'share',q:'Can I share a trip without giving away my spot?',a:'<p>Yes. Open a trip and tap <b>Share trip card</b>. The image has your best photo, the totals and the date. It has no spot name and no location.</p>'},
   {id:'sync',q:'Can I use it on my phone and my computer?',a:'<p>Yes, but nothing syncs automatically. Export a backup on one device and import it on the other. Importing merges, so it’s safe to do more than once.</p>'}]},
@@ -2375,6 +2561,10 @@ const FAQ=[
   {id:'search',q:'How does place search work?',a:'<p>Type 3+ letters of a lake, town or address in any spot, catch or map search box and pick a result. You can also paste coordinates, or a Google Maps link that contains them.</p>'},
   {id:'offline',q:'Does it work offline?',a:'<p>Once it has loaded, logging, photos and stats work with no signal. Place search, weather and new map areas need a connection. Map areas you’ve already viewed often still show. Delete all data also clears those saved tiles.</p>'},
   {id:'gpx',q:'Can I export my spots to another map app?',a:'<p>More → <b>Spots GPX</b> saves your spots as a standard GPX file. Check your other app’s import options to load it. To bring spots in, tap <b>Import</b> and pick a GPX file of waypoints.</p>'}]},
+ {sec:'Species guide',items:[
+  {id:'guide',q:'Where do the species tips come from?',a:'<ul><li>Each Species page ends with a numbered source list: Take Me Fishing (a nonprofit) and state or federal fish and wildlife pages.</li><li>The text is summarized in our own words. Numbers like [1,2] show which sources back each line.</li><li>Tips are general, not a promise a fish will bite. Local conditions, seasons and rules change, so check your state’s regulations.</li></ul>'},
+  {id:'region',q:'How does choosing a region work?',a:'<ul><li>More → Settings → <b>Fishing region</b> (or the 📍 button on Species). Pick one or more.</li><li>Log and the species list then show fish caught there, most popular first. Species you added yourself and fish you’ve already logged stay.</li><li>Regions are our own rough grouping. Search on the Species page looks across every region.</li><li>No region set brings back the starter list.</li></ul>'},
+  {id:'photos',q:'Why drawings instead of photos?',a:'<p>Photos need rights and big downloads, and would break offline use. The drawings are simplified, so use the ID tips along with your state’s fish guide when you are unsure.</p>'}]},
  {sec:'Stats and settings',items:[
   {id:'patterns',q:'When do patterns show up?',a:'<p>Insights need fish from at least two trips, and most start showing around 10 fish. They describe your own history, not cause and effect.</p>'},
   {id:'units',q:'How do I change units?',a:'<p>More → Settings → Units. Everything is stored in inches, pounds and °F and converts for display, so switching never loses data.</p>'},
@@ -2506,17 +2696,17 @@ ACT['notice-more']=()=>{dismissNotice();ACT['faq-go']({dataset:{id:'privacy'}})}
 
 
 /* ---------- onboarding: 3 short steps, skippable, first visit only ---------- */
-const OB_KEY='mbfishing.onboarded',OB_N=3;
+const OB_KEY='mbfishing.onboarded',OB_N=4;
 const obDone=()=>{try{return !!localStorage.getItem(OB_KEY)}catch(e){return true}};
 const defaultUnits=()=>{const r=((navigator.language||'en-US').split('-')[1]||'').toUpperCase();return!r||['US','GB','LR','MM'].includes(r)?'imperial':'metric'};
 let OB=null;
 function obShow(step){
-  OB={step:step||1,units:obDone()?db.settings.units:defaultUnits(),loc:null};
+  OB={step:step||1,units:obDone()?db.settings.units:defaultUnits(),loc:null,regions:new Set(db.settings.regions||[])};
   $('#ob').hidden=false;document.body.classList.add('noscroll');drawOB();layerShown('#ob',$('#ob [data-primary]'));
 }
 function drawOB(){
   const el=$('#ob'),s=OB.step;
-  const top=`<div class="ob-top"><div class="ob-prog" aria-live="polite"><span>Step ${s} of ${OB_N}</span><span class="ob-dots" aria-hidden="true">${[1,2,3].map(i=>`<i class="${i<=s?'on':''}"></i>`).join('')}</span></div><button class="btn sm link" data-act="ob-skip">Skip</button></div>`;
+  const top=`<div class="ob-top"><div class="ob-prog" aria-live="polite"><span>Step ${s} of ${OB_N}</span><span class="ob-dots" aria-hidden="true">${Array.from({length:OB_N},(_,i)=>i+1).map(i=>`<i class="${i<=s?'on':''}"></i>`).join('')}</span></div><button class="btn sm link" data-act="ob-skip">Skip</button></div>`;
   let main='',foot='';
   if(s===1){
     main=`<div class="ob-art" aria-hidden="true"><div class="ob-tile">Largemouth Bass<b>1</b></div></div><h2 id="ob-h">Log a fish in one tap</h2><p>When you land one, tap its species on the Log screen. The time saves with it.</p><p class="muted">Add a size or photo afterward, only if you want to.</p>`;
@@ -2524,6 +2714,9 @@ function drawOB(){
   }else if(s===2){
     main=`<div class="ob-art" aria-hidden="true">📍</div><h2 id="ob-h">Add place and weather?</h2><p>Allow location and each trip gets your spot and the local weather.</p><p class="muted">Weather sends your location, rounded to about 1 km, to Open-Meteo, a free service. Your catches never leave this device. <a href="privacy.html" target="_blank" rel="noopener">What’s sent</a></p>${OB.loc==='no'?`<p class="muted" role="status">${esc(posMsg())}</p>`:''}`;
     foot=(OB.loc==='no'?`<button class="btn primary tall block" data-primary data-act="ob-next">Next</button>`:`<button class="btn primary tall block" data-primary data-act="ob-loc">Allow location</button><button class="btn block" data-act="ob-next">Not now</button>`)+`<button class="btn block link" data-act="ob-back">Back</button>`;
+  }else if(s===3){
+    main=`<div class="ob-art" aria-hidden="true">🗺️</div><h2 id="ob-h">Where do you fish?</h2><p>Pick your region and the species list shows fish caught there. You can pick more than one, or skip.</p><div id="ob-rg">${rgItems(OB.regions,'ob-rg')}</div><p class="muted">Change it anytime in More → Settings.</p>`;
+    foot=`<button class="btn primary tall block" data-primary data-act="ob-next">${OB.regions.size?'Next':'Skip for now'}</button><button class="btn block link" data-act="ob-back">Back</button>`;
   }else{
     main=`<div class="ob-art" aria-hidden="true">📏</div><h2 id="ob-h">Pick your units</h2><div class="seg" id="ob-units"><button data-act="ob-units" data-v="imperial" aria-pressed="${OB.units!=='metric'}">in · lb · °F</button><button data-act="ob-units" data-v="metric" aria-pressed="${OB.units==='metric'}">cm · kg · °C</button></div><p class="muted">Change anytime in More → Settings.</p><p>No account. The app sets no cookies. Your catches stay on this device, so back them up from More.</p>`;
     foot=`<button class="btn primary tall block" data-primary data-act="ob-done">Start fishing</button><button class="btn block link" data-act="ob-back">Back</button>`;
@@ -2533,7 +2726,7 @@ function drawOB(){
 }
 function obFinish(msg){
   if(!OB)return;
-  db.settings.units=OB.units;save();
+  db.settings.units=OB.units;if(OB.regions&&OB.regions.size)applyRegions([...OB.regions]);save();
   try{localStorage.setItem(OB_KEY,'1');localStorage.setItem(NOTICE_KEY,'1')}catch(e){}
   OB=null;const el=$('#ob');el.hidden=true;el.innerHTML='';document.body.classList.remove('noscroll');layerHidden('#ob');
   const n=$('#notice');if(n)n.hidden=true;
@@ -2543,6 +2736,7 @@ ACT['ob-next']=()=>{if(OB){OB.step=Math.min(OB_N,OB.step+1);drawOB()}};
 ACT['ob-back']=()=>{if(OB){OB.step=Math.max(1,OB.step-1);drawOB()}};
 ACT['ob-skip']=()=>obFinish();
 ACT['ob-done']=()=>obFinish('🎣 You’re set. Tap a species to log your first fish.');
+ACT['ob-rg']=el=>{if(!OB)return;const id=el.dataset.id;OB.regions.has(id)?OB.regions.delete(id):OB.regions.add(id);const keep=$('#ob .ob-main').scrollTop;drawOB();const m=$('#ob .ob-main');if(m)m.scrollTop=keep;const b=$(`#ob-rg [data-id="${id}"]`);if(b)b.focus({preventScroll:true})};
 ACT['ob-units']=el=>{if(!OB)return;OB.units=el.dataset.v;$$('#ob-units button').forEach(b=>b.setAttribute('aria-pressed',b===el))};
 ACT['ob-loc']=async el=>{
   el.disabled=true;el.innerHTML=busy('Finding you…');
