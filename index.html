@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-Z+g3jmj0guZJv0f0Y/wv4+wsEr1GlGfOXCNyfgc34M8='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-ww8HgiossRUAB0DCs27nomU/PJZY+U39zo0BbvptuqQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Fishing | Log</title>
 <meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
@@ -534,7 +534,7 @@ img.logo{display:inline-block;vertical-align:-6px;margin-right:8px;border-radius
 label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:13.5px;font-weight:500;color:var(--ink);min-height:var(--ctl)}
 
 /* Species guide */
-.sp-th,.sp-art{background:#f4f5f7;border-radius:10px;padding:3px}
+.sp-th,.sp-art{background:#e9f1f6;border-radius:10px;padding:3px}
 .sp-th{flex:none;width:92px}
 .sp-th svg,.sp-art svg{display:block;width:100%;height:auto}
 .sp-art{max-width:480px;margin:0 auto 8px;padding:6px}
@@ -542,7 +542,6 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
 .sp-item{margin-bottom:8px}
 .bl{margin:6px 0 0;padding-left:20px}
 .bl li{margin:0 0 7px;line-height:1.45}
-.cite{font-size:11px;color:var(--muted);font-weight:600;margin-left:2px;white-space:nowrap}
 .sp-sec h4{margin:16px 0 0;font-size:13px;font-weight:700;color:var(--ink-2)}
 .card>.sp-sec:first-child h4,.card>.sp-sec:first-child .fact:first-child{margin-top:0}
 .fact{margin:6px 0 0;line-height:1.45}
@@ -1647,7 +1646,7 @@ const regionList=regs=>G.filter(s=>popIn(s,regs)>0).sort(regCmp(regs));
 const WATER={f:'Freshwater',s:'Saltwater',b:'Fresh & salt'};
 const artOf=(s,cls)=>window.FishArt?window.FishArt.draw(Object.assign({s:s.id},s.art),{cls:cls||'fish-svg'}):'';
 const hostOf=u=>{try{return new URL(u).hostname.replace(/^www\./,'')}catch(e){return''}};
-const cite=t=>esc(t).replace(/\s*\^([\d,]+)/g,(m,g)=>`<sup class="cite" title="From source ${g.replace(/,/g,' and ')}">[${g}]</sup>`);
+const cite=t=>esc(t).replace(/\s*\^[\d,]+/g,'');
 
 /* a logged name like "Summer Flounder (Fluke)" or "Mackerel" -> its guide entry, when it's clear which one */
 let GNAME=null;
@@ -1736,7 +1735,7 @@ function renderSpecies(){
       ${[['','All water'],['f','Freshwater'],['s','Saltwater']].map(([k,l])=>`<button class="chip ${V.spW===k?'on':''}" data-act="set" data-k="spW" data-v="${k}" aria-pressed="${V.spW===k}">${l}</button>`).join('')}
     </div></div>
     <div class="mt" id="sp-list">${spListHTML()}</div>
-    <p class="muted sm" style="margin:16px 2px 0">Tips here are summarized from the sources listed on each page. Drawings are simplified illustrations, not photos.</p>`;
+    <p class="muted sm" style="margin:16px 2px 0">Tips here are summarized from the sources listed on each page. Drawings are simplified 8-bit style illustrations, not photos.</p>`;
 }
 INP['sp-find']=el=>{V.spQ=el.value;V.spLim=30;const l=$('#sp-list');if(l)l.innerHTML=spListHTML()};
 ACT['sp-more']=()=>{V.spLim+=40;const l=$('#sp-list');if(l)l.innerHTML=spListHTML()};
@@ -1777,7 +1776,7 @@ function renderSpeciesDetail(s){
     <h3>Sources</h3>
     <div class="card">
       <ol class="srcs">${srcs.map(r=>`<li id="src-${r.n}"><a href="${esc(r.u)}" target="_blank" rel="noopener noreferrer">${esc(r.t)}</a><br><span class="muted sm">${esc(r.p)}${r.p?' · ':''}${esc(hostOf(r.u))}</span></li>`).join('')}</ol>
-      <p class="muted sm" style="margin:8px 0 0">Summarized in our own words from the pages above. The numbers like [1,2] show which pages each line comes from. Links open those sites in a new tab. We aren’t affiliated with or endorsed by them, and pages change. Check your state’s rules for seasons, size and bag limits before you keep a fish.</p>
+      <p class="muted sm" style="margin:8px 0 0">Summarized in our own words from the pages above. Links open those sites in a new tab. We aren’t affiliated with or endorsed by them, and pages change. Check your state’s rules for seasons, size and bag limits before you keep a fish.</p>
     </div>
   </div>`;
   setTitle();
@@ -2501,8 +2500,9 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.7.0';
+const APP_VERSION='1.7.1';
 const RELEASES=[
+ {v:'1.7.1',d:'October 2026',n:['Species drawings are now 8-bit pixel art, with colors and markings corrected for many fish','Species tips are easier to read: the [1] [2] markers are gone (the numbered source list is still at the bottom of each page)']},
  {v:'1.7.0',d:'October 2026',n:['Now called Fishing: the installed app name and every browser tab read “Fishing | page name”','New Species page: 74 North American freshwater and saltwater fish with ID tips, how to catch them, and numbered source links','Pick your region (More → Settings, or when you first open the app) and Log shows the fish caught where you fish','Drawings are simplified illustrations, not photos, and the guide works offline']},
  {v:'1.6.0',d:'October 2026',n:['New look: a compact, desktop-style layout with square panels, a chartreuse accent and almost no animation','Choose where backups go: every export now asks where to save, or pick a backup folder once and it’s remembered','Save backup now writes your data as JSON (the file to restore from), with an optional CSV copy for spreadsheets','A “Backed up last” line sits above the backup buttons and shows when, what and where','Opens in light mode every time; dark mode is remembered only if you pick it','Import opens at your backup folder']},
  {v:'1.5.0',d:'October 2026',n:['Privacy and Terms pages, linked from More','Safer imports: backup, ZIP and GPX files are checked before anything is saved','Keyboard and screen-reader fixes: skip link, dialogs keep focus, clearer headings','Less precise locations sent for weather and place search, and map code now loads from this site']},
@@ -2562,7 +2562,7 @@ const FAQ=[
   {id:'offline',q:'Does it work offline?',a:'<p>Once it has loaded, logging, photos and stats work with no signal. Place search, weather and new map areas need a connection. Map areas you’ve already viewed often still show. Delete all data also clears those saved tiles.</p>'},
   {id:'gpx',q:'Can I export my spots to another map app?',a:'<p>More → <b>Spots GPX</b> saves your spots as a standard GPX file. Check your other app’s import options to load it. To bring spots in, tap <b>Import</b> and pick a GPX file of waypoints.</p>'}]},
  {sec:'Species guide',items:[
-  {id:'guide',q:'Where do the species tips come from?',a:'<ul><li>Each Species page ends with a numbered source list: Take Me Fishing (a nonprofit) and state or federal fish and wildlife pages.</li><li>The text is summarized in our own words. Numbers like [1,2] show which sources back each line.</li><li>Tips are general, not a promise a fish will bite. Local conditions, seasons and rules change, so check your state’s regulations.</li></ul>'},
+  {id:'guide',q:'Where do the species tips come from?',a:'<ul><li>Each Species page ends with a numbered source list: Take Me Fishing (a nonprofit) and state or federal fish and wildlife pages.</li><li>The text is summarized in our own words from those pages.</li><li>Tips are general, not a promise a fish will bite. Local conditions, seasons and rules change, so check your state’s regulations.</li></ul>'},
   {id:'region',q:'How does choosing a region work?',a:'<ul><li>More → Settings → <b>Fishing region</b> (or the 📍 button on Species). Pick one or more.</li><li>Log and the species list then show fish caught there, most popular first. Species you added yourself and fish you’ve already logged stay.</li><li>Regions are our own rough grouping. Search on the Species page looks across every region.</li><li>No region set brings back the starter list.</li></ul>'},
   {id:'photos',q:'Why drawings instead of photos?',a:'<p>Photos need rights and big downloads, and would break offline use. The drawings are simplified, so use the ID tips along with your state’s fish guide when you are unsure.</p>'}]},
  {sec:'Stats and settings',items:[

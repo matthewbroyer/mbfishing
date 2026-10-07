@@ -31,7 +31,7 @@
   var A = function (o) { SP.push(o); };
   /* ---------- bass, temperate bass, panfish, perch family ---------- */
   A({ id: 'largemouth-bass', n: 'Largemouth Bass', sci: 'Micropterus salmoides', w: 'f', r: 'ne3 se3 sc3 gl3 gp3 mw1 pn2 ca3', al: ['largemouth', 'bass', 'black bass', 'bucketmouth'],
-    art: { t: 'bass', dep: 1.15, back: '#4e5d2b', side: '#8a9a4f', belly: '#ece8c6', fin: '#7d8c46', eye: '#a24a2a', m: [{ k: 'blotch', c: '#1f2a12', o: .62, y: .02, th: .2, jag: 1 }] },
+    art: { t: 'bass', dep: 1.12, mouthL: 1.15, eyeY: 1.3, back: '#3f5a22', side: '#8da24a', belly: '#eef0cf', fin: '#7d9448', eye: '#8c3a22', m: [{ k: 'blotch', c: '#1b280e', o: .85, y: .02, th: .13, jag: 1 }, { k: 'lat', c: '#2c3d18', o: .5, y: -.3, x: [.2, .94] }] },
     idm: ['Mouth reaches to or past the back edge of the eye ^1,2,4', 'Dark blotches form a jagged stripe along each side ^2,4', 'Dorsal fin is almost split in two by a deep dip ^1,4', 'Olive-green back, lighter green sides, white belly ^2'],
     lk: [['Smallmouth Bass', 'Its upper jaw does not reach past the eye. ^2'], ['Spotted Bass', 'Scales on the base of the second dorsal fin and rows of spots below the lateral line.']],
     bait: 'Soft plastics (worms, crayfish, minnow shapes), spinnerbaits, crankbaits, topwater lures and jigs. Live bait works too: minnows, nightcrawlers, crayfish. ^1,3,5,6',
@@ -42,7 +42,7 @@
     src: [['tmf', 'largemouth-bass', 'Largemouth Bass'], ['me', 'largemouth-bass', 'Largemouth Bass: Species Information'], ['nc', 'largemouth-bass-0', 'Largemouth Bass'], ['tx', 'lmb', 'Largemouth Bass (Micropterus salmoides)'], ['ny', 'fishing-for-largemouth-smallmouth-bass', 'Fishing for Largemouth and Smallmouth Bass'], ['mn', 'largemouth-bass', 'How to catch a largemouth bass']] });
 
   A({ id: 'smallmouth-bass', n: 'Smallmouth Bass', sci: 'Micropterus dolomieu', w: 'f', r: 'ne3 se2 sc1 gl3 gp2 mw1 pn2', al: ['smallmouth', 'bronzeback', 'bass'],
-    art: { t: 'bass', dep: 1.08, back: '#6b5b2c', side: '#a99553', belly: '#eee5c0', fin: '#8a7a42', eye: '#c2392b', m: [{ k: 'bars', at: [.3, .38, .46, .54, .62, .7], w: 4, c: '#3c3016', o: .35 }, { k: 'eyebars', c: '#3c3016', o: .5 }] },
+    art: { t: 'bass', dep: 1.02, mouthL: .8, eyeY: 1.3, back: '#5b4a22', side: '#a58a45', belly: '#ece3bd', fin: '#8c7a40', eye: '#c0332a', m: [{ k: 'bars', at: [.28, .35, .42, .49, .56, .63, .7], w: 3, c: '#3a2e14', o: .5, y: [-.95, .5] }, { k: 'eyebars', c: '#3a2e14', o: .8 }] },
     idm: ['Dorsal fins are clearly connected, with no deep notch ^1', 'Dark bars along the sides, and bars radiating back from the eye ^1,2', 'Red or orange-ish eyes ^1', 'Green to bronze body ^2', 'Upper jaw does not reach past the eye ^2'],
     lk: [['Largemouth Bass', 'Its mouth reaches past the eye and its dorsal fin is nearly split.']],
     sz: 'In Maine 2–3 lb is typical and over 5 lb is rare ^2. The species can reach almost 12 lb ^1.',
@@ -54,7 +54,7 @@
     src: [['tmf', 'smallmouth-bass', 'Smallmouth Bass'], ['me', 'smallmouth-bass', 'Smallmouth Bass: Species Information'], ['ny', 'fishing-for-largemouth-smallmouth-bass', 'Fishing for Largemouth and Smallmouth Bass'], ['mn', 'smallmouth-bass', 'How to catch a smallmouth bass']] });
 
   A({ id: 'spotted-bass', n: 'Spotted Bass', sci: 'Micropterus punctulatus', w: 'f', r: 'se2 sc3 gl1 gp1 ca1', al: ['kentucky bass', 'spots', 'bass'],
-    art: { t: 'bass', dep: 1.0, back: '#556b2f', side: '#98a95e', belly: '#eef0d0', fin: '#7e9150', m: [{ k: 'blotch', c: '#222', o: .4, y: -.02, th: .13, dash: '6 5' }, { k: 'spots', n: 34, r: [.8, 1.4], c: '#1c1c1c', o: .6, y: [.1, .55], x: [.2, .8] }] },
+    art: { t: 'bass', dep: 1, mouthL: 1.0, eyeY: 1.3, back: '#4f6a2a', side: '#94aa58', belly: '#eef2d6', fin: '#7e9150', m: [{ k: 'blotch', c: '#1e2a10', o: .75, y: -.02, th: .1, dash: 1, x: [.2, .94] }, { k: 'stripes', n: 3, gap: 2, fr: .1, dash: [1, 2], c: '#202a14', o: .8, x: [.22, .9] }] },
     idm: ['Scales on the base of the second dorsal fin; dorsal fins are connected ^1', 'Upper jaw does not extend past the back of the eye ^1', 'No broad midline stripe like a largemouth, and no vertical bars like a smallmouth ^1', 'Rows of dark spots below the lateral line ^1'],
     lk: [['Largemouth Bass', 'Its mouth reaches well past the eye and it has a broad dark stripe.'], ['Smallmouth Bass', 'Vertical bars instead of spots below the lateral line.']],
     bait: 'Jigs, plugs, spinnerbaits, minnows, soft plastics and spoons. ^1',
@@ -64,7 +64,7 @@
     src: [['tmf', 'spotted-bass', 'Spotted Bass']] });
 
   A({ id: 'white-bass', n: 'White Bass', sci: 'Morone chrysops', w: 'f', r: 'se2 sc3 gl2 gp3', al: ['sand bass', 'silver bass'],
-    art: { t: 'bass', dep: .98, back: '#5d6a63', side: '#c9d0cc', belly: '#f5f7f4', fin: '#aab3ae', eye: '#d6d6c8', m: [{ k: 'stripe', ys: [-.5, -.28, -.06, .16, .38], c: '#34443e', w: 1.2, o: .65 }] },
+    art: { t: 'bass', dep: 1.1, eyeY: 1.3, back: '#4e5e58', side: '#cdd5d0', belly: '#f6f8f4', fin: '#b8c0bc', eye: '#e0e0d0', m: [{ k: 'stripes', n: 6, gap: 2, fr: -.42, c: '#3a4842', o: .4, x: [.22, .95] }, { k: 'stripes', n: 2, gap: 2, fr: .3, c: '#3a4842', o: .3, x: [.3, .9], dash: [3, 2] }] },
     idm: ['Silvery-white sides with black stripes ^1', 'Shorter and stockier than a striped bass ^1', 'Protruding, bass-like lower jaw ^1'],
     lk: [['Striped Bass', 'Longer and slimmer, with more prominent, regular stripes.'], ['Wiper', 'A white bass–striped bass hybrid with broken stripes.']],
     bait: 'Minnows, spinnerbaits, jigs, plugs, spoons and flies. ^1',
@@ -74,7 +74,7 @@
     src: [['tmf', 'white-bass', 'White Bass']] });
 
   A({ id: 'striped-bass', n: 'Striped Bass', sci: 'Morone saxatilis', w: 'b', r: 'ne3 se3 sc2 gp1 ca2 pn1', al: ['striper', 'stripers', 'rockfish', 'linesider', 'bass'],
-    art: { t: 'bass', dep: .93, back: '#4b5f6a', side: '#aab7bd', belly: '#f2f4f3', fin: '#7f929b', eye: '#3a3a3a', m: [{ k: 'stripe', ys: [-.62, -.42, -.22, -.02, .18, .36, .52], c: '#1e262b', w: 1.5, o: .75, x: [.14, .95] }] },
+    art: { t: 'bass', dep: .95, mouthL: 1.2, eyeY: 1.3, back: '#44585f', side: '#b4c0c4', belly: '#f4f6f5', fin: '#7a8e96', eye: '#3a3a3a', m: [{ k: 'stripes', n: 7, gap: 2, fr: -.64, c: '#1f2a2f', o: .9, x: [.22, .96] }] },
     idm: ['Seven or eight prominent black stripes along the scale rows ^1', 'Large mouth and jaws that extend below the eye ^2', 'Bluish to dark olive body with silver sides ^2'],
     lk: [['White Bass', 'Shorter and stockier, with less regular stripes. ^1']],
     sz: 'Typically under 50 lb, with females much larger than males. Over 100 lb is rare. ^2',
@@ -87,7 +87,7 @@
     src: [['tmf', 'striped-bass', 'Striped Bass'], ['ma', 'striped-bass', 'Learn about striped bass']] });
 
   A({ id: 'wiper', n: 'Wiper (Hybrid Striped Bass)', sci: 'Morone chrysops × M. saxatilis', w: 'f', r: 'se1 sc2 gp2 mw1 ca1', al: ['hybrid striped bass', 'whiterock bass', 'palmetto bass', 'hybrid'],
-    art: { t: 'bass', dep: 1.0, back: '#4f5c58', side: '#c6cec9', belly: '#f4f6f2', fin: '#9fa8a3', eye: '#c9c9bd', m: [{ k: 'stripe', ys: [-.55, -.32, -.1, .12, .34], c: '#2e3b36', w: 1.4, o: .7, dash: '9 4' }] },
+    art: { t: 'bass', dep: 1.06, eyeY: 1.3, back: '#46544f', side: '#c8d0cb', belly: '#f4f6f2', fin: '#9fa8a3', eye: '#c9c9bd', m: [{ k: 'stripes', n: 6, gap: 2, fr: -.5, dash: [4, 2], c: '#2e3b36', o: .75, x: [.22, .95] }] },
     idm: ['Six to eight dark horizontal stripes on a silver-white body ^1', 'Back is dark charcoal to black ^1', 'Two dorsal fins; the front one has 8–10 sharp spines ^1'],
     lk: [['White Bass', 'Smaller, with a stockier build and unbroken stripes.'], ['Striped Bass', 'Stripes are more regular and the fish is longer.']],
     sz: 'Grows to about 12 lb and 24 in; some exceed 20 lb. ^1',
@@ -98,7 +98,7 @@
     src: [['tmf', 'wiper', 'Wiper']] });
 
   A({ id: 'black-crappie', n: 'Black Crappie', sci: 'Pomoxis nigromaculatus', w: 'f', r: 'ne2 se3 sc3 gl3 gp3 mw1 pn2 ca2', al: ['crappie', 'speckled perch', 'papermouth', 'calico bass', 'specks'],
-    art: { t: 'crappie', dep: 1.0, back: '#4a5a3a', side: '#b9c1a0', belly: '#f2f1e0', fin: '#8d9a78', m: [{ k: 'spots', n: 36, r: [1.8, 3.4], c: '#1c1c1c', o: .72, y: [-.9, .55], x: [.14, .94] }] },
+    art: { t: 'crappie', dep: 1, eyeR: 1.15, back: '#4c5c3c', side: '#bcc6a4', belly: '#f2f1e0', fin: '#8d9a78', m: [{ k: 'spots', n: 44, sz: 1.8, r: [1.6, 3], c: '#1a1a14', o: .85, y: [-.95, .5], x: [.16, .92], gap: 2 }, { k: 'finspots', n: 10, c: '#2a3020', x: [.5, .78] }] },
     idm: ['Irregular, scattered dark spots (a white crappie has vertical bars) ^1,2', 'Six to eight dorsal spines ^1,2', 'Deep, narrow, flattened body in silvery-olive to golden brown ^2'],
     lk: [['White Crappie', 'Vertical bars instead of scattered spots, and fewer dorsal spines.']],
     sz: 'Typically 6–11 in in Maine. ^2',
@@ -110,7 +110,7 @@
     src: [['tmf', 'black-crappie', 'Black Crappie'], ['me', 'black-crappie', 'Black Crappie: Species Information'], ['mn', 'crappie', 'How to catch a crappie']] });
 
   A({ id: 'white-crappie', n: 'White Crappie', sci: 'Pomoxis annularis', w: 'f', r: 'se3 sc3 gl2 gp3', al: ['crappie', 'sac-a-lait', 'specks'],
-    art: { t: 'crappie', dep: .97, back: '#5a6a4a', side: '#cfd6bd', belly: '#f4f3e6', fin: '#a3ae90', m: [{ k: 'bars', at: [.3, .39, .48, .57, .66, .75], w: 4, c: '#2f3a2a', o: .42, taper: 1 }] },
+    art: { t: 'crappie', dep: .97, eyeR: 1.15, back: '#5e6e4e', side: '#d2d9c2', belly: '#f4f3e6', fin: '#a3ae90', m: [{ k: 'bars', at: [.3, .38, .46, .54, .62, .7], w: 3, c: '#2f3a2a', o: .5, taper: 1, y: [-.95, .35] }] },
     idm: ['Five to ten dark vertical bars on each side, with a whitish belly ^1', 'Humpbacked, deep silvery body with a green-brown back ^1', 'Five or six dorsal spines ^1'],
     lk: [['Black Crappie', 'Scattered dark spots instead of vertical bars.']],
     bait: 'Live minnows, small jigs and spinners. ^1,2',
@@ -120,7 +120,7 @@
     src: [['nc', 'white-crappie', 'White Crappie'], ['mn', 'crappie', 'How to catch a crappie']] });
 
   A({ id: 'bluegill', n: 'Bluegill', sci: 'Lepomis macrochirus', w: 'f', r: 'ne3 se3 sc3 gl3 gp3 mw1 pn2 ca2', al: ['bream', 'brim', 'sunfish', 'panfish', 'sunny'],
-    art: { t: 'sunfish', dep: 1.0, back: '#3f5a45', side: '#7e9a62', belly: '#f0b24a', fin: '#7d9a70', m: [{ k: 'bars', at: [.3, .38, .46, .54, .62, .7], w: 4, c: '#22342f', o: .35 }, { k: 'dot', x: .2, y: -.2, r: 3, c: '#10202a', o: .95, ex: 1.5 }] },
+    art: { t: 'sunfish', dep: 1, back: '#3b5b43', side: '#7f9d62', belly: '#f2b14a', fin: '#7d9a70', m: [{ k: 'bars', at: [.3, .37, .44, .51, .58, .65, .72], w: 3, c: '#1f3a33', o: .5, y: [-.9, .4] }, { k: 'blot', x: .21, y: -.2, w: 4, h: 3, c: '#0c1a22' }, { k: 'blot', x: .66, y: -.78, w: 3, h: 3, c: '#14222a', o: .9 }] },
     idm: ['Compressed, round body with 6–8 vertical bars ^1', 'Small mouth and head, with pointed pectoral fins ^1', 'Coloring ranges from dark blue to yellow ^1'],
     lk: [['Redear Sunfish', 'Black gill flap with a red spot at the tip.'], ['Pumpkinseed', 'Orange-spotted, with a flat, disk-shaped body.']],
     bait: 'Flies, jigs, insects and minnows. ^1',
@@ -131,7 +131,7 @@
     src: [['tmf', 'bluegill', 'Bluegill']] });
 
   A({ id: 'redear-sunfish', n: 'Redear Sunfish', sci: 'Lepomis microlophus', w: 'f', r: 'se3 sc3 gl1 gp1 ca1', al: ['shellcracker', 'stump knocker', 'sunfish', 'panfish'],
-    art: { t: 'sunfish', dep: 1.0, back: '#6a7a45', side: '#b8bd80', belly: '#f2edc0', fin: '#a8ad74', m: [{ k: 'spots', n: 16, r: [.9, 1.5], c: '#8a7a3a', o: .45, y: [-.6, .3] }, { k: 'dot', x: .21, y: -.18, r: 3.2, c: '#10202a', halo: '#e03a2a', o: .95, ex: 1.4 }] },
+    art: { t: 'sunfish', dep: .98, back: '#66763f', side: '#b9bf7b', belly: '#f4eebf', fin: '#a8ad74', pecL: 1.1, m: [{ k: 'spots', n: 22, sz: 1.1, r: [.9, 1.5], c: '#8a7a3a', o: .55, y: [-.6, .3], gap: 3 }, { k: 'blot', x: .21, y: -.2, w: 4, h: 3, c: '#0c1a22', edge: '#e0452d' }] },
     idm: ['Small mouth, connected dorsal fins and a round, flattened body ^1', 'Long, pointed pectoral fins ^1', 'Black gill cover with a red spot at the tip ^1'],
     lk: [['Bluegill', 'Dark gill flap without the red tip, and vertical bars.']],
     sz: 'Reaches over 4.5 lb. ^1',
@@ -143,7 +143,7 @@
     src: [['tmf', 'redear-sunfish', 'Redear Sunfish']] });
 
   A({ id: 'pumpkinseed', n: 'Pumpkinseed', sci: 'Lepomis gibbosus', w: 'f', r: 'ne3 gl2 se1 pn1', al: ['pumpkinseed sunfish', 'sunfish', 'sunny', 'panfish'],
-    art: { t: 'sunfish', dep: .95, back: '#5a7a4a', side: '#cfa23c', belly: '#f2c064', fin: '#c98a40', m: [{ k: 'bars', at: [.32, .42, .52, .62], w: 3, c: '#5a6a3a', o: .3 }, { k: 'spots', n: 26, r: [1, 1.7], c: '#e86a1a', o: .75, y: [-.7, .3] }, { k: 'dot', x: .2, y: -.2, r: 3.1, c: '#10202a', halo: '#e8452c', o: .95, ex: 1.4 }] },
+    art: { t: 'sunfish', dep: .95, back: '#566f3f', side: '#c8a63a', belly: '#f4c15e', fin: '#c9852f', m: [{ k: 'bars', at: [.32, .42, .52, .62], w: 3, c: '#4a6a4a', o: .35, y: [-.9, .4] }, { k: 'spots', n: 30, sz: 1, r: [1, 1.7], c: '#e8661a', o: .95, y: [-.6, .3], gap: 2 }, { k: 'stripes', n: 2, gap: 2, fr: .05, x: [.06, .17], c: '#38a8a0', o: .7 }, { k: 'blot', x: .2, y: -.2, w: 4, h: 3, c: '#0c1a22', edge: '#ea5a2a' }] },
     idm: ['Flat, disk-shaped body with a small mouth ^1', 'Upper jaw stops just under the pupil of the eye ^1', 'Olive-green to brown with yellow, green and blue tones; light breast ^1'],
     lk: [['Bluegill', 'Darker body with vertical bars and no orange spots.']],
     bait: 'Worms, small live bait, flies, spinners, poppers, jigs, insects and minnows. ^1',
@@ -154,7 +154,7 @@
     src: [['tmf', 'pumpkinseed-sunfish', 'Pumpkinseed Sunfish']] });
 
   A({ id: 'rock-bass', n: 'Rock Bass', sci: 'Ambloplites rupestris', w: 'f', r: 'ne2 gl2 gp1 se1', al: ['redeye', 'goggle-eye', 'sunfish'],
-    art: { t: 'sunfish', dep: .88, back: '#4a4a2a', side: '#8a7a3e', belly: '#e0dcb0', fin: '#7a7a42', eye: '#c0392b', m: [{ k: 'spots', n: 46, r: [.9, 1.6], c: '#2a2a1a', o: .5, y: [-.8, .6] }, { k: 'dot', x: .24, y: -.18, r: 2.4, c: '#12121a', o: .9, ex: 1.2 }] },
+    art: { t: 'bass', dep: .95, mouthL: 1.1, eyeY: 1.3, back: '#46462a', side: '#8a7a3e', belly: '#e2dcae', fin: '#7a7a42', eye: '#c0392b', fins: [[.25, .50, 'sp', 12, 'u'], [.50, .73, 'soft', 10, 'u'], [.50, .78, 'soft', 11, 'd']], m: [{ k: 'stripes', n: 4, gap: 2, fr: -.5, dash: [1, 2], c: '#26241a', o: .8, x: [.2, .92] }, { k: 'blot', x: .23, y: -.18, w: 2, h: 2, c: '#101010' }, { k: 'spots', n: 14, sz: 1.4, c: '#2a2a1a', o: .5, y: [-.9, 0], x: [.3, .9], gap: 3 }] },
     idm: ['Black spot at the edge of the gill cover, and red eyes ^1', 'Six anal-fin spines (a warmouth has three) ^1', 'Looks like a cross between a bluegill and a black bass, with a larger, bass-like mouth ^1'],
     sz: 'Up to about 3 lb; typically under 1 lb. ^1',
     bait: 'Cut bait, insects, leeches, minnows, small plugs, spoons, jigs, spinnerbaits and flies. ^1',
@@ -165,7 +165,7 @@
     src: [['tmf', 'rock-bass', 'Rock Bass']] });
 
   A({ id: 'yellow-perch', n: 'Yellow Perch', sci: 'Perca flavescens', w: 'f', r: 'ne3 gl3 gp2 mw1 pn1', al: ['perch', 'lake perch', 'ring perch', 'jumbo perch'],
-    art: { t: 'perch', dep: 1.05, back: '#5f6a2a', side: '#cdb53a', belly: '#f2ecb0', fin: '#e2902e', m: [{ k: 'bars', at: [.28, .35, .42, .49, .56, .63, .7], w: 5, c: '#2c3318', o: .55 }] },
+    art: { t: 'perch', dep: 1.05, back: '#5a6a2a', side: '#cdb03a', belly: '#f4eeb4', fin: '#e2902e', fins: [[.24, .44, 'sp', 13, 'u', '#7a8030'], [.52, .72, 'soft', 11, 'u', '#c8a030'], [.64, .76, 'soft', 8, 'd']], m: [{ k: 'bars', at: [.27, .34, .41, .48, .55, .62, .69], w: 3, c: '#2f3516', o: .85, y: [-.95, .3], taper: 1 }] },
     idm: ['Golden-yellow body with 6–8 dark bands running from the back toward the belly ^1,2', 'Bright green to olive back ^2', 'Fins pale yellow to bright orange ^2'],
     lk: [['Walleye', 'Longer, with a big pearly eye and no dark bands.']],
     sz: 'Typically 6–12 in and ¼–1 lb in Maine; occasionally 15 in. ^2',
@@ -178,7 +178,7 @@
     src: [['tmf', 'yellow-perch', 'Yellow Perch'], ['me', 'yellow-perch', 'Yellow Perch: Species Information']] });
 
   A({ id: 'white-perch', n: 'White Perch', sci: 'Morone americana', w: 'b', r: 'ne3 se1 gl1', al: ['perch', 'silver perch'],
-    art: { t: 'perch', dep: 1.0, back: '#4a5a50', side: '#aab4b0', belly: '#f2f4f2', fin: '#7d8a85', m: [{ k: 'band', y: [.55, .85], c: '#b9d0ea', o: .25, x: [.05, .2] }] },
+    art: { t: 'perch', dep: 1, back: '#4c5c50', side: '#aab6b0', belly: '#f2f4f2', fin: '#7d8a85', fins: [[.26, .46, 'sp', 11, 'u'], [.46, .72, 'soft', 10, 'u'], [.62, .76, 'soft', 8, 'd']], m: [{ k: 'stripes', n: 4, gap: 2, fr: -.3, c: '#7d8a85', o: .4, dash: [3, 1], x: [.22, .92] }] },
     idm: ['No stripes, unlike white bass and striped bass ^1', 'Dark gray-green back, silver sides, white belly; large scales ^2', 'Bluish tint on the lower jaw in clear water ^2'],
     lk: [['White Bass', 'Has black stripes.'], ['Striped Bass', 'Much larger, with seven or eight stripes.']],
     sz: 'Average 8–10 in in Maine. ^2',
@@ -190,7 +190,7 @@
     src: [['tmf', 'white-perch', 'White Perch'], ['me', 'white-perch', 'White Perch: Species Information']] });
 
   A({ id: 'walleye', n: 'Walleye', sci: 'Sander vitreus', w: 'f', r: 'ne2 gl3 gp3 mw2 pn1 se1 sc1', al: ['eye', 'eyes', 'pickerel', 'yellow pike'],
-    art: { t: 'walleye', dep: 1.0, back: '#6a6a2a', side: '#b8a54c', belly: '#f3eed0', fin: '#a09a50', eye: '#d8d8c0', m: [{ k: 'saddles', at: [.3, .42, .54, .66], c: '#3a3a18', o: .5 }, { k: 'dot', x: .52, y: -.85, r: 3, c: '#1a1a10', o: .7 }] },
+    art: { t: 'walleye', dep: 1, eyeR: 1.4, back: '#5c5a24', side: '#b8a54c', belly: '#f5f0d8', fin: '#a29a52', eye: '#e6e6d0', tailTip: '#f4f4e4', m: [{ k: 'saddles', at: [.3, .4, .5, .6, .7], c: '#3a3716', o: .65 }, { k: 'bars', at: [.34, .44, .54, .64], w: 2, c: '#4a4620', o: .3, y: [-.5, .1] }] },
     idm: ['Pearly, glassy-looking eye with a reflective layer ^2', 'Dorsal fin has no spots except a dark splotch at the rear base ^2', 'White tip on the lower lobe of the tail ^2'],
     lk: [['Sauger', 'Distinct dark spots on the dorsal fin.'], ['Yellow Perch', 'Shorter, with dark vertical bands.']],
     sz: 'Typically 1–2 lb in Minnesota; occasionally over 10 lb. ^2',
@@ -203,7 +203,7 @@
     src: [['mn', 'walleye', 'How to catch a walleye'], ['url', 'https://www.dnr.state.mn.us/fish/walleye/biology.html', 'Walleye biology and identification', 'Minnesota Dept. of Natural Resources'], ['ny', 'fishing-for-walleye', 'Fishing for Walleye'], ['tmf', 'walleye', 'Walleye']] });
 
   A({ id: 'sauger', n: 'Sauger', sci: 'Sander canadensis', w: 'f', r: 'gl2 gp2 sc1 se1 mw1', al: ['sand pike', 'river walleye'],
-    art: { t: 'walleye', dep: .95, back: '#5f5a3a', side: '#a89a68', belly: '#eee8d0', fin: '#8f8660', eye: '#d0d0b8', m: [{ k: 'saddles', at: [.3, .42, .54, .66], c: '#2e2a18', o: .45 }, { k: 'spots', n: 22, r: [1, 1.7], c: '#2e2a18', o: .55, y: [-.9, -.2], x: [.28, .74] }] },
+    art: { t: 'walleye', dep: .92, eyeR: 1.3, back: '#5a5538', side: '#a89a68', belly: '#eee8d0', fin: '#8f8660', eye: '#d0d0b8', m: [{ k: 'saddles', at: [.3, .42, .54, .66], c: '#2e2a18', o: .5 }, { k: 'finspots', n: 12, c: '#2e2a18', x: [.28, .47] }, { k: 'spots', n: 16, sz: 1, c: '#3a3620', o: .6, y: [-.9, -.2], x: [.28, .74] }] },
     idm: ['Distinct dark spots on the dorsal fin ^1', 'Smaller than a walleye ^1'],
     lk: [['Walleye', 'No spots on the dorsal fin apart from a splotch at the rear base. ^1']],
     bait: 'Jigs, minnows, spinnerbaits, leeches, plugs and spoons. ^1',
@@ -214,7 +214,7 @@
     src: [['tmf', 'sauger', 'Sauger']] });
   /* ---------- pike family, catfish, carp, drum, primitive fish ---------- */
   A({ id: 'northern-pike', n: 'Northern Pike', sci: 'Esox lucius', w: 'f', r: 'ne2 gl3 gp3 mw2 ak3', al: ['pike', 'jackfish', 'gator', 'hammer handle'],
-    art: { t: 'pike', dep: 1.0, back: '#3a4f2a', side: '#6f8a4a', belly: '#e8e8c8', fin: '#8a7a3a', m: [{ k: 'spots', n: 52, r: [1.6, 2.6], c: '#e5e8b0', o: .75, y: [-.8, .35], x: [.14, .94] }] },
+    art: { t: 'pike', dep: 1, mouthL: 1.15, back: '#34502a', side: '#6e8c48', belly: '#ebe9cb', fin: '#a8683a', m: [{ k: 'spots', shape: 'bean', n: 55, sz: 1, r: [1.2, 1.8], c: '#e0e6a8', o: .95, y: [-.75, .4], x: [.18, .92], gap: 2 }] },
     idm: ['Fully scaled cheek, but only the top half of the gill cover is scaled ^1,2', 'Greenish or yellowish sides with light, oblong horizontal spots ^1', 'Usually five pores under each side of the lower jaw ^1,2'],
     lk: [['Muskellunge', 'Six to nine pores under each side of the lower jaw. ^4'], ['Chain Pickerel', 'Fully scaled cheeks and gill covers, with a chain-like pattern. ^5']],
     sz: 'In Maine, mature pike are 24–30 in and 3½–7½ lb; record catches exceed 30 lb. ^2',
@@ -227,7 +227,7 @@
     src: [['tmf', 'northern-pike', 'Northern Pike'], ['me', 'northern-pike', 'Northern Pike: Species Information'], ['mn', 'northern-pike', 'How to catch a northern pike'], ['tmf', 'muskellunge', 'Muskellunge'], ['tmf', 'chain-pickerel', 'Chain Pickerel']] });
 
   A({ id: 'muskellunge', n: 'Muskellunge', sci: 'Esox masquinongy', w: 'f', r: 'gl3 ne2 se1', al: ['muskie', 'musky', 'muskies', 'lunge'],
-    art: { t: 'pike', dep: 1.1, back: '#5a5a2f', side: '#9a9a5a', belly: '#e6e6c4', fin: '#a08a46', m: [{ k: 'bars', at: [.28, .36, .44, .52, .6, .68, .76, .84], w: 3, c: '#2a2a14', o: .35 }, { k: 'spots', n: 18, r: [1.4, 2.4], c: '#2a2a14', o: .45, y: [-.8, .2] }] },
+    art: { t: 'pike', dep: 1.1, mouthL: 1.15, tt: 'fork', tn: .16, back: '#586038', side: '#9aa066', belly: '#e8e6c6', fin: '#a08a46', m: [{ k: 'bars', at: [.26, .33, .4, .47, .54, .61, .68, .76, .84], w: 3, c: '#2a2a14', o: .5, gap: 3, y: [-.8, .4] }, { k: 'spots', n: 14, sz: 1.2, c: '#2a2a14', o: .6, y: [-.7, .3], gap: 3 }] },
     idm: ['Mouth reaches back to the middle of the eye and is broad, like a duck’s bill ^1', 'Pelvic fins sit halfway between the pectoral fins and the tail ^1', 'Six to nine pores under each side of the lower jaw ^1', 'May be barred, spotted or unmarked ^1'],
     lk: [['Northern Pike', 'Five pores under each side of the jaw, and a half-scaled gill cover.']],
     bait: 'Large lures, 5–10+ in: bucktail spinners, plastic crankbaits, floating lures that mimic injured fish, and soft tube jigs. Use diving crankbaits for trolling. ^2',
@@ -239,7 +239,7 @@
     src: [['tmf', 'muskellunge', 'Muskellunge'], ['mn', 'muskellunge', 'How to catch a muskellunge']] });
 
   A({ id: 'chain-pickerel', n: 'Chain Pickerel', sci: 'Esox niger', w: 'f', r: 'ne3 se3 sc1', al: ['pickerel', 'jack', 'grass pike'],
-    art: { t: 'pike', dep: .92, back: '#4a5f2a', side: '#a9b04c', belly: '#ecebc4', fin: '#a8a24a', m: [{ k: 'worms', n: 34, c: '#2e3a14', o: .7, y: [-.9, .6], x: [.14, .94] }] },
+    art: { t: 'pike', dep: .9, back: '#44602c', side: '#aab44e', belly: '#efedc8', fin: '#a8a24a', m: [{ k: 'chain', rows: 3, y: -.8, c: '#2a3812', o: .9, x: [.2, .95] }, { k: 'bars', at: [.13], w: 2, y: [.0, .55], c: '#2a3812', o: .85 }] },
     idm: ['A chain-like pattern of black lines over yellowish-green sides ^1,2', 'Fully scaled cheeks and gill covers (pike are scaled only on the top half) ^1', 'Long jaws with sharp teeth, and a dorsal fin set far back ^2'],
     lk: [['Northern Pike', 'Light spots instead of a chain pattern, and a half-scaled gill cover.']],
     sz: 'Typically 14–19 in in Maine; 2–3 lb fish are common. ^2',
@@ -251,7 +251,7 @@
     src: [['tmf', 'chain-pickerel', 'Chain Pickerel'], ['me', 'chain-pickerel', 'Chain Pickerel: Species Information']] });
 
   A({ id: 'channel-catfish', n: 'Channel Catfish', sci: 'Ictalurus punctatus', w: 'f', r: 'ne1 se3 sc3 gl2 gp3 mw1 ca1', al: ['channel cat', 'channels', 'catfish', 'cat', 'fiddler'],
-    art: { t: 'catfish', tt: 'fork', tn: .3, dep: 1.0, back: '#5c6f78', side: '#a9b3b0', belly: '#f0efe6', fin: '#6f808a', m: [{ k: 'spots', n: 30, r: [1.2, 2], c: '#23282a', o: .6, y: [-.75, .3], x: [.22, .85] }] },
+    art: { t: 'catfish', tt: 'fork', tn: .34, dep: 1, back: '#566d78', side: '#a9b6b6', belly: '#f0efe6', fin: '#6a7e8a', fins: [[.27, .36, 'sp', 12, 'u'], [.72, .84, 'adip', 5, 'u'], [.56, .78, 'soft', 7, 'd']], m: [{ k: 'spots', n: 28, sz: 1, r: [1.2, 2], c: '#20282a', o: .85, y: [-.7, .25], x: [.22, .85], gap: 3 }] },
     idm: ['Deeply forked tail and spots on the body ^1', '24–30 anal-fin rays ^1'],
     lk: [['Blue Catfish', 'Longer anal fin (30–36 rays) and usually no spots.']],
     bait: 'Nightcrawlers, chicken liver, cut minnow chunks and commercial stink baits. Bread or dough balls, jigs and cut bait also work. ^1,2',
@@ -263,7 +263,7 @@
     src: [['tmf', 'channel-catfish', 'Channel Catfish'], ['mn', 'channel-catfish', 'How to catch a channel catfish']] });
 
   A({ id: 'blue-catfish', n: 'Blue Catfish', sci: 'Ictalurus furcatus', w: 'f', r: 'se3 sc3 gp2 gl1', al: ['blue cat', 'blues', 'catfish', 'cat'],
-    art: { t: 'catfish', tt: 'fork', tn: .3, dep: 1.12, back: '#5a7488', side: '#a7b5be', belly: '#f2f2ee', fin: '#6d8494', m: [] },
+    art: { t: 'catfish', tt: 'fork', tn: .34, dep: 1.12, back: '#5a7388', side: '#a4b4c0', belly: '#f2f2ee', fin: '#6d8494', U: [1.5, 7, 13, 17, 17.5, 15, 11.5, 8.5, 5.5], fins: [[.27, .36, 'sp', 12, 'u'], [.74, .84, 'adip', 5, 'u'], [.46, .80, 'soft', 7, 'd']], m: [] },
     idm: ['A forked tail (only blue, channel and white catfish have one) ^1', 'A long anal fin with 30–36 rays ^1'],
     lk: [['Channel Catfish', 'Shorter anal fin (24–30 rays) and usually spotted.']],
     sz: 'Reported to grow to 120 lb. ^1',
@@ -275,7 +275,7 @@
     src: [['tmf', 'blue-catfish', 'Blue Catfish']] });
 
   A({ id: 'flathead-catfish', n: 'Flathead Catfish', sci: 'Pylodictis olivaris', w: 'f', r: 'se2 sc3 gp3 gl2', al: ['flathead', 'flat head', 'mudcat', 'yellow cat', 'shovelhead', 'catfish', 'cat'],
-    art: { t: 'catfish', tt: 'square', tn: 0, dep: 1.15, back: '#6b5a2a', side: '#a8934a', belly: '#e8e0c0', fin: '#8a7440', m: [{ k: 'spots', n: 14, r: [3, 6], c: '#3a2f14', o: .32, y: [-.8, .4], x: [.2, .9] }] },
+    art: { t: 'catfish', tt: 'square', tn: 0, dep: 1.12, tailTip: '#ece2b8', tipSide: 'u', back: '#6b5a28', side: '#a88f45', belly: '#ebe0b8', fin: '#8a7440', U: [1, 5, 8.5, 11.5, 14, 14.5, 12, 9, 5.5], D: [1, 4.5, 8, 10.5, 12, 12, 10.5, 8, 5], m: [{ k: 'spots', n: 12, sz: 2.2, r: [3, 5], c: '#3e3216', o: .55, y: [-.8, .4], x: [.2, .9], gap: 4 }] },
     idm: ['A broad, flat head with a protruding lower jaw ^1,2', 'Brown to yellow back and sides mottled with black-olive; smooth, scaleless skin ^1,2', 'Tail is slightly notched; blue and channel catfish have forked tails ^2'],
     lk: [['Channel Catfish', 'Deeply forked tail and spots.']],
     sz: 'In Texas they reach 3–4 ft and can exceed 100 lb. ^2',
@@ -287,7 +287,7 @@
     src: [['nc', 'flathead-catfish', 'Flathead Catfish'], ['tx', 'catfish', 'Flathead Catfish (Pylodictis olivaris)']] });
 
   A({ id: 'brown-bullhead', n: 'Brown Bullhead', sci: 'Ameiurus nebulosus', w: 'f', r: 'ne3 gl2 se1 pn1', al: ['bullhead', 'horned pout', 'pout', 'catfish', 'bullheads'],
-    art: { t: 'catfish', tt: 'square', tn: 0, dep: .95, back: '#4a3a22', side: '#7a6234', belly: '#d8cfa0', fin: '#6a5430', m: [{ k: 'spots', n: 26, r: [2, 4], c: '#2a2010', o: .3, y: [-.8, .4] }] },
+    art: { t: 'catfish', tt: 'square', tn: 0, dep: .95, back: '#463a22', side: '#6f5c34', belly: '#cdc194', fin: '#5e4c2a', barbelCol: '#8a7a56', m: [{ k: 'spots', n: 18, sz: 1.5, r: [2, 4], c: '#2a2012', o: .35, y: [-.8, .4], gap: 3 }] },
     idm: ['Sharp, tooth-like serrations on the rear edge of the pectoral spine (a black bullhead lacks them) ^1', 'Squarish or slightly notched tail; barbels dark brown to nearly black ^1', 'Yellow-brown to olive or black, often mottled ^1'],
     bait: 'Bread or dough balls, jigs, cut bait and minnows. ^1',
     tech: ['Drift fishing, still fishing, bait casting and spin casting. ^1'],
@@ -297,7 +297,7 @@
     src: [['tmf', 'brown-bullhead', 'Brown Bullhead']] });
 
   A({ id: 'common-carp', n: 'Common Carp', sci: 'Cyprinus carpio', w: 'f', r: 'ne2 se2 sc2 gl3 gp3 mw2 pn2 ca2', al: ['carp'],
-    art: { t: 'carp', bigscales: 1, dep: 1.0, back: '#6a5a2a', side: '#b8963a', belly: '#ecd9a0', fin: '#a88a3e', m: [] },
+    art: { t: 'carp', scales: 1, dep: 1, back: '#6a5a2a', side: '#b8963a', belly: '#ecd9a0', fin: '#b0782e', m: [] },
     idm: ['Deep body, small protractile mouth, forked tail, a single long dorsal fin and large scales ^1', 'Olive-brown to gold; one of the largest minnows and a close relative of the goldfish ^1'],
     bait: 'Bread or dough balls, and flies. ^1',
     tech: ['Still fishing and fly fishing. ^1'],
@@ -307,7 +307,7 @@
     src: [['tmf', 'common-carp', 'Common Carp']] });
 
   A({ id: 'freshwater-drum', n: 'Freshwater Drum', sci: 'Aplodinotus grunniens', w: 'f', r: 'gl2 gp2 sc2 se2', al: ['drum', 'sheepshead', 'gaspergou', 'gou'],
-    art: { t: 'drum', dep: 1.05, back: '#6a6e70', side: '#b5bbbb', belly: '#f0f0ee', fin: '#8a9090', m: [] },
+    art: { t: 'drum', scales: 1, dep: 1.05, chinBarbels: 3, back: '#5e6468', side: '#b1b8b8', belly: '#f0f0ee', fin: '#8a9090', U: [1.5, 7, 16, 24, 26, 22, 14, 8, 5], fins: [[.27, .44, 'sp', 12, 'u'], [.47, .80, 'soft', 8, 'u'], [.64, .74, 'soft', 6, 'd']], m: [] },
     idm: ['Large, round-profiled, humpbacked silvery fish with a small tail ^1', 'Mouth is set toward the bottom of the face ^1', 'The lateral line runs through the tail, unique among freshwater fish ^1', 'Long dorsal fin (10 spines, 29–32 rays); makes grunting sounds ^2'],
     lk: [['Red Drum', 'Freshwater drum lack the red drum’s tail-fin spot. ^2']],
     sz: 'The Texas rod-and-reel record exceeds 30 lb. ^2',
@@ -316,7 +316,7 @@
     src: [['url', 'https://www.dnr.state.mn.us/fish/freshwaterdrum.html', 'Freshwater Drum (Sheepshead)', 'Minnesota Dept. of Natural Resources'], ['tx', 'fwd', 'Freshwater Drum (Aplodinotus grunniens)'], ['tmf', 'freshwater-drum', 'Freshwater Drum']] });
 
   A({ id: 'bowfin', n: 'Bowfin', sci: 'Amia calva', w: 'f', r: 'se2 sc2 gl2 ne1', al: ['dogfish', 'grindle', 'mudfish', 'cypress trout'],
-    art: { t: 'bowfin', dep: 1.0, back: '#4a5a2a', side: '#7a8a3a', belly: '#cfd8a0', fin: '#6a8a3a', m: [{ k: 'worms', n: 20, c: '#2f3a18', o: .5, y: [-.9, .5] }, { k: 'dot', x: .96, y: -.15, r: 3, c: '#101010', halo: '#e8a020', o: .9 }] },
+    art: { t: 'bowfin', dep: 1, back: '#4a5a2a', side: '#7a8c3c', belly: '#d5deaa', fin: '#5a9a3c', m: [{ k: 'worms', n: 22, c: '#2c3814', o: .7, y: [-.9, .4] }, { k: 'blot', x: .9, y: -.2, w: 2, h: 2, c: '#101010', halo: '#e8a020', round: 1 }] },
     idm: ['Flattened head, long stout body and a large mouth with small sharp teeth ^1', 'Long dorsal fin and a rounded tail ^1', 'Males have an orange-yellow halo spot on the tail; females lack it ^1'],
     bait: 'Jigs, minnows, spinnerbaits, leeches, plugs and spoons. ^1',
     tech: ['Drift fishing, still fishing and trolling. ^1'],
@@ -326,7 +326,7 @@
     src: [['tmf', 'bowfin', 'Bowfin']] });
 
   A({ id: 'alligator-gar', n: 'Alligator Gar', sci: 'Atractosteus spatula', w: 'f', r: 'sc3 se1 gp1', al: ['gar', 'gator gar'],
-    art: { t: 'gar', snout: 2, dep: 1.45, back: '#4a4a2a', side: '#7c7c4c', belly: '#d8d0a0', fin: '#6a6a3a', m: [{ k: 'spots', n: 22, r: [2, 3.4], c: '#222', o: .45, y: [-.9, -.1] }] },
+    art: { t: 'gar', scales: 1, mouthL: .8, dep: 1.4, back: '#4a4a28', side: '#7c7a4c', belly: '#d8d0a0', fin: '#6a6a3a', U: [2, 5, 7, 9, 10.5, 11, 10, 8, 5], D: [1.5, 4.5, 6.5, 8, 9, 10, 9, 7.5, 4.5], m: [{ k: 'spots', n: 18, sz: 1.7, r: [2, 3], c: '#202012', o: .7, y: [-.9, .1], x: [.5, .95], gap: 3 }, { k: 'finspots', n: 8, c: '#202012', x: [.68, .84] }] },
     idm: ['Two rows of teeth in the upper jaw and a broader snout than other gars ^1', 'Long body with a toothy snout and a rounded tail ^1'],
     sz: 'Can grow over 300 lb. ^1',
     bait: 'Cut bait, minnows, jigs and spoons. ^1',
@@ -337,7 +337,7 @@
     src: [['tmf', 'alligator-gar', 'Alligator Gar']] });
   /* ---------- trout, char, salmon, grayling, sturgeon, shad, peacock ---------- */
   A({ id: 'lake-trout', n: 'Lake Trout', sci: 'Salvelinus namaycush', w: 'f', r: 'gl3 ne2 ak3 pn1 gp1', al: ['laker', 'mackinaw', 'togue', 'lakers'],
-    art: { t: 'trout', tt: 'fork', tn: .45, dep: 1.0, back: '#4a5448', side: '#7c8a7a', belly: '#e6e6da', fin: '#7a847a', m: [{ k: 'spots', n: 70, r: [1.2, 2.2], c: '#e8e8d6', o: .8, y: [-.9, .45], x: [.12, .94], tail: 8 }] },
+    art: { t: 'trout', tt: 'fork', tn: .42, dep: 1, back: '#454f46', side: '#7c8a7a', belly: '#e6e6da', fin: '#6a756a', lead: '#f2f2ea', m: [{ k: 'spots', n: 70, sz: 1, r: [1.2, 2.2], c: '#dfe3cf', o: .9, y: [-.9, .45], x: [.12, .94], gap: 2, tail: 6 }] },
     idm: ['Light spots on a dark background, extending onto the fins ^1', 'White leading edges on all the lower fins ^1', 'A more deeply forked tail than other chars ^1'],
     lk: [['Brook Trout', 'Worm-like wavy lines on the back and red spots with blue halos. ^2']],
     sz: 'A very large char; known to grow over 100 lb. ^1',
@@ -349,7 +349,7 @@
     src: [['tmf', 'lake-trout', 'Lake Trout'], ['tmf', 'brook-trout', 'Brook Trout']] });
 
   A({ id: 'brook-trout', n: 'Brook Trout', sci: 'Salvelinus fontinalis', w: 'f', r: 'ne3 gl2 se1 pn1 gp1', al: ['brookie', 'speckled trout', 'speckled', 'squaretail', 'brookies'],
-    art: { t: 'trout', tt: 'square', tn: .15, dep: .95, back: '#4c5a34', side: '#6f7e48', belly: '#e07a3a', fin: '#d8702e', m: [{ k: 'worms', n: 18, c: '#e8e8c0', o: .6, y: [-.95, -.35] }, { k: 'spots', n: 18, r: [1.6, 2.2], c: '#d83a2a', o: .9, halo: '#6ab0e0', y: [-.3, .35] }, { k: 'spots', n: 20, r: [1.2, 1.8], c: '#f0e6a0', o: .8, y: [-.6, .1] }] },
+    art: { t: 'trout', tt: 'square', tn: .12, dep: .95, back: '#3f5030', side: '#6b7c44', belly: '#e87a38', fin: '#e0782e', lead: '#f4f4ec', m: [{ k: 'worms', n: 20, len: 6, c: '#e6e6bc', o: .85, y: [-.95, -.35] }, { k: 'spots', n: 10, sz: .9, r: [1, 1.5], c: '#d8382a', halo: '#78b6e8', o: 1, ho: .65, y: [-.2, .35], x: [.2, .9], gap: 4 }, { k: 'spots', n: 18, sz: .9, r: [1, 1.5], c: '#f0e098', o: .9, y: [-.6, .05], gap: 3 }] },
     idm: ['Light green to cream wavy lines (vermiculations) on the back ^1,2', 'Pale yellowish or greenish spots, plus red spots with blue halos ^1', 'Lower fins have a milk-white leading edge ^1,2', 'Spawning males have a bright orange-red belly with black edges ^1'],
     lk: [['Lake Trout', 'Light spots on a dark body and a deeply forked tail.']],
     sz: 'In Maine lakes, 3-year-old brook trout average 13.3 in, but same-age fish range from 7.5 to 17.5 in depending on the lake. ^2',
@@ -362,7 +362,7 @@
     src: [['tmf', 'brook-trout', 'Brook Trout'], ['me', 'brook-trout', 'Brook Trout: Species Information']] });
 
   A({ id: 'brown-trout', n: 'Brown Trout', sci: 'Salmo trutta', w: 'f', r: 'ne3 gl3 gp1 pn2 mw3 se1', al: ['brownie', 'browns', 'german brown', 'brown'],
-    art: { t: 'trout', tt: 'square', tn: .1, dep: 1.0, back: '#5a4a2a', side: '#a8903e', belly: '#ece0b4', fin: '#a88a3a', m: [{ k: 'spots', n: 44, r: [1.3, 2.3], c: '#2a2014', o: .85, halo: '#e8dcc0', ho: .6, y: [-.9, .25], x: [.14, .94] }, { k: 'spots', n: 7, r: [1.3, 2], c: '#c8322a', o: .85, halo: '#e8dcc0', y: [-.3, .25] }] },
+    art: { t: 'trout', tt: 'square', tn: .1, dep: 1, back: '#5a4a26', side: '#a28a38', belly: '#efe3b6', fin: '#a88a3a', fins: [[.40, .52, 'soft', 12, 'u'], [.78, .84, 'adip', 5, 'u', '#d4742c'], [.64, .76, 'soft', 8, 'd']], m: [{ k: 'spots', n: 40, sz: .9, r: [1.2, 2], c: '#241a10', halo: '#eadfb8', o: 1, ho: .8, y: [-.9, .25], x: [.14, .94], gap: 3 }, { k: 'spots', n: 8, sz: .9, r: [1.2, 2], c: '#c8322a', halo: '#eadfb8', o: 1, ho: .8, y: [-.3, .25], gap: 4 }] },
     idm: ['Black spots on the back, upper sides and gill cover, sometimes with red spots ^1,2', 'Spots are surrounded by lighter halos ^1,2', 'Dark spots on the dorsal and adipose fins; the tail is squarish ^1', 'Light brown or tawny; sometimes confused with landlocked salmon ^2'],
     lk: [['Atlantic / Landlocked Salmon', 'Brown trout are more heavily spotted than Atlantic salmon. ^1 Maine notes browns are occasionally confused with landlocked salmon. ^2']],
     sz: 'Normal size in Maine is 14–20 in and 1–2 lb; browns occasionally reach 10 lb. ^2',
@@ -375,7 +375,7 @@
     src: [['tmf', 'brown-trout', 'Brown Trout'], ['me', 'brown-trout', 'Brown Trout: Species Information']] });
 
   A({ id: 'rainbow-trout', n: 'Rainbow Trout', sci: 'Oncorhynchus mykiss', w: 'f', r: 'pn3 ca3 ne2 gl2 gp1 mw2 se1 ak2', al: ['rainbow', 'bow', 'rainbows', 'rainbow trout'],
-    art: { t: 'trout', tt: 'square', tn: .2, dep: .95, back: '#52684a', side: '#9aa890', belly: '#f0eee4', fin: '#8a9a80', m: [{ k: 'band', y: [-.12, .12], x: [.2, .92], c: '#d8566a', o: .7 }, { k: 'spots', n: 60, r: [1, 1.8], c: '#1c1c1c', o: .8, y: [-.9, .4], x: [.14, .96], tail: 10 }] },
+    art: { t: 'trout', tt: 'square', tn: .15, dep: .95, back: '#4f7a5a', side: '#a8b4a4', belly: '#f1efe4', fin: '#8a9a80', m: [{ k: 'band', y: [-.14, .1], x: [.2, .92], c: '#d9506a', o: .85 }, { k: 'spots', n: 55, sz: .9, r: [1, 1.8], c: '#1a1a1a', o: .9, y: [-.95, .4], x: [.12, .96], gap: 2, tail: 12 }] },
     idm: ['A broad red or pink stripe along the middle of the sides (not on every form) ^1,2', 'Spots extend onto the dorsal fin, adipose fin and tail ^1', 'Greenish-yellow to blue-gray back with silvery sides and small black spots ^2'],
     lk: [['Steelhead', 'The sea-run form: silver with black dots, little “rainbow.” ^1']],
     sz: 'Anglers in Maine typically land 8–16 in fish; 7–8 lb fish are occasionally caught. ^2',
@@ -387,7 +387,7 @@
     src: [['tmf', 'rainbow-trout', 'Rainbow Trout'], ['me', 'rainbow-trout', 'Rainbow Trout: Species Information']] });
 
   A({ id: 'cutthroat-trout', n: 'Cutthroat Trout', sci: 'Oncorhynchus clarkii', w: 'f', r: 'pn3 gp2 ca1 ak1', al: ['cutthroat', 'cutts', 'cutt'],
-    art: { t: 'trout', tt: 'square', tn: .2, dep: .95, back: '#5a6a3c', side: '#a6a45a', belly: '#e8e0c0', fin: '#a89a52', m: [{ k: 'spots', n: 55, r: [1, 1.7], c: '#1c1c1c', o: .75, y: [-.9, .4], x: [.3, .96], tail: 8 }, { k: 'stripe', ys: [.62], x: [.3, .5], w: 2.2, c: '#d8321a', o: .85 }] },
+    art: { t: 'trout', tt: 'square', tn: .2, dep: .95, back: '#5a6e3a', side: '#a89a50', belly: '#eae0c0', fin: '#a89a52', m: [{ k: 'spots', n: 50, sz: .9, r: [1, 1.7], c: '#1a1a1a', o: .9, y: [-.95, .35], x: [.28, .97], gap: 2, tail: 10 }, { k: 'px', pts: [[.1, .85], [.12, .9], [.14, .9], [.16, .9], [.18, .86], [.2, .8]], c: '#e0321a' }] },
     idm: ['A yellow, orange or red streak in the skin fold under the lower jaw ^1', 'Olive-green to yellowish-green, sometimes with red on the head and belly; sea-run forms are bluish and silvery ^1'],
     bait: 'Flies, jigs, spoons, insects and cured fish roe. ^1',
     tech: ['Fly fishing, still fishing, bait casting and spin casting. ^1'],
@@ -397,7 +397,7 @@
     src: [['tmf', 'cutthroat-trout', 'Cutthroat Trout']] });
 
   A({ id: 'steelhead', n: 'Steelhead', sci: 'Oncorhynchus mykiss', w: 'b', r: 'pn3 ca2 gl2 ak2 ne1', al: ['steelie', 'steelies', 'steelhead trout'],
-    art: { t: 'trout', tt: 'fork', tn: .25, dep: .95, back: '#4a5e56', side: '#a8b4ac', belly: '#f2f2ee', fin: '#7a8a82', m: [{ k: 'band', y: [-.1, .1], x: [.22, .9], c: '#c8707a', o: .45 }, { k: 'spots', n: 60, r: [1, 1.8], c: '#1c1c1c', o: .8, y: [-.9, .4], x: [.14, .96], tail: 10 }] },
+    art: { t: 'trout', tt: 'notch', tn: .16, dep: .95, back: '#40605a', side: '#a8b6ae', belly: '#f2f2ee', fin: '#7a8a82', m: [{ k: 'band', y: [-.1, .1], x: [.22, .9], c: '#d08a90', o: .5 }, { k: 'spots', n: 55, sz: .9, r: [1, 1.8], c: '#1a1a1a', o: .9, y: [-.95, .4], x: [.12, .96], gap: 2, tail: 12 }] },
     idm: ['The sea-run form of rainbow trout: silver with black dots ^1', 'Numerous prominent black spots extend onto the dorsal fin, adipose fin and tail ^1', 'Returning to freshwater, they turn dark olive with a pink to red stripe ^2'],
     lk: [['Rainbow Trout', 'Same species, but resident rainbows stay in fresh water and are smaller. ^1,2']],
     sz: 'Spring and summer runs average two or three pounds; fall runs commonly reach 10–15 lb, with records over 40 lb. ^1',
@@ -410,7 +410,7 @@
     src: [['tmf', 'steelhead', 'Steelhead'], ['or', 'steelhead', 'Steelhead Fishing']] });
 
   A({ id: 'atlantic-salmon', n: 'Atlantic Salmon', sci: 'Salmo salar', w: 'b', r: 'ne3 gl1', al: ['salmon', 'landlocked salmon', 'sebago', 'ouananiche', 'land locked salmon'],
-    art: { t: 'trout', tt: 'fork', tn: .3, dep: .95, back: '#4a5a64', side: '#aab5b8', belly: '#f2f2ee', fin: '#7a8a90', m: [{ k: 'spots', n: 16, r: [1.2, 1.9], c: '#1c1c1c', o: .85, y: [-.8, .0], x: [.3, .92] }] },
+    art: { t: 'trout', tt: 'notch', tn: .1, dep: .95, back: '#46585f', side: '#b2bdbf', belly: '#f4f4f0', fin: '#6e7e86', m: [{ k: 'spots', n: 18, sz: .9, r: [1.2, 1.9], c: '#151515', o: .95, y: [-.85, -.05], x: [.3, .92], gap: 3 }] },
     idm: ['A trout-shaped body; silvery at sea with a sparse scattering of small black spots, often X- or Y-shaped ^1', 'Maine landlocked salmon: silvery, slightly forked tail and small X-shaped marks on the back and upper sides ^2', 'Spawning fish darken to bronze or brown, with possible red spots, like a brown trout ^1', 'Spawning males develop a hooked jaw (kype) ^2'],
     lk: [['Brown Trout', 'More heavily spotted, with a squarish tail. ^3']],
     sz: 'Maine landlocked salmon average 16–18 in and 1–1½ lb; 3–5 lb fish are not uncommon. ^2',
@@ -423,7 +423,7 @@
     src: [['tmf', 'atlantic-salmon', 'Atlantic Salmon'], ['me', 'landlocked-salmon', 'Landlocked Salmon: Species Information'], ['tmf', 'brown-trout', 'Brown Trout']] });
 
   A({ id: 'coho-salmon', n: 'Coho Salmon', sci: 'Oncorhynchus kisutch', w: 'b', r: 'pn3 ak3 gl2 ca1', al: ['coho', 'silver salmon', 'silvers', 'silver'],
-    art: { t: 'trout', tt: 'fork', tn: .3, dep: 1.0, back: '#2e4a5e', side: '#b6c2c8', belly: '#f4f4f0', fin: '#6a7e8a', m: [{ k: 'spots', n: 26, r: [1, 1.6], c: '#161616', o: .8, y: [-.9, -.2], x: [.25, .94], tail: 6 }] },
+    art: { t: 'trout', tt: 'notch', tn: .15, dep: 1, back: '#2a4a5a', side: '#bcc8cc', belly: '#f4f4f0', fin: '#5c707c', m: [{ k: 'spots', n: 26, sz: .9, r: [1, 1.6], c: '#141414', o: .9, y: [-.95, -.2], x: [.25, .94], gap: 3, tail: 8, tailHalf: 'u' }] },
     idm: ['A silvery fish at sea with small black spots on the back, upper sides, base of the dorsal fin and the upper lobe of the tail ^1', 'Spots only on the upper half of the tail, unlike chinook ^1', 'White gum line on the lower jaw ^2,3', 'Spawning males develop a hooked jaw (kype); freshwater fish turn red on the sides ^1,2'],
     lk: [['Chinook (King) Salmon', 'Spots on both tail lobes and a black gum line. ^2,3']],
     sz: 'Adults may reach 25 lb or more but typically stay under 15 lb. ^2',
@@ -435,7 +435,7 @@
     src: [['tmf', 'coho-salmon', 'Coho Salmon'], ['or', 'coho-salmon', 'Coho Salmon Fishing'], ['tmf', 'king-salmon', 'King (Chinook) Salmon']] });
 
   A({ id: 'chinook-salmon', n: 'Chinook (King) Salmon', sci: 'Oncorhynchus tshawytscha', w: 'b', r: 'pn3 ak3 ca2 gl2', al: ['king', 'king salmon', 'chinook', 'kings', 'tyee', 'chinook salmon'],
-    art: { t: 'trout', tt: 'fork', tn: .3, dep: 1.05, back: '#4a3e5e', side: '#b6bcc0', belly: '#f4f4f0', fin: '#6a7580', m: [{ k: 'spots', n: 34, r: [1.2, 2], c: '#161616', o: .8, y: [-.9, -.1], x: [.22, .94], tail: 12 }] },
+    art: { t: 'trout', tt: 'notch', tn: .1, dep: 1.08, back: '#42365a', side: '#b6bcc2', belly: '#f4f4f0', fin: '#6a7580', m: [{ k: 'spots', n: 36, sz: .9, r: [1.2, 2], c: '#141414', o: .9, y: [-.95, -.05], x: [.2, .94], gap: 3, tail: 14 }] },
     idm: ['A silvery fish at sea with spotting on the back, upper sides, top of head and all fins ^1', 'Round black spots on both lobes of the tail ^2', 'Black mouth and gums (coho have white gums) ^1,2', 'A purple hue to the back, with large oblong black spots ^2'],
     lk: [['Coho Salmon', 'Spots only on the upper tail lobe and a white gum line. ^1,2']],
     sz: 'The largest Pacific salmon; can reach upwards of 50 lb, though 10–25 lb is more common. ^1,2',
@@ -448,7 +448,7 @@
     src: [['tmf', 'king-salmon', 'King (Chinook) Salmon'], ['or', 'chinook-salmon', 'Chinook Salmon Fishing']] });
 
   A({ id: 'sockeye-salmon', n: 'Sockeye Salmon', sci: 'Oncorhynchus nerka', w: 'b', r: 'ak3 pn3', al: ['sockeye', 'red salmon', 'reds', 'kokanee'],
-    art: { t: 'trout', tt: 'fork', tn: .3, dep: .95, back: '#2e4a6a', side: '#b8c4c8', belly: '#f4f4f0', fin: '#6a8090', m: [] },
+    art: { t: 'trout', tt: 'notch', tn: .2, dep: .92, back: '#2c4a6a', side: '#bdc8cc', belly: '#f4f4f0', fin: '#6a8090', m: [] },
     idm: ['Breeding males are bright red with small, indistinct black speckling on the back ^1', 'Landlocked populations are called kokanee ^1'],
     bait: 'Cured fish roe, small flashy metal spoons, a small hook with worm or maggot, and flies (for surface-feeding kokanee). Cut bait, plugs and spinner baits also listed. ^1',
     tech: ['Jigging, fly fishing, still fishing, drift fishing and trolling. ^1'],
@@ -458,7 +458,7 @@
     src: [['tmf', 'sockeye-salmon', 'Sockeye Salmon']] });
 
   A({ id: 'pink-salmon', n: 'Pink Salmon', sci: 'Oncorhynchus gorbuscha', w: 'b', r: 'ak3 pn3 gl1', al: ['pink', 'humpy', 'humpback', 'humpies', 'humpback salmon'],
-    art: { t: 'trout', tt: 'fork', tn: .3, dep: .95, back: '#3a5a72', side: '#bcc6ca', belly: '#f4f4f0', fin: '#6a8494', m: [{ k: 'spots', n: 22, r: [1.8, 3], c: '#1c1c1c', o: .7, y: [-.9, -.1], x: [.25, .94], tail: 8 }] },
+    art: { t: 'trout', tt: 'notch', tn: .15, dep: .98, back: '#38586e', side: '#bcc6ca', belly: '#f4f4f0', fin: '#6a8494', m: [{ k: 'spots', n: 20, sz: 1.3, r: [1.8, 3], c: '#181818', o: .85, y: [-.95, -.1], x: [.25, .94], gap: 3, tail: 10 }] },
     idm: ['The smallest Pacific salmon, averaging 3–5 lb ^1', 'Large, black, oval spots on both halves of the tail and on the back ^1', 'Spawning males develop a humpback and pale red or pink coloring with brown to olive-green blotches ^1'],
     bait: 'Spoons, spinner baits, plugs, flies, cured fish roe and cut bait. ^1',
     tech: ['Jigging, fly fishing, still fishing, drift fishing, trolling and spin casting. ^1'],
@@ -468,7 +468,7 @@
     src: [['tmf', 'pink-salmon', 'Pink Salmon']] });
 
   A({ id: 'dolly-varden', n: 'Dolly Varden', sci: 'Salvelinus malma', w: 'b', r: 'ak3 pn2', al: ['dolly', 'dollies', 'char'],
-    art: { t: 'trout', tt: 'square', tn: .15, dep: .95, back: '#4a5a40', side: '#8a9a62', belly: '#e0d8b0', fin: '#a88a52', m: [{ k: 'spots', n: 38, r: [1.2, 1.8], c: '#e8a8a0', o: .85, y: [-.8, .4], x: [.18, .94] }] },
+    art: { t: 'trout', tt: 'square', tn: .12, dep: .95, back: '#4a5a3e', side: '#8c9c62', belly: '#e8dcb2', fin: '#a8884e', lead: '#f2f2ea', m: [{ k: 'spots', n: 36, sz: 1.1, r: [1.2, 1.8], c: '#f0a8a0', o: .95, y: [-.85, .4], x: [.18, .94], gap: 2 }] },
     idm: ['A char: spots are usually smaller than the pupil of the eye (Arctic char’s are larger) ^1', 'Gill rakers typically number 21–22, versus 25–30 in Arctic char ^1', 'Bull trout are larger and prefer different habitat ^1'],
     bait: 'Cured fish roe, flies, spoons, spinner baits, plugs, cut bait and saltwater live bait. ^1',
     tech: ['Fly fishing, jigging, still fishing, drift fishing and trolling. ^1'],
@@ -478,7 +478,7 @@
     src: [['tmf', 'dolly-varden', 'Dolly Varden']] });
 
   A({ id: 'arctic-grayling', n: 'Arctic Grayling', sci: 'Thymallus arcticus', w: 'f', r: 'ak3 pn1 gp1', al: ['grayling', 'graylings'],
-    art: { t: 'grayling', tt: 'fork', tn: .3, dep: .9, back: '#4a5060', side: '#9aa0b0', belly: '#d8d8e0', fin: '#7a6a98', m: [{ k: 'spots', n: 22, r: [1.2, 1.9], c: '#2a2a3a', o: .75, y: [-.7, .2], x: [.2, .6] }] },
+    art: { t: 'grayling', tt: 'fork', tn: .3, dep: .9, back: '#4a5062', side: '#9ca2b4', belly: '#d4d6e0', fin: '#7a6a9a', fins: [[.28, .62, 'sail', 24, 'u', '#8a70b0'], [.78, .84, 'adip', 5, 'u'], [.62, .76, 'soft', 7, 'd']], m: [{ k: 'spots', n: 12, sz: 1.1, c: '#1e1e2e', o: .85, y: [-.7, .1], x: [.2, .6], gap: 3 }, { k: 'finspots', n: 16, c: '#e8708a', x: [.28, .62] }] },
     idm: ['A distinctive sail-like dorsal fin followed by a small adipose fin ^1', 'Grayish-silver with gold and/or lavender overtones ^1', 'Dark spots, sometimes shaped like X’s or V’s ^1', 'Males have a higher, rounded rear dorsal fin ^1'],
     bait: 'Flies, plugs, spoons, spinner baits and insects. ^1',
     tech: ['Primarily fly fishing; still fishing is secondary. ^1'],
@@ -488,7 +488,7 @@
     src: [['tmf', 'arctic-grayling', 'Arctic Grayling']] });
 
   A({ id: 'white-sturgeon', n: 'White Sturgeon', sci: 'Acipenser transmontanus', w: 'b', r: 'pn3 ca2 ak1', al: ['sturgeon', 'white sturgeon', 'sturgeons'],
-    art: { t: 'sturgeon', dep: 1.0, back: '#4a4e48', side: '#7e8478', belly: '#e0dcc8', fin: '#5a5e54', m: [] },
+    art: { t: 'sturgeon', mouthL: .6, mouthY: 2, dep: 1, back: '#5a5e50', side: '#8a8e78', belly: '#e6e2cc', fin: '#6a6e60', U: [.8, 2.5, 5, 9, 12.5, 13.5, 11.5, 8.5, 5.5], D: [.8, 2, 4, 6, 8.5, 9.5, 8, 6, 4.5], m: [] },
     idm: ['A long, heavy body covered in five rows of large, heavy scutes (bony plates) ^1,2', 'Long flat snout and a deeply forked tail ^2', 'Four barbels like a mustache in front of the mouth ^1', 'Rough, scaleless, shark-like skin ^2'],
     lk: [['Green Sturgeon', 'Olive to dark green back with a green stripe along the belly. In Oregon green sturgeon may not be targeted, and any caught must be released immediately and unharmed. ^2']],
     sz: 'White sturgeon can reach 20 ft, but most rarely exceed 10 ft. ^2',
@@ -500,7 +500,7 @@
     src: [['tmf', 'sturgeon', 'Sturgeon'], ['or', 'sturgeon', 'Sturgeon Fishing in Oregon']] });
 
   A({ id: 'american-shad', n: 'American Shad', sci: 'Alosa sapidissima', w: 'b', r: 'ne3 se2 pn2 ca1', al: ['shad', 'white shad', 'hickory shad'],
-    art: { t: 'shad', dep: 1.0, back: '#3a5a6a', side: '#b8c4c8', belly: '#f2f2ee', fin: '#7a8e98', m: [{ k: 'dot', x: .3, y: -.3, r: 2.2, c: '#1c1c1c', o: .8 }, { k: 'spots', n: 6, r: [1, 1.5], c: '#1c1c1c', o: .5, y: [-.25, -.05], x: [.34, .6] }] },
+    art: { t: 'shad', scales: 1, dep: 1, back: '#3e607a', side: '#b9c6ca', belly: '#f3f3ee', fin: '#7a8e98', m: [{ k: 'blot', x: .27, y: -.3, w: 2, h: 2, c: '#14181c' }, { k: 'stripes', n: 1, gap: 1, fr: -.2, dash: [1, 3], c: '#2a3236', o: .7, x: [.32, .62] }] },
     idm: ['A silvery fish with a single dorsal fin mid-back ^1', 'A large black spot right behind the top of the gill cover, followed by a row of smaller spots (4–27) ^1', 'Lower jaw fits into a deep notch under the upper jaw (unlike hickory shad) ^1'],
     bait: 'Jigs, flies, spoons, plugs, cut bait and saltwater live bait. ^1',
     tech: ['Jigging, fly fishing, still fishing, drift fishing and surf casting. ^1'],
@@ -510,7 +510,7 @@
     src: [['tmf', 'american-shad', 'American Shad']] });
 
   A({ id: 'peacock-bass', n: 'Butterfly Peacock Bass', sci: 'Cichla ocellaris', w: 'f', r: 'se3', al: ['peacock', 'peacock bass', 'butterfly peacock', 'peacocks'],
-    art: { t: 'bass', dep: 1.15, back: '#4a5a28', side: '#b8b840', belly: '#e0d890', fin: '#c85a28', eye: '#c8322a', m: [{ k: 'bars', at: [.36, .52, .68], w: 6, c: '#2a2a14', o: .6, y: [-.3, .5] }, { k: 'ocelli', n: 1, x: [.92, .92], y: [-.15, -.15], r: 4, c: '#1c1c1c', in: '#e8c848' }] },
+    art: { t: 'bass', dep: 1.12, eyeY: 1.3, tt: 'notch', back: '#3e5a28', side: '#c0b840', belly: '#e8de98', fin: '#c8581c', eye: '#c8322a', m: [{ k: 'lat', y: 0, c: '#2c3414', o: .6, x: [.15, .88] }, { k: 'bars', at: [.36, .52, .68], w: 6, c: '#1c1c14', o: .9, y: [-.3, .5] }, { k: 'ocelli', x: [.94], y: [-.15], r: 5, c: '#101010', in: '#e8c848' }] },
     idm: ['Yellowish green with three dark, yellow-fringed blotches along the midsection ^1', 'An eyespot near the tail fin and deep reddish eyes ^1', 'No black markings on the gill covers (opercula) ^1', 'The bars fade in fish over three or four pounds ^1'],
     sz: 'Believed to reach 11–12 lb. ^1',
     bait: 'Jigs, plugs, spoons, minnows and spinner baits. ^1',
@@ -522,7 +522,7 @@
     src: [['tmf', 'butterfly-peacock-bass', 'Butterfly Peacock Bass']] });
   /* ---------- Atlantic & Gulf saltwater ---------- */
   A({ id: 'bluefish', n: 'Bluefish', sci: 'Pomatomus saltatrix', w: 's', r: 'ne3 se3 sc1', al: ['blues', 'chopper', 'choppers', 'snapper blue'],
-    art: { t: 'bluefish', dep: 1.0, back: '#3a6a8a', side: '#9ab8c4', belly: '#f0f0ee', fin: '#6a8a9a', m: [] },
+    art: { t: 'bluefish', dep: 1, back: '#3a6a88', side: '#8fb4c4', belly: '#eef0ee', fin: '#7a9aa8', m: [{ k: 'blot', x: .26, y: .22, w: 2, h: 2, c: '#14242c', o: .9 }] },
     idm: ['Blue or blue-green back fading to silver on the sides and belly ^2', 'Two dorsal fins, a forked tail and very sharp teeth ^1,2', 'A spine in the second dorsal fin, no head markings, and no gap between the dorsal fins ^1'],
     sz: 'Usually 20–25 in, up to 42 in. ^2',
     bait: 'Surface plugs, jigs, spoons, spinner baits, squid and live bait; plugs, lures or feathers also work. ^1,2',
@@ -533,7 +533,7 @@
     src: [['tmf', 'bluefish', 'Bluefish'], ['ma', 'bluefish', 'Learn about Bluefish']] });
 
   A({ id: 'atlantic-mackerel', n: 'Atlantic Mackerel', sci: 'Scomber scombrus', w: 's', r: 'ne3', al: ['mackerel', 'macks', 'boston mackerel'],
-    art: { t: 'mack', dep: .9, back: '#2e6a6a', side: '#a6bcc0', belly: '#f2f2ee', fin: '#6a8a90', m: [{ k: 'bars', at: [.22, .27, .32, .37, .42, .47, .52, .57, .62, .67, .72, .77, .82], w: 1.8, c: '#1c2a2a', o: .6, y: [-.95, -.15] }] },
+    art: { t: 'mack', dep: .9, back: '#2b6a68', side: '#a2bbbf', belly: '#f2f2ee', fin: '#6a8a90', m: [{ k: 'bars', at: [.22, .26, .3, .34, .38, .42, .46, .5, .54, .58, .62, .66, .7, .74, .78, .82], w: 1, c: '#10282a', o: .9, y: [-.95, -.05], lean: 2 }] },
     idm: ['Metallic blue-green back fading to silver, with 20–30 wavy black bars down the sides ^1', 'Tapered body, large head and mouth, two large dorsal fins and a forked tail ^1'],
     sz: 'Up to about 16 in and 2 lb. ^1',
     bait: 'Quick to bite and go after bait meant for other species; they eat copepods, shrimp, krill, squid and small fish. ^1',
@@ -545,7 +545,7 @@
     src: [['ma', 'atlantic-mackerel', 'Learn about Atlantic Mackerel']] });
 
   A({ id: 'summer-flounder', n: 'Summer Flounder (Fluke)', sci: 'Paralichthys dentatus', w: 's', r: 'ne3 se2', al: ['fluke', 'flounder', 'summer flounder', 'flatfish'],
-    art: { t: 'flat', dep: 1.0, back: '#7a6a4a', side: '#9a8a62', belly: '#d8d0b8', fin: '#8a7a54', m: [{ k: 'spots', n: 20, r: [2, 3.6], c: '#2a2014', o: .55, y: [-.6, .5], x: [.2, .9] }] },
+    art: { t: 'flat', dep: 1, mouthL: 1.5, back: '#8a7a50', side: '#9a8860', belly: '#dcd4bc', fin: '#8a7a54', m: [{ k: 'spots', n: 14, sz: 1.3, r: [1.5, 3], c: '#4a3c24', o: .55, y: [-.6, .5], x: [.2, .9], gap: 3 }, { k: 'blot', x: .5, y: -.35, w: 2, h: 2, c: '#241a10', halo: '#e8dcb8' }, { k: 'blot', x: .66, y: -.35, w: 2, h: 2, c: '#241a10', halo: '#e8dcb8' }, { k: 'blot', x: .55, y: .3, w: 2, h: 2, c: '#241a10', halo: '#e8dcb8' }, { k: 'blot', x: .72, y: .25, w: 2, h: 2, c: '#241a10', halo: '#e8dcb8' }, { k: 'blot', x: .84, y: -.05, w: 2, h: 2, c: '#241a10', halo: '#e8dcb8' }] },
     idm: ['A left-side flatfish with both eyes on the left side of the body ^1', 'A large mouth that can extend beyond its eyes ^1', 'Can change color: gray, blue, green, orange or black with dark spots ^1'],
     lk: [['Winter Flounder', 'Eyes on the right side; summer flounder’s are on the left. ^1,2']],
     sz: 'Females reach about 20 lb; males rarely exceed 5 lb. ^1',
@@ -557,7 +557,7 @@
     src: [['ma', 'fluke', 'Learn about Fluke'], ['url', 'https://www.fisheries.noaa.gov/species/winter-flounder', 'Winter Flounder', 'NOAA Fisheries'], ['tmf', 'flounder', 'Flounder']] });
 
   A({ id: 'winter-flounder', n: 'Winter Flounder', sci: 'Pseudopleuronectes americanus', w: 's', r: 'ne3', al: ['flounder', 'blackback', 'lemon sole', 'flatfish'],
-    art: { t: 'flat', dep: 1.05, back: '#5a4a38', side: '#6a5a40', belly: '#e0dcc8', fin: '#6a5a40', m: [] },
+    art: { t: 'flat', dep: 1.02, mouthL: .5, back: '#5d4a34', side: '#6a5640', belly: '#e0dcc8', fin: '#6a5a40', m: [{ k: 'worms', n: 8, len: 4, c: '#3c2e1e', o: .5, y: [-.7, .6] }] },
     idm: ['An oval, thick-bodied flatfish with both eyes on the right side ^1', 'A straight lateral line ^1', 'The upper side varies from muddy or reddish brown to olive green, dark slate or almost black; the underside is white ^1'],
     lk: [['Summer Flounder (Fluke)', 'Eyes on the left side and a large mouth. ^2']],
     sz: 'Live 15–18 years and grow to more than 2 ft. ^1',
@@ -568,7 +568,7 @@
     src: [['url', 'https://www.fisheries.noaa.gov/species/winter-flounder', 'Winter Flounder', 'NOAA Fisheries'], ['ma', 'fluke', 'Learn about Fluke']] });
 
   A({ id: 'tautog', n: 'Tautog', sci: 'Tautoga onitis', w: 's', r: 'ne3 se1', al: ['blackfish', 'tog', 'black fish'],
-    art: { t: 'seabass', dep: 1.2, back: '#2a3032', side: '#4a5456', belly: '#a8aeae', fin: '#3a4244', m: [{ k: 'worms', n: 12, c: '#8a9496', o: .3, y: [-.8, .3] }] },
+    art: { t: 'seabass', dep: 1.18, mouthL: .6, back: '#2e3638', side: '#4c585a', belly: '#9ca6a6', fin: '#38424a', m: [{ k: 'worms', n: 10, len: 4, c: '#6a7a7c', o: .5, y: [-.8, .3] }, { k: 'blot', x: .06, y: .6, w: 3, h: 2, c: '#e8eeee' }] },
     idm: ['A stout fish with a blunt nose and thick lips ^2', 'Large conical front teeth and flat crushing teeth in back ^2', 'First dorsal fin with 16–17 spines of nearly equal length ^1', 'Dark green to black above with mottling, lighter belly; large fish can be nearly all black ^1,2'],
     sz: 'Average angler-caught fish is 2–4 lb; the largest recorded was nearly 23 lb. ^2',
     bait: 'Sea worms, crabs (green, rock, hermit or fiddler), conch pieces, snails, cracked clams, mussels, shrimp and sand fleas. ^1,2',
@@ -580,7 +580,7 @@
     src: [['tmf', 'tautog', 'Tautog'], ['ma', 'tautog', 'Learn about Tautog']] });
 
   A({ id: 'black-sea-bass', n: 'Black Sea Bass', sci: 'Centropristis striata', w: 's', r: 'ne3 se3', al: ['sea bass', 'bsb', 'blackfish sea bass', 'humpback'],
-    art: { t: 'seabass', dep: 1.05, back: '#2e3438', side: '#5a646a', belly: '#c4c8c8', fin: '#4a545a', m: [{ k: 'spots', n: 30, r: [1, 1.5], c: '#e8ecec', o: .45, y: [-.7, .3], x: [.2, .85] }] },
+    art: { t: 'seabass', dep: 1.05, back: '#2a3034', side: '#555f66', belly: '#bfc6c8', fin: '#434e54', m: [{ k: 'stripes', n: 3, gap: 2, fr: -.45, dash: [1, 1], c: '#9aaab2', o: .6, x: [.2, .9] }, { k: 'finspots', n: 12, c: '#e8eeee', x: [.28, .76] }] },
     idm: ['A stout body, long dorsal fin and large pectoral and pelvic fins ^2', 'Blackish to grayish, with white at the centers of the scales ^2', 'Rounded tail with an elongated top ray in larger fish ^1', 'Large males have a hump behind the head; spawning males show bright blue ^1,2'],
     sz: 'Can reach about 25 in and over 8 lb, but most weigh under 4 lb; typical catches are 0.5–2 lb. ^2',
     bait: 'Crab, fish or squid is generally the most productive; shrimp, cut bait and jigs also work. Occasionally they take plugs, jigs or lures. ^1,2',
@@ -592,7 +592,7 @@
     src: [['tmf', 'black-sea-bass', 'Black Sea Bass'], ['ma', 'black-sea-bass', 'Learn about Black Sea Bass']] });
 
   A({ id: 'scup', n: 'Scup (Porgy)', sci: 'Stenotomus chrysops', w: 's', r: 'ne3', al: ['porgy', 'porgies', 'fluke bait scup', 'scuppers'],
-    art: { t: 'deep', dep: 1.0, back: '#5a6a72', side: '#a4b0b4', belly: '#f0f0ee', fin: '#7a8a92', m: [{ k: 'stripe', ys: [-.45, -.2, .05], x: [.2, .85], w: 1, c: '#3a4a54', o: .5 }, { k: 'spots', n: 20, r: [.9, 1.3], c: '#5ab0d8', o: .7, y: [-.7, .1], x: [.25, .85] }] },
+    art: { t: 'deep', dep: .95, back: '#5a6670', side: '#a8b2b6', belly: '#eceeed', fin: '#7a8890', mouthL: .7, m: [{ k: 'bars', at: [.3, .4, .5, .6, .7], w: 2, c: '#3a4a54', o: .28, y: [-.9, .4] }, { k: 'stripes', n: 4, gap: 2, fr: -.5, dash: [1, 1], c: '#5aa6c8', o: .85, x: [.25, .85] }] },
     idm: ['A silvery fish with light blue specks and several horizontal stripes, white belly ^1', 'Darker patches on the head, a small mouth, high-set eyes and one long spiny dorsal fin ^1'],
     sz: 'Can reach 18 in and 5 lb; most Massachusetts catches are under 3 lb and 14 in. ^1',
     bait: 'Sea worms, squid strips, and pieces of clam or fish. Most anglers prefer bait to small lures. ^1',
@@ -603,7 +603,7 @@
     src: [['ma', 'scup', 'Learn about Scup']] });
 
   A({ id: 'atlantic-cod', n: 'Atlantic Cod', sci: 'Gadus morhua', w: 's', r: 'ne3', al: ['cod', 'codfish', 'scrod'],
-    art: { t: 'cod', dep: 1.05, back: '#6a6a3a', side: '#9a9a62', belly: '#eeeadc', fin: '#7a7a48', m: [{ k: 'spots', n: 40, r: [1, 1.6], c: '#3a3a1c', o: .5, y: [-.85, .2], x: [.15, .9] }, { k: 'lat', y: -.2, c: '#f0ecd4', w: 1.2, o: .8 }] },
+    art: { t: 'cod', dep: 1, eyeR: .9, mouthL: 1.15, back: '#6a6a38', side: '#9a9a5c', belly: '#eae6d4', fin: '#7c7c48', m: [{ k: 'spots', n: 40, sz: 1.2, r: [1, 1.6], c: '#4a4a22', o: .6, y: [-.85, .2], x: [.15, .9], gap: 2 }, { k: 'lat', y: -.22, c: '#f0ecd4', o: .9, x: [.2, .94] }] },
     idm: ['A large barbel on the chin and an arch in the lateral line ^1', 'Gray-green or red-brown with dark spots that fade along the sides ^2', 'Three dorsal fins and two anal fins ^2'],
     sz: 'Inshore cod are 27–34 in and 6–12 lb; offshore fish are usually 40–42 in and about 25 lb. ^2',
     bait: 'Clams, squid strips, crabs, sand eels, sand lance, mackerel and herring strips. Chrome diamond jigs, bucktails, spoons and jigs with teasers. ^1,2',
@@ -615,7 +615,7 @@
     src: [['tmf', 'atlantic-cod', 'Atlantic Cod'], ['ma', 'atlantic-cod', 'Learn about Atlantic Cod']] });
 
   A({ id: 'spotted-seatrout', n: 'Spotted Seatrout', sci: 'Cynoscion nebulosus', w: 's', r: 'se3 sc3 ne1', al: ['speckled trout', 'specks', 'trout', 'speck', 'spotted trout', 'seatrout'],
-    art: { t: 'snook', dep: .95, back: '#4a5a54', side: '#9aa8a2', belly: '#eeeeea', fin: '#8a9a94', m: [{ k: 'spots', n: 36, r: [1.2, 1.9], c: '#1c1c1c', o: .75, y: [-.9, -.1], x: [.25, .94], tail: 8 }] },
+    art: { t: 'walleye', dep: .9, eyeR: .75, back: '#46585a', side: '#a6b2ac', belly: '#f0f0ec', fin: '#8a9a94', fins: [[.27, .45, 'sp', 12, 'u'], [.52, .72, 'soft', 9, 'u'], [.62, .76, 'soft', 8, 'd']], m: [{ k: 'spots', n: 34, sz: 1.5, r: [1.2, 1.9], c: '#161616', o: .95, y: [-.95, -.05], x: [.25, .94], gap: 3, tail: 14 }, { k: 'finspots', n: 8, c: '#161616', x: [.52, .72] }] },
     idm: ['Round black spots on the back, upper flanks, tail and second dorsal fin ^1', 'Two large, recurved canine teeth at the front of the upper jaw ^1'],
     bait: 'Shrimp is the most popular and effective bait; also live bait, cut bait, jigs, spoons, plugs and flies. ^1',
     tech: ['Chumming from drifting or anchored boats, trolling, jigging, surf casting, fly fishing, drift fishing and still fishing. ^1'],
@@ -625,7 +625,7 @@
     src: [['tmf', 'spotted-seatrout', 'Spotted Seatrout']] });
 
   A({ id: 'weakfish', n: 'Weakfish', sci: 'Cynoscion regalis', w: 's', r: 'ne2 se3', al: ['squeteague', 'gray trout', 'seatrout', 'yellowfin trout', 'tide runner'],
-    art: { t: 'snook', dep: .95, back: '#5a6a5a', side: '#b0b8a6', belly: '#f0eee4', fin: '#a8a888', m: [{ k: 'spots', n: 22, r: [1, 1.5], c: '#3a3a2a', o: .5, y: [-.9, -.3], x: [.3, .9] }] },
+    art: { t: 'walleye', dep: .95, eyeR: .75, back: '#5f6a68', side: '#b6bcae', belly: '#f0eee4', fin: '#c0b070', m: [{ k: 'spots', n: 24, sz: 1, r: [1, 1.5], c: '#4a4636', o: .7, y: [-.95, -.3], x: [.3, .9], gap: 3 }, { k: 'stripes', n: 3, gap: 2, fr: -.5, dash: [3, 2], c: '#7a7468', o: .4, x: [.25, .9] }] },
     idm: ['The lower jaw clearly projects beyond the upper ^1', 'Two large, recurved canine teeth at the front of the upper jaw ^1'],
     bait: 'Shrimp, squid, cut bait, live bait, soft plastics, jigs, plugs, spoons and trolling lures. ^1',
     tech: ['Drift fishing, chumming, bait casting, still fishing, trolling, fly fishing, bottom bouncing and surf casting. ^1'],
@@ -635,7 +635,7 @@
     src: [['tmf', 'weakfish', 'Weakfish']] });
 
   A({ id: 'red-drum', n: 'Red Drum (Redfish)', sci: 'Sciaenops ocellatus', w: 's', r: 'se3 sc3 ne1', al: ['redfish', 'red', 'channel bass', 'puppy drum', 'reds', 'spottail'],
-    art: { t: 'drum', dep: 1.0, back: '#8a5a3a', side: '#b88a62', belly: '#f0e8d8', fin: '#a87a52', m: [{ k: 'dot', x: .88, y: -.35, r: 2.8, c: '#101010', o: .95 }] },
+    art: { t: 'drum', tt: 'square', tn: 0, dep: 1, mouthY: 1, mouthL: .7, back: '#98603a', side: '#be8e66', belly: '#f1e6d4', fin: '#b8845c', U: [1.5, 7, 15, 22, 24, 21, 14, 8, 5], m: [{ k: 'blot', x: .88, y: -.4, w: 2, h: 2, c: '#101010' }] },
     idm: ['Coppery red overtones on a silvery-gray body ^1', 'A large black spot, about eye-sized, on each side near the base of the tail ^1'],
     sz: 'Fish up to about 10–15 lb are described as very fine eating. ^1',
     bait: 'Crabs, shrimp, clams, strip bait, jigs, plugs, spoons and streamer flies. ^1',
@@ -646,7 +646,7 @@
     src: [['tmf', 'red-drum', 'Red Drum']] });
 
   A({ id: 'black-drum', n: 'Black Drum', sci: 'Pogonias cromis', w: 's', r: 'se2 sc3 ne1', al: ['drum', 'puppy drum', 'big drum'],
-    art: { t: 'drum', dep: 1.15, back: '#4a4a48', side: '#7a7a76', belly: '#c8c8c0', fin: '#5a5a56', m: [{ k: 'bars', at: [.32, .44, .56, .68], w: 5, c: '#1c1c1c', o: .25 }] },
+    art: { t: 'drum', tt: 'square', tn: 0, dep: 1.15, chinBarbels: 4, mouthL: .7, back: '#444444', side: '#7a7a76', belly: '#c4c4bc', fin: '#5a5a56', U: [1.5, 7, 16, 24, 26, 22, 14, 8, 5], m: [{ k: 'bars', at: [.32, .44, .56, .68], w: 3, c: '#1a1a1a', o: .35, y: [-.9, .4] }] },
     idm: ['A large spine in the anal fin and numerous barbels on the chin ^1', 'Large pavement-like teeth in the throat for crushing shellfish ^1', 'Juveniles show 4 or 5 broad, dark vertical bars ^1'],
     sz: 'Drum of about 10–15 lb are said to be good eating. ^1',
     bait: 'Shrimp, clams, crabs, squid, cut fish, metal jigs, spoons and weighted bucktails. ^1',
@@ -657,7 +657,7 @@
     src: [['tmf', 'black-drum', 'Black Drum']] });
 
   A({ id: 'sheepshead', n: 'Sheepshead', sci: 'Archosargus probatocephalus', w: 's', r: 'se3 sc3 ne1', al: ['convict fish', 'sheepies', 'sheep'],
-    art: { t: 'deep', dep: 1.15, back: '#4a4e50', side: '#a8aeae', belly: '#e4e4e0', fin: '#6a7072', m: [{ k: 'bars', at: [.22, .32, .42, .52, .62, .72, .82], w: 4.5, c: '#141414', o: .8, y: [-.95, .6] }] },
+    art: { t: 'deep', dep: 1.08, mouthL: .7, back: '#3e4448', side: '#aab0b0', belly: '#e6e6e2', fin: '#5e6468', m: [{ k: 'bars', at: [.1], w: 2, c: '#101010', o: .85, y: [-.95, .25] }, { k: 'bars', at: [.26, .36, .46, .56, .66], w: 3, c: '#101010', o: .95, y: [-.95, .55] }] },
     idm: ['Seven vertical, very prominent black bars ^1', 'Incisors, molars and grinders for crushing shellfish ^1', 'Black and white bars make it distinctive on the Texas coast (“convict fish”) ^2'],
     sz: 'Almost 30 in and over 20 lb at the most; most catches are 2–8 lb and 15–20 in. ^1',
     bait: 'Shrimp, cut bait, clams or squid; small fiddler and hermit crabs are used by experienced fishermen. Jigs and live bait also work. ^1,2',
@@ -669,7 +669,7 @@
     src: [['tmf', 'sheepshead', 'Sheepshead'], ['tx', 'sheepshead', 'Sheepshead (Archosargus probatocephalus)']] });
 
   A({ id: 'spanish-mackerel', n: 'Spanish Mackerel', sci: 'Scomberomorus maculatus', w: 's', r: 'se3 sc3 ne1', al: ['spanish', 'spanish mack', 'macks'],
-    art: { t: 'mack', dep: .9, back: '#3a7a7a', side: '#b0c4c4', belly: '#f2f2ee', fin: '#7a9a9a', m: [{ k: 'spots', n: 18, r: [1.8, 2.8], c: '#d8a032', o: .85, y: [-.1, .35], x: [.3, .85] }] },
+    art: { t: 'mack', dep: .9, lets: '#5a8080', back: '#2f7a7a', side: '#b8cccc', belly: '#f2f2ee', fin: '#6a9090', m: [{ k: 'spots', n: 16, sz: 1.7, r: [1.8, 2.8], c: '#d8a030', o: .95, y: [-.1, .45], x: [.3, .85], gap: 4 }] },
     idm: ['Bronze or yellow spots but no stripes (unlike cero and king mackerel) ^1', 'The front dorsal fin is black ^1', 'A silvery, typical mackerel body ^1'],
     bait: 'Jigs (nylon jigs retrieved fast are among the best), spoons, plugs, flies, cut bait, live shrimp and minnows. ^1',
     tech: ['Drift fishing, chumming, surf casting, trolling, fly fishing, jigging and still fishing. ^1'],
@@ -679,7 +679,7 @@
     src: [['tmf', 'spanish-mackerel', 'Spanish Mackerel']] });
 
   A({ id: 'king-mackerel', n: 'King Mackerel', sci: 'Scomberomorus cavalla', w: 's', r: 'se3 sc3', al: ['kingfish', 'king', 'kings', 'king mack'],
-    art: { t: 'mack', dep: .95, back: '#2e5e74', side: '#a4b8bc', belly: '#f0f0ec', fin: '#6a8a96', m: [{ k: 'lat', y: -.2, c: '#3a5a66', w: 1.2, o: .6, dip: 4 }] },
+    art: { t: 'mack', dep: .95, lets: '#5a7a88', back: '#2c5c74', side: '#b0c2c6', belly: '#f2f2ee', fin: '#6a8a96', m: [{ k: 'lat', y: -.15, dip: 6, c: '#3a5a66', o: .85, x: [.2, .95] }] },
     idm: ['A sharp dip in the lateral line under the second dorsal fin ^1', '14–16 spines in the first dorsal fin, which is uniformly blue (Spanish mackerel’s is black) ^1', 'Young fish have spots that fade with age ^1'],
     bait: 'Live or dead ballyhoo, mullet, jacks, herring, pinfish, croakers and shrimp; spoons, feathers, jigs and plugs. ^1',
     tech: ['Trolling, drifting live bait, casting, chumming, bottom bouncing and jigging. ^1'],
@@ -690,7 +690,7 @@
     src: [['tmf', 'king-mackerel', 'King Mackerel']] });
 
   A({ id: 'cobia', n: 'Cobia', sci: 'Rachycentron canadum', w: 's', r: 'se3 sc3 ne1', al: ['ling', 'lemonfish', 'crabeater', 'black kingfish'],
-    art: { t: 'cobia', dep: 1.0, back: '#3a2e22', side: '#6a5a46', belly: '#d8d0bc', fin: '#4a3e30', m: [{ k: 'stripe', ys: [-.15], x: [.15, .9], w: 4, c: '#e0d8c4', o: .55 }] },
+    art: { t: 'cobia', dep: 1, lets: '#3c3024', back: '#4a3a2a', side: '#6a5a46', belly: '#d8d0bc', fin: '#3c3024', U: [1.5, 5, 8, 10.5, 12.5, 12, 9.5, 6.5, 4.5], m: [{ k: 'band', y: [-.25, .2], x: [.14, .95], c: '#2a2018', o: .9 }, { k: 'stripes', n: 1, gap: 1, fr: -.42, c: '#d8ccb0', o: .85, x: [.2, .94] }] },
     idm: ['A long, broad, flattened head ^1', 'Dark chocolate-brown back with lighter sides and alternating horizontal stripes ^1'],
     bait: 'Squid, crabs, small live baits, cut bait, spoons, plugs and weighted feathers. ^1',
     tech: ['Trolling lures or bait, bottom fishing, jigging, chumming and spin casting. ^1'],
@@ -700,7 +700,7 @@
     src: [['tmf', 'cobia', 'Cobia']] });
 
   A({ id: 'florida-pompano', n: 'Pompano', sci: 'Trachinotus carolinus', w: 's', r: 'se3 sc2', al: ['florida pompano', 'pompano', 'pomps'],
-    art: { t: 'deep', dep: 1.0, back: '#4a7a7a', side: '#b8c8c8', belly: '#f6f4ec', fin: '#8a9a9a', m: [] },
+    art: { t: 'deep', dep: .98, mouthL: .6, back: '#4e7e7e', side: '#bccccc', belly: '#f6f2dc', fin: '#8a9a9a', fins: [[.24, .42, 'sp', 7, 'u'], [.44, .74, 'soft', 12, 'u'], [.50, .74, 'soft', 12, 'd', '#d6c070']], m: [] },
     idm: ['Typically 17–25 in with a short, deep, compressed body ^1', 'Blue to greenish above fading to silver on the sides; deeply forked tail ^1'],
     bait: 'Live sand crabs (sand fleas) are recommended. Live shrimp, dead sand crabs, clams and squid pieces also work. Small jigs, spoons and pencil baits. ^1',
     tech: ['Fly fishing, surf casting, spin casting, bait casting, still fishing and jigging. ^1'],
@@ -711,7 +711,7 @@
     src: [['tmf', 'pompano', 'Pompano']] });
 
   A({ id: 'snook', n: 'Snook', sci: 'Centropomus undecimalis', w: 'b', r: 'se3 sc1', al: ['common snook', 'linesider', 'robalo'],
-    art: { t: 'snook', dep: 1.0, back: '#5a5e3a', side: '#b8bc8a', belly: '#f0eedc', fin: '#9a9a62', m: [{ k: 'lat', y: -.2, c: '#101010', w: 2.4, o: .95 }] },
+    art: { t: 'snook', dep: .98, back: '#5a5e3c', side: '#bcc08c', belly: '#f0eedc', fin: '#a09a60', m: [{ k: 'lat', y: -.15, c: '#0e0e0e', o: 1, x: [.2, .96] }] },
     idm: ['A protruding lower jaw ^1', 'A highly prominent black lateral line from the top of the gill cover through the tail ^1', 'Back brown, olive green, dark gray or black with silvery flanks and belly ^1'],
     bait: 'Live baitfish (sunfish, mullet), crabs, shrimp, cut bait, plugs, jigs, spoons, soft plastics and flies. ^1',
     tech: ['Jigging, fly fishing, still fishing, drift fishing and surf casting. ^1'],
@@ -722,7 +722,7 @@
     src: [['tmf', 'snook', 'Snook']] });
 
   A({ id: 'tarpon', n: 'Tarpon', sci: 'Megalops atlanticus', w: 's', r: 'se3 sc2', al: ['silver king', 'silverking'],
-    art: { t: 'tarpon', dep: 1.05, back: '#3a6a6a', side: '#d0d8d8', belly: '#f6f6f2', fin: '#8aa0a0', bigscales: 1, m: [] },
+    art: { t: 'tarpon', scales: 1, dep: 1.05, back: '#3a6a6c', side: '#d0d8d8', belly: '#f6f6f2', fin: '#8aa0a0', m: [] },
     idm: ['A compressed body covered in very large scales ^1', 'The lower jaw juts out and up ^1', 'Greenish to bluish back with brilliant silver sides and belly ^1'],
     bait: 'Live mullet, pinfish, crabs and shrimp; spoons, plugs, flies, jigs and soft plastics. ^1',
     tech: ['Still fishing, casting, trolling, jigging, fly fishing, surf casting and drift fishing. ^1'],
@@ -733,7 +733,7 @@
     src: [['tmf', 'tarpon', 'Tarpon']] });
 
   A({ id: 'red-snapper', n: 'Red Snapper', sci: 'Lutjanus campechanus', w: 's', r: 'sc3 se3', al: ['snapper', 'reds', 'american red snapper'],
-    art: { t: 'snapper', dep: 1.05, back: '#b03a32', side: '#d8706a', belly: '#f4d8d0', fin: '#c04a40', m: [] },
+    art: { t: 'snapper', scales: 1, dep: 1.05, back: '#b03a30', side: '#d8706a', belly: '#f6dcd2', fin: '#c04a3e', eye: '#c8322a', fins: [[.27, .50, 'sp', 11, 'u'], [.50, .72, 'soft', 12, 'u'], [.58, .76, 'soft', 10, 'd']], m: [] },
     idm: ['A long, triangular face with the upper part sloping more strongly than the lower ^1', 'Enlarged canine teeth ^1', 'Red coloring that is “redder” in deeper water ^1'],
     sz: 'May reach 40 in and 50 lb. ^1',
     where: ['Adults live on the bottom near hard structure on the continental shelf (coral and artificial reefs, rocks, ledges, caves) at about 30–620 ft. ^1', 'Juveniles live in shallow water over sandy or muddy bottoms. ^1'],
@@ -742,7 +742,7 @@
     src: [['url', 'https://www.fisheries.noaa.gov/species/red-snapper', 'Red Snapper', 'NOAA Fisheries'], ['tmf', 'red-snapper', 'Red Snapper']] });
 
   A({ id: 'gray-snapper', n: 'Gray (Mangrove) Snapper', sci: 'Lutjanus griseus', w: 's', r: 'se3 sc2', al: ['mangrove snapper', 'mangrove', 'mango snapper', 'grey snapper'],
-    art: { t: 'snapper', dep: .95, back: '#5a5e48', side: '#9a8a6a', belly: '#e0d4bc', fin: '#8a7a5a', m: [{ k: 'spots', n: 28, r: [.9, 1.3], c: '#c8683a', o: .6, y: [-.5, .4], x: [.25, .85] }] },
+    art: { t: 'snapper', dep: .95, back: '#5a5848', side: '#9a8a68', belly: '#e0d4bc', fin: '#8a7a5a', m: [{ k: 'stripes', n: 4, gap: 2, fr: -.35, dash: [1, 2], c: '#d0683a', o: .9, x: [.25, .88] }, { k: 'eyestripe', c: '#2a2418', o: .8 }] },
     idm: ['A slender body, large mouth and pointed snout ^1', 'Gray to green with a reddish tinge, with rows of small reddish to orange spots ^1', 'Young fish show a dark stripe from the snout through the eye ^1'],
     sz: 'Rarely exceeds 18 in or 10 lb. ^1',
     bait: 'Shrimp, crabs, cut bait, squid, live bait, jigs, spoons and flies. ^1',
@@ -753,7 +753,7 @@
     src: [['tmf', 'mangrove-snapper', 'Mangrove Snapper']] });
 
   A({ id: 'mahi-mahi', n: 'Mahi-Mahi (Dolphinfish)', sci: 'Coryphaena hippurus', w: 's', r: 'se3 sc2 ne2 ca1', al: ['dolphin', 'dorado', 'dolphinfish', 'mahi', 'dolphin fish'],
-    art: { t: 'mahi', dep: 1.0, back: '#2a7a8a', side: '#c8c040', belly: '#f2ecc0', fin: '#5aa0a8', m: [{ k: 'spots', n: 14, r: [1.2, 2], c: '#2a6a8a', o: .45, y: [-.3, .3], x: [.3, .85] }] },
+    art: { t: 'mahi', dep: 1, back: '#1e8a8c', side: '#d8c83a', belly: '#f2ecc0', fin: '#2a96a0', U: [4, 14, 18.5, 19, 17, 14.5, 11, 7.5, 5], m: [{ k: 'spots', n: 14, sz: 1.3, r: [1.2, 2], c: '#1a64a0', o: .8, y: [-.5, .3], x: [.25, .85], gap: 4 }] },
     idm: ['A distinctive shape and colors; iridescent blue or blue-green back, gold flanks and a silvery white or yellow belly when alive ^1', 'Males have a high, vertical forehead; females have a rounded one ^1'],
     bait: 'Flying fish, mullet, ballyhoo, squid and strip baits; plugs and spoons. Live bait works well. ^1',
     tech: ['Trolling surface baits, drift fishing, jigging, casting and live-bait fishing. ^1'],
@@ -763,7 +763,7 @@
     src: [['tmf', 'dolphinfish', 'Dolphinfish']] });
 
   A({ id: 'yellowfin-tuna', n: 'Yellowfin Tuna', sci: 'Thunnus albacares', w: 's', r: 'se2 sc2 ne2 ca1', al: ['yellowfin', 'ahi', 'tuna'],
-    art: { t: 'tuna', dep: 1.0, back: '#1e2a4a', side: '#b8c0c8', belly: '#eeeeea', fin: '#d8c030', m: [{ k: 'band', y: [-.32, -.22], x: [.14, .94], c: '#e8d030', o: .75 }] },
+    art: { t: 'tuna', dep: 1, lets: '#e8d030', back: '#1c2a52', side: '#b4bec8', belly: '#eeeeea', fin: '#d8c030', fins: [[.30, .44, 'sp', 11, 'u', '#c8b438'], [.52, .62, 'sail', 17, 'u'], [.64, .88, 'lets', 4.5, 'u'], [.54, .64, 'sail', 14, 'd'], [.68, .88, 'lets', 4.5, 'd']], m: [{ k: 'band', y: [-.3, -.18], x: [.14, .94], c: '#e8d030', o: .9 }] },
     idm: ['Blue-black back fading to silver below ^1', 'A golden-yellow or iridescent blue stripe from the eye to the tail ^1', 'Fins are golden yellow and the finlets black-edged; large fish have elongated dorsal and anal fins ^1'],
     bait: 'Cut bait, live bait, squid, small fish, strip baits, plugs and spoons. ^1',
     tech: ['Drift fishing, jigging, trolling with small fish, squid or artificial lures, and chumming with live bait. ^1'],
@@ -773,7 +773,7 @@
     src: [['tmf', 'yellowfin-tuna', 'Yellowfin Tuna']] });
 
   A({ id: 'false-albacore', n: 'False Albacore (Little Tunny)', sci: 'Euthynnus alletteratus', w: 's', r: 'se3 ne3 sc1', al: ['little tunny', 'albie', 'albies', 'bonito', 'fat albert'],
-    art: { t: 'tuna', dep: .95, back: '#2a4a6a', side: '#a8b8c4', belly: '#f0f0ee', fin: '#6a7a8a', m: [{ k: 'worms', n: 22, c: '#1c2a3a', o: .6, y: [-.95, -.35], x: [.3, .92] }, { k: 'spots', n: 4, r: [1.6, 2.2], c: '#1c2a3a', o: .7, y: [.15, .3], x: [.3, .45] }] },
+    art: { t: 'tuna', dep: .92, back: '#27486a', side: '#a8b8c4', belly: '#f0f0ee', fin: '#5c6a7a', fins: [[.30, .48, 'sp', 10, 'u'], [.52, .60, 'soft', 8, 'u'], [.62, .86, 'lets', 4.5, 'u'], [.54, .62, 'soft', 8, 'd'], [.66, .86, 'lets', 4.5, 'd']], m: [{ k: 'worms', n: 22, c: '#142234', o: .9, y: [-.95, -.4], x: [.3, .92] }, { k: 'blot', x: .33, y: .25, w: 2, h: 2, c: '#14202e' }, { k: 'blot', x: .42, y: .3, w: 2, h: 2, c: '#14202e' }] },
     idm: ['A scatter of dark spots resembling fingerprints between the pectoral and ventral fins ^1', 'Wavy, worm-like markings on the back ^1'],
     bait: 'Cut bait, jigs, live bait, spoons, trolling lures, flies, plugs, shrimp and squid. ^1',
     tech: ['Drift fishing, chumming, still fishing, trolling, fly fishing, casting and jigging. ^1'],
@@ -783,7 +783,7 @@
     src: [['tmf', 'little-tunny', 'Little Tunny']] });
 
   A({ id: 'atlantic-croaker', n: 'Atlantic Croaker', sci: 'Micropogonias undulatus', w: 's', r: 'se3 sc3 ne2', al: ['croaker', 'hardhead', 'croakers'],
-    art: { t: 'drum', dep: .9, back: '#7a6a52', side: '#b8a88a', belly: '#eee8d8', fin: '#9a8a6a', m: [{ k: 'stripe', ys: [-.7, -.5, -.3, -.1], x: [.25, .9], w: 1.6, c: '#6a5a3a', o: .35, dash: '5 3' }] },
+    art: { t: 'drum', tt: 'notch', tn: .12, dep: .9, chinBarbels: 4, mouthL: .7, back: '#7a6a50', side: '#bcac88', belly: '#efe9d8', fin: '#9a8a6a', m: [{ k: 'stripes', n: 3, gap: 2, fr: -.6, dash: [2, 2], c: '#6a5a3a', o: .6, x: [.25, .9] }] },
     idm: ['Three to five pairs of small barbels on the chin ^1', 'Brown to olive vertical stripes on the sides ^1'],
     sz: 'Average about 12 in and 2 lb; up to about 4 lb. ^1',
     bait: 'Shrimp, clams and squid; jigs and spoons. ^1',
@@ -795,7 +795,7 @@
     src: [['tmf', 'atlantic-croaker', 'Atlantic Croaker']] });
   /* ---------- Pacific saltwater ---------- */
   A({ id: 'pacific-halibut', n: 'Pacific Halibut', sci: 'Hippoglossus stenolepis', w: 's', r: 'ak3 pn3 ca1', al: ['halibut', 'barn door', 'chicken halibut'],
-    art: { t: 'flat', dep: 1.1, back: '#4a4034', side: '#6a5a46', belly: '#e8e4d4', fin: '#5a4c3c', m: [{ k: 'spots', n: 18, r: [2, 4], c: '#a89a7a', o: .45, y: [-.7, .5], x: [.2, .9] }] },
+    art: { t: 'flat', tt: 'notch', tn: .1, dep: 1.05, mouthL: 1.5, back: '#4e4636', side: '#665a46', belly: '#e6e2d2', fin: '#5a4c3c', U: [1.5, 10, 20, 26, 28, 26, 19, 10, 5.5], D: [1.5, 10, 20, 26, 28, 26, 19, 10, 5.5], m: [{ k: 'spots', n: 16, sz: 1.6, r: [2, 4], c: '#a89a7a', o: .55, y: [-.7, .5], x: [.2, .9], gap: 3 }] },
     idm: ['Eyes almost always on the right side of the body ^2', 'Eyed side is greenish-brown to dark brown with lighter blotches; blind side white ^1,2', 'A large, stout but flat, diamond-shaped body ^2'],
     lk: [['California Halibut', 'Found mainly south of San Francisco, and nearly half have both eyes on the right side. ^3']],
     sz: 'Females exceed 470 lb and reach 9 ft; males typically don’t exceed 40 lb or 55 in. Oregon says the average is about 40 lb. ^1,2',
@@ -807,7 +807,7 @@
     src: [['tmf', 'pacific-halibut', 'Pacific Halibut'], ['or', 'pacific-halibut', 'Pacific Halibut Fishing'], ['tmf', 'california-halibut', 'California Halibut']] });
 
   A({ id: 'lingcod', n: 'Lingcod', sci: 'Ophiodon elongatus', w: 's', r: 'pn3 ca3 ak2', al: ['ling', 'ling cod', 'buckethead'],
-    art: { t: 'ling', dep: 1.0, back: '#4a5a44', side: '#7a8a64', belly: '#dcdcc4', fin: '#6a7a58', m: [{ k: 'spots', n: 44, r: [1.8, 3.4], c: '#3a3a28', o: .5, y: [-.9, .35] }] },
+    art: { t: 'ling', dep: 1, mouthL: 1.15, back: '#3f5a48', side: '#7c8e6c', belly: '#d8dcc2', fin: '#6a7a5c', m: [{ k: 'spots', n: 40, sz: 1.6, r: [1.8, 3.4], c: '#4a3a20', o: .6, y: [-.9, .4], gap: 3 }, { k: 'spots', n: 18, sz: 1.2, r: [1, 2], c: '#dcdcb8', o: .7, y: [-.8, .3], gap: 3 }] },
     idm: ['An elongated body with a large mouth and sharp, canine-like teeth ^1,2', 'Mottled gray or brown, sometimes green or blue (can look like almost any shade) ^1,2', 'Large mouth slightly upturned, with a protruding lower jaw ^1'],
     sz: 'Can reach 5 ft; Oregon catches are typically 2–3 ft. ^2',
     bait: 'Crabs, cut bait, jigs and live bait; they are voracious feeders on flounders, hake, herring, rockfish and cod. ^1,2',
@@ -818,7 +818,7 @@
     src: [['tmf', 'lingcod', 'Lingcod'], ['or', 'lingcod', 'Lingcod Fishing']] });
 
   A({ id: 'california-halibut', n: 'California Halibut', sci: 'Paralichthys californicus', w: 's', r: 'ca3', al: ['halibut', 'cali halibut', 'flatfish', 'flattie'],
-    art: { t: 'flat', dep: 1.0, back: '#7a6e50', side: '#8a7e5c', belly: '#e8e2cc', fin: '#7a6e50', m: [{ k: 'spots', n: 14, r: [2, 3.4], c: '#3a3020', o: .4, y: [-.6, .5], x: [.2, .9] }] },
+    art: { t: 'flat', tt: 'notch', tn: .1, dep: 1, mouthL: 1.4, back: '#8a7e5c', side: '#8a7e5c', belly: '#e8e2cc', fin: '#7a6e50', m: [{ k: 'spots', n: 12, sz: 1.5, r: [1.8, 3], c: '#3a3020', o: .5, y: [-.6, .5], x: [.2, .9], gap: 3 }, { k: 'spots', n: 12, sz: 1.2, r: [1.2, 2], c: '#f0e8cc', o: .7, y: [-.6, .5], x: [.2, .9], gap: 3 }] },
     idm: ['The largest, most abundant flatfish within its range (south of San Francisco) ^1', 'Brownish eyed side with a white blind side; nearly half the fish have both eyes on the right side ^1'],
     sz: 'Up to 60 lb and 5 ft; females grow larger than males. ^1',
     bait: 'Live anchovies, shrimp, queenfish, clams, cut bait, crabs, squid and jigs. ^1',
@@ -829,7 +829,7 @@
     src: [['tmf', 'california-halibut', 'California Halibut']] });
 
   A({ id: 'white-seabass', n: 'White Seabass', sci: 'Atractoscion nobilis', w: 's', r: 'ca3', al: ['seabass', 'sea bass', 'ws', 'white sea bass'],
-    art: { t: 'snook', dep: 1.0, back: '#4a5e70', side: '#a8b4bc', belly: '#f0eee6', fin: '#7a8a96', m: [{ k: 'dot', x: .38, y: .02, r: 1.8, c: '#101010', o: .85 }] },
+    art: { t: 'walleye', dep: .95, eyeR: .75, back: '#4a6072', side: '#a8b6bc', belly: '#f0eee6', fin: '#7a8a96', m: [{ k: 'blot', x: .27, y: .15, w: 2, h: 2, c: '#101010' }, { k: 'bars', at: [.34, .44, .54, .64], w: 2, c: '#3a4a58', o: .25, y: [-.9, .1] }] },
     idm: ['Steel blue to gray above with golden highlights, silvery below ^1', 'A raised ridge along the belly and a black spot at the base of the pectoral fin ^1'],
     sz: 'Can reach nearly 100 lb; typical catches are 10–25 lb. ^1',
     bait: 'Live sardines, anchovies, squid and small mackerel; also cut bait, spoons, jigs and soft plastics. ^1',
@@ -841,7 +841,7 @@
     src: [['tmf', 'white-seabass', 'White Seabass']] });
 
   A({ id: 'california-yellowtail', n: 'California Yellowtail', sci: 'Seriola dorsalis', w: 's', r: 'ca3', al: ['yellowtail', 'yellows', 'yt'],
-    art: { t: 'jack', dep: .95, back: '#2e5e6e', side: '#a8b4b0', belly: '#f2f2ec', fin: '#e8c030', m: [{ k: 'band', y: [-.12, -.02], x: [.14, .94], c: '#c8a030', o: .85 }] },
+    art: { t: 'jack', dep: .95, back: '#2e6070', side: '#a8b6b2', belly: '#f2f2ec', fin: '#d8b030', fins: [[.30, .38, 'sp', 8, 'u', '#8a9a60'], [.42, .72, 'soft', 9, 'u', '#c8b040'], [.52, .72, 'soft', 9, 'd', '#c8b040']], m: [{ k: 'band', y: [-.18, -.04], x: [.14, .96], c: '#d8a82c', o: .95 }, { k: 'eyestripe', c: '#2a3a40', o: .7 }] },
     idm: ['A bright yellow tail ^1', 'A brass-colored stripe along the midline of the flanks from snout to tail ^1'],
     bait: 'Live bait, cut bait, crabs, shrimp, squid, jigs, spoons and flies. ^1',
     tech: ['Drift fishing, chumming, still fishing, jigging, fly fishing, surf casting and spin casting. ^1'],
@@ -852,7 +852,7 @@
     src: [['tmf', 'california-yellowtail', 'California Yellowtail']] });
 
   A({ id: 'kelp-bass', n: 'Kelp Bass (Calico Bass)', sci: 'Paralabrax clathratus', w: 's', r: 'ca3', al: ['calico bass', 'calico', 'calicos', 'kelpie'],
-    art: { t: 'seabass', dep: 1.05, back: '#5a5e32', side: '#8a8a52', belly: '#d8d4b0', fin: '#6a6a3a', m: [{ k: 'spots', n: 12, r: [3, 5], c: '#e0dcc0', o: .5, y: [-.9, -.1], x: [.25, .85] }] },
+    art: { t: 'seabass', dep: 1.05, back: '#58602e', side: '#8a9050', belly: '#d6d2ac', fin: '#6c6c3a', m: [{ k: 'spots', n: 22, sz: 1.2, r: [1, 2], c: '#dcd8b8', o: .65, y: [-.9, .2], x: [.2, .9], gap: 3 }, { k: 'blot', x: .34, y: -.7, w: 4, h: 2, c: '#e4e0c4', o: .85 }, { k: 'blot', x: .52, y: -.7, w: 4, h: 2, c: '#e4e0c4', o: .85 }, { k: 'blot', x: .7, y: -.7, w: 4, h: 2, c: '#e4e0c4', o: .85 }] },
     idm: ['Brown to olive green with pale blotches on the back, lighter below ^1', 'The third, fourth and fifth dorsal spines are about the same length (unlike sand bass) ^1'],
     bait: 'Live bait, squid, crabs, jigs, spoons, plugs, soft plastics and cut bait. A favorite rig is a metal jig with whole squid. ^1',
     tech: ['Drift fishing, bait casting, spin casting, bottom bouncing, still fishing and jigging. ^1'],

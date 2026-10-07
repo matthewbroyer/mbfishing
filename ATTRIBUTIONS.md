@@ -44,7 +44,7 @@ Rules for adding or editing a species: only cite a page you actually read, tie e
 - **Fonts:** none loaded. The app uses the system font stack of the visitor's device.
 - **Icons in the interface:** emoji, drawn by the visitor's own device font. No icon library.
 - **App icon** (`icon-192.png`, `icon-512.png`): created for this project. No stock or third-party artwork.
-- **Fish drawings** (`fish-art.js`): original illustrations drawn in code for this project. They are simplified, not photos.
+- **Fish drawings** (`fish-art.js`): original 8-bit pixel-art illustrations drawn in code for this project. They are simplified, not photos.
 - **Photos:** only the visitor's own, stored on their device.
 - **Music, video, stock images:** none.
 
