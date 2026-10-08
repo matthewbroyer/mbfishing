@@ -94,7 +94,53 @@
       ' shape-rendering="crispEdges">' + body + '</svg>';
   }
 
+  /* Shape mode (turtles, birds, mammals, crabs...): spec.sh is a list of ops painted in order on the same grid, then outlined.
+       ['e', cx, cy, rx, ry, colour]   filled ellipse (cx, cy, rx, ry in grid units; pixel corners)
+       ['r', x, y, w, h, colour]       rectangle
+       ['p', [[x, y], ...], colour]    filled polygon
+       ['l', x0, y0, x1, y1, colour]   one-pixel line
+       ['px', [[x, y], ...], colour]   single pixels
+       ['c', x, y, w, h]               clear a rectangle (carve a shape)
+     A trailing flag: 'on' paints only pixels that already have colour (shading, markings); 'post' draws after the outline (thin details).
+     spec.flip mirrors left-right; spec.ink sets the outline colour. */
+  function renderSh(spec) {
+    var G = new Array(W * H), ink = spec.ink || '#1b2028', i, j, post = [];
+    function put(x, y, c, on) { x = Math.round(x); y = Math.round(y); if (x < 0 || x >= W || y < 0 || y >= H) return; if (on && G[y * W + x] == null) return; G[y * W + x] = c; }
+    function ln(x0, y0, x1, y1, c, on) {
+      x0 = Math.round(x0); y0 = Math.round(y0); x1 = Math.round(x1); y1 = Math.round(y1);
+      var dx = Math.abs(x1 - x0), dy = -Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1, er = dx + dy, e2;
+      for (;;) { put(x0, y0, c, on); if (x0 === x1 && y0 === y1) break; e2 = 2 * er; if (e2 >= dy) { er += dy; x0 += sx; } if (e2 <= dx) { er += dx; y0 += sy; } }
+    }
+    function run(o, late) {
+      var k = o[0], flag = o[o.length - 1], on = flag === 'on', isPost = flag === 'post';
+      if (isPost !== late) return;
+      var y, x;
+      if (k === 'e') { for (y = Math.floor(o[2] - o[4]); y <= Math.ceil(o[2] + o[4]); y++) for (x = Math.floor(o[1] - o[3]); x <= Math.ceil(o[1] + o[3]); x++) { var dx = (x + .5 - o[1]) / o[3], dy = (y + .5 - o[2]) / o[4]; if (dx * dx + dy * dy <= 1) put(x, y, o[5], on); } }
+      else if (k === 'r') { for (y = o[2]; y < o[2] + o[4]; y++) for (x = o[1]; x < o[1] + o[3]; x++) put(x, y, o[5], on); }
+      else if (k === 'p') {
+        var pts = o[1], c = o[2], ys = pts.map(function (p) { return p[1]; }), y0 = Math.floor(Math.min.apply(null, ys)), y1 = Math.ceil(Math.max.apply(null, ys));
+        for (y = y0; y < y1; y++) {
+          var xs = [], yc = y + .5;
+          for (i = 0; i < pts.length; i++) { var a = pts[i], b = pts[(i + 1) % pts.length]; if ((a[1] <= yc && b[1] > yc) || (b[1] <= yc && a[1] > yc)) xs.push(a[0] + (yc - a[1]) / (b[1] - a[1]) * (b[0] - a[0])); }
+          xs.sort(function (m, n) { return m - n; });
+          for (i = 0; i + 1 < xs.length; i += 2) for (x = Math.ceil(xs[i] - .5); x < xs[i + 1] - .5 + 1e-9; x++) put(x, y, c, on);
+        }
+      }
+      else if (k === 'c') { for (y = o[2]; y < o[2] + o[4]; y++) for (x = o[1]; x < o[1] + o[3]; x++) if (x >= 0 && x < W && y >= 0 && y < H) G[y * W + x] = null; }
+      else if (k === 'l') ln(o[1], o[2], o[3], o[4], o[5], on);
+      else if (k === 'px') o[1].forEach(function (p) { put(p[0], p[1], o[2], on); });
+    }
+    (spec.sh || []).forEach(function (o) { run(o, false); });
+    var O = [], fill = function (x, y) { return x >= 0 && x < W && y >= 0 && y < H && G[y * W + x] != null; };
+    for (j = 0; j < H; j++) for (i = 0; i < W; i++) if (G[j * W + i] == null && (fill(i - 1, j) || fill(i + 1, j) || fill(i, j - 1) || fill(i, j + 1))) O.push([i, j]);
+    O.forEach(function (p) { G[p[1] * W + p[0]] = ink; });
+    (spec.sh || []).forEach(function (o) { run(o, true); });
+    if (spec.flip) for (j = 0; j < H; j++) for (i = 0; i < W >> 1; i++) { var t = G[j * W + i]; G[j * W + i] = G[j * W + W - 1 - i]; G[j * W + W - 1 - i] = t; }
+    return G;
+  }
+
   function render(spec) {
+    if (spec.sh) return renderSh(spec);
     var tp = T[spec.t] || T.bass, rnd = rng(spec.s || spec.t || 'x'), dep = spec.dep || 1;
     var G = new Array(W * H), BODY = new Array(W * H), TAILM = new Array(W * H), FINM = new Array(W * H);
     var back = spec.back || '#5b6b3a', side = spec.side || shade(back, .35), belly = spec.belly || '#efecd8', fin = spec.fin || shade(back, .15);
