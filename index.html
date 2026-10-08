@@ -2,11 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-ww8HgiossRUAB0DCs27nomU/PJZY+U39zo0BbvptuqQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-zQBs5/ey4FsydbRhIQioGCRkprpWsqOzcvRNfoqZc5Y='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Fishing | Log</title>
 <meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
 <meta name="theme-color" content="#566f08">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fishing">
+<meta property="og:title" content="Fishing: log a fish with one tap">
+<meta property="og:description" content="No account. Your catches are saved in your browser, not on a server.">
+<meta property="og:url" content="https://mbfishing.online/">
+<meta property="og:image" content="https://mbfishing.online/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pixel-art fish swimming under the word FISHING">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fishing: log a fish with one tap">
+<meta name="twitter:description" content="No account. Your catches are saved in your browser, not on a server.">
+<meta name="twitter:image" content="https://mbfishing.online/og-image.png">
 <script>var __t="light";try{if(localStorage.getItem("mbfishing.theme")==="dark")__t="dark"}catch(e){}document.documentElement.setAttribute("data-theme",__t)</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -558,7 +572,7 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
 <body>
 <a class="skip" href="#main" data-act="skip">Skip to content</a>
 <header id="top">
-  <h1><img class="logo" src="favicon.svg" alt="" width="24" height="24">mbfishing<span>.online</span></h1>
+  <h1><img class="logo" src="favicon.svg" alt="" width="32" height="32">mbfishing<span>.online</span></h1>
   <div class="hdr-tools">
     <button id="pill" data-act="go" data-v="log" hidden></button>
     <button class="ib" id="search-btn" data-act="gs-open" aria-label="Search everything"><span aria-hidden="true">🔍</span><span class="lbl">Search everything</span><kbd>/</kbd></button>
@@ -597,7 +611,7 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
   <section id="v-more" class="view" hidden></section>
 </main>
 <nav id="nav" aria-label="Main">
-  <div class="brand"><img class="logo" src="favicon.svg" alt="" width="24" height="24">mbfishing<span>.online</span></div>
+  <div class="brand"><img class="logo" src="favicon.svg" alt="" width="32" height="32">mbfishing<span>.online</span></div>
   <button data-act="go" data-v="log" aria-current="page"><span class="ic">🎣</span>Log</button>
   <button data-act="go" data-v="catches"><span class="ic">🐟</span>Catches</button>
   <button data-act="go" data-v="map"><span class="ic">🗺️</span>Map</button>
@@ -619,6 +633,7 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
 <input type="file" id="gal" accept="image/*" multiple hidden>
 <input type="file" id="imp" accept=".json,.zip,.gpx,application/json,application/zip,application/gpx+xml,text/xml" hidden>
 <noscript><p style="padding:20px">mbfishing.online needs JavaScript turned on.</p></noscript>
+<script src="pixel-kit.js"></script>
 <script src="fish-art.js"></script>
 <script src="species-data.js"></script>
 <script>
@@ -2105,24 +2120,61 @@ CHG['f-sort']=el=>{V.sort=el.value;updateFilterChip();renderCatchList()};
 async function shareTrip(id){
   const t=tripById(id);if(!t)return;
   const cs=catchesOf(id),best=bestOf(cs),lure=(sortedGroups(group(cs.filter(c=>c.lure),c=>c.lure))[0]||[])[0];
-  const lost=(t.lost||[]).length,spc=new Set(cs.map(c=>c.species)).size;
+  const lost=(t.lost||[]).length,sp=sortedGroups(group(cs,c=>nm(c))),PK=window.PixelKit,FA=window.FishArt;
   toast(busy('Making your card…'),[],4000);
-  const W=1080,c=document.createElement('canvas');c.width=W;c.height=W;const g=c.getContext('2d');
-  const grd=g.createLinearGradient(0,0,0,W);grd.addColorStop(0,'#566f08');grd.addColorStop(1,'#2b3704');g.fillStyle=grd;g.fillRect(0,0,W,W);
-  const X=60,Y=60,PW=960,PHt=500;
-  g.save();g.beginPath();g.moveTo(X+36,Y);g.arcTo(X+PW,Y,X+PW,Y+PHt,36);g.arcTo(X+PW,Y+PHt,X,Y+PHt,36);g.arcTo(X,Y+PHt,X,Y,36);g.arcTo(X,Y,X+PW,Y,36);g.closePath();g.clip();
+  const W=1080,c=document.createElement('canvas');c.width=W;c.height=W;const g=c.getContext('2d');g.imageSmoothingEnabled=false;
+  const R=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(x,y,w,h)};
+  /* 8-bit water: flat bands, a few bubbles */
+  const BAND=['#2f86b0','#2a78a0','#256a90','#205c80','#1b4e70','#164260','#123650'];
+  for(let y=0,i=0;y<W;y+=60,i++)R(0,y,W,60,BAND[Math.min(i,6)]);
+  [[40,700,12],[1030,600,12],[1010,640,8],[70,880,8],[540,990,8],[980,860,12]].forEach(b=>R(b[0],b[1],b[2],b[2],'#a8dcf0'));
+  const artFor=name=>{const s=window.SPECIES&&guideFor(name);return FA.grid(Object.assign({s:s?s.id:'fish'},s?s.art:{t:'bass',back:'#4a6a5a',side:'#9ab0a0',belly:'#eef0e8',fin:'#6a8a7a'}))};
+  const fish=(gr,x,y,sc,flip)=>{g.save();if(flip){g.translate(x+gr.w*sc,y);g.scale(-1,1);PK.sprite(g,gr,0,0,sc)}else PK.sprite(g,gr,x,y,sc);g.restore()};
+  const T=(txt,x,y,s,col,al,maxW)=>{while(maxW&&s>1&&PK.width(txt,s)>maxW)s--;PK.text(g,txt,x+s,y+s,s,'rgba(0,0,0,.5)',al);PK.text(g,txt,x,y,s,col,al);return s};
+  /* top panel: your best photo, or a little scene with your top fish */
+  const X=60,Y=60,PW=960,PHt=420;
   let drew=false;const pc=[best,...cs].find(x=>x&&x.photos&&x.photos[0]);
-  if(pc){try{const r=await PH.get(pc.photos[0]);if(r){const b=await createImageBitmap(r.blob),s=Math.max(PW/b.width,PHt/b.height),w=b.width*s,h=b.height*s;g.drawImage(b,X+(PW-w)/2,Y+(PHt-h)/2,w,h);drew=true;if(b.close)b.close()}}catch(e){}}
-  if(!drew){g.fillStyle='rgba(255,255,255,.1)';g.fillRect(X,Y,PW,PHt);g.font='200px system-ui,sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillStyle='#fff';g.fillText('🎣',W/2,Y+PHt/2)}
+  g.save();g.beginPath();g.rect(X,Y,PW,PHt);g.clip();
+  if(pc){try{const r=await PH.get(pc.photos[0]);if(r){const b=await createImageBitmap(r.blob),s=Math.max(PW/b.width,PHt/b.height),w=b.width*s,h=b.height*s;g.imageSmoothingEnabled=true;g.drawImage(b,X+(PW-w)/2,Y+(PHt-h)/2,w,h);g.imageSmoothingEnabled=false;drew=true;if(b.close)b.close()}}catch(e){}}
+  if(!drew){
+    const SC=['#6fb8d8','#3a96c0','#2f86b0','#2a78a0','#256a90','#205c80','#1b4e70'];
+    for(let y=0,i=0;y<PHt;y+=60,i++)R(X,Y+y,PW,60,SC[Math.min(i,6)]);
+    for(let x=0;x<PW;x+=24)R(X+x,Y+((x/24)%2?0:12),24,12,'#a8dcf0');
+    [[120,200,12],[160,150,8],[820,160,12],[860,300,8],[500,330,8]].forEach(b=>R(X+b[0],Y+b[1],b[2],b[2],'#a8dcf0'));
+    if(sp.length&&FA&&PK){const gr=artFor(sp[0][0]);fish(gr,X+(PW-gr.w*9)/2,Y+(PHt-gr.h*9)/2+10,9,false)}
+    else T('NO CATCHES YET',X+PW/2,Y+PHt/2-20,6,'#ffffff','center');
+  }
   g.restore();
-  g.textAlign='left';g.textBaseline='alphabetic';g.fillStyle='#fff';
-  const line=(txt,size,weight,y,alpha=1)=>{let s=size;g.globalAlpha=alpha;do{g.font=`${weight} ${s}px system-ui,-apple-system,Segoe UI,sans-serif`;s-=2}while(g.measureText(txt).width>PW&&s>20);g.fillText(txt,X,y);g.globalAlpha=1};
-  line(fmtDateY(t.start),36,600,Y+PHt+68,.8);
-  line(`${cs.length} fish${spc>1?` · ${spc} species`:''}`,96,800,Y+PHt+170);
-  if(best)line(`🏆 ${nm(best)}${sizeStr(best)?' · '+sizeStr(best):''}`,44,700,Y+PHt+240);
-  const bits=[t.manual?'':'⏱ '+fmtDur(tripDur(t)),lure?'🪝 '+lure:'',lost?`💨 ${lost} got away`:''].filter(Boolean).join('   ');
-  if(bits)line(bits,38,500,Y+PHt+300,.9);
-  line('mbfishing.online',40,800,1020,.95);
+  /* chunky frame */
+  R(X-8,Y-8,PW+16,8,'#0c2030');R(X-8,Y+PHt,PW+16,8,'#0c2030');R(X-8,Y,8,PHt,'#0c2030');R(X+PW,Y,8,PHt,'#0c2030');
+  /* the count */
+  let y=Y+PHt+34;
+  const nf=cs.length;
+  const w1=T(`${nf} FISH`,X,y,12,'#ffffff','left',PW),sw=PK.width(`${nf} FISH`,w1);
+  if(sp.length>1)T(`${sp.length} SPECIES`,X+PW,y+34,5,'#f2b640','right',PW-sw-40);
+  y+=7*12+34;
+  /* species tally: art and how many of each */
+  if(sp.length===1&&!drew){T(`×${sp[0][1].length}  ${sp[0][0]}`,X+PW/2,y,6,'#ffffff','center',PW);y+=42+40}
+  else if(sp.length&&FA&&PK){
+    const shown=sp.length>4?sp.slice(0,3):sp,more=sp.length>4?sp.length-3:0,n=shown.length+(more?1:0),sc=n<=3?4:3,cw=PW/n;
+    shown.forEach(([name,list],i)=>{
+      const gr=artFor(name),cx=X+cw*i+cw/2;
+      fish(gr,cx-gr.w*sc/2,y,sc,i%2===1);
+      T(`×${list.length}`,cx,y+gr.h*sc+6,5,'#ffffff','center');
+      T(name,cx,y+gr.h*sc+50,2,'#cfe8f5','center',cw-12);
+    });
+    if(more){const cx=X+cw*shown.length+cw/2;T(`+${more}`,cx,y+gr0(sc)/2-20,6,'#f2b640','center');T('MORE SPECIES',cx,y+gr0(sc)+50,2,'#cfe8f5','center',cw-12)}
+    y+=30*sc+76;
+  }
+  function gr0(sc){return 30*sc}
+  /* best catch, weather, trip bits */
+  if(best){T(`BEST: ${nm(best)}${sizeStr(best)?' '+sizeStr(best):''}`,X,y,4,'#f2b640','left',PW);y+=28+22}
+  const wxs=wxText(t.weather),wi=PK&&PK.wxIcon(t.weather);
+  if(wxs){let x0=X;if(wi)x0+=PK.icon(g,wi,X,y-4,4)+16;T(wxs,x0,y,4,'#ffffff','left',PW-(x0-X));y+=28+22}
+  const bits=[t.manual?'':fmtDur(tripDur(t)),lure||'',lost?`${lost} got away`:''].filter(Boolean).join('  ·  ');
+  if(bits){T(bits,X,y,3,'#cfe8f5','left',PW);y+=21+20}
+  T(fmtDateY(t.start),X,1030,3,'#cfe8f5','left');
+  T('MBFISHING.ONLINE',X+PW,1022,4,'#ffffff','right');
   const blob=await new Promise(r=>c.toBlob(r,'image/png'));
   const file=new File([blob],`mbfishing-trip_${ymd(t.start)}.png`,{type:'image/png'});
   hideToast();
@@ -2500,9 +2552,10 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.7.1';
+const APP_VERSION='1.8.0';
 const RELEASES=[
- {v:'1.7.1',d:'October 2026',n:['Species drawings are now 8-bit pixel art, with colors and markings corrected for many fish','Species tips are easier to read: the [1] [2] markers are gone (the numbered source list is still at the bottom of each page)']},
+ {v:'1.8.0',d:'October 2026',n:['New 8-bit logo and app icon','Share trip card is now pixel art: your fish and how many of each, the totals, and a short weather line','Link previews (Messages, Slack, social) show a new pixel-art image']},
+ {v:'1.7.1',d:'October 2026',n:['Species drawings are now 8-bit pixel art, with colors and markings corrected for many fish','New 8-bit app icon and favicon (reinstall the app to the home screen to see the new icon)','Species tips are easier to read: the [1] [2] markers are gone (the numbered source list is still at the bottom of each page)']},
  {v:'1.7.0',d:'October 2026',n:['Now called Fishing: the installed app name and every browser tab read “Fishing | page name”','New Species page: 74 North American freshwater and saltwater fish with ID tips, how to catch them, and numbered source links','Pick your region (More → Settings, or when you first open the app) and Log shows the fish caught where you fish','Drawings are simplified illustrations, not photos, and the guide works offline']},
  {v:'1.6.0',d:'October 2026',n:['New look: a compact, desktop-style layout with square panels, a chartreuse accent and almost no animation','Choose where backups go: every export now asks where to save, or pick a backup folder once and it’s remembered','Save backup now writes your data as JSON (the file to restore from), with an optional CSV copy for spreadsheets','A “Backed up last” line sits above the backup buttons and shows when, what and where','Opens in light mode every time; dark mode is remembered only if you pick it','Import opens at your backup folder']},
  {v:'1.5.0',d:'October 2026',n:['Privacy and Terms pages, linked from More','Safer imports: backup, ZIP and GPX files are checked before anything is saved','Keyboard and screen-reader fixes: skip link, dialogs keep focus, clearer headings','Less precise locations sent for weather and place search, and map code now loads from this site']},
@@ -2554,7 +2607,7 @@ const FAQ=[
   {id:'folder',q:'Can I choose where backups are saved?',a:'<ul><li><b>Chrome or Edge on a computer:</b> More → <b>Choose folder…</b> once. After that, <b>Save backup now</b> writes straight into it. Every other export asks where to save and opens there. The browser only tells the app the folder’s <i>name</i>, never its full path, and may ask you to allow saving there again after you reopen the app.</li><li>Chrome won’t accept Documents, Desktop or Downloads themselves. Make a folder inside one and pick that.</li><li><b>Firefox, Safari and phones</b> can’t remember a folder, so backups go to the Downloads folder.</li></ul>'},
   {id:'privacy',q:'What leaves my device?',a:'<p>Only these, and only when you use them. Each one also sees your IP address:</p><ul><li><b>Place search</b> sends what you type, plus a rough area (about 11 km), to Photon, a free OpenStreetMap service.</li><li><b>Weather</b> sends your location, rounded to about 1 km, to Open-Meteo when a trip starts. Turn it off in More → Settings.</li><li><b>The map</b> loads map tiles from OpenFreeMap. They see the area you’re viewing.</li><li><b>Directions</b> opens Google Maps with that spot’s location, only when you tap it.</li><li><b>Species guide source links</b> open other websites only when you tap one. The guide itself loads from this site and works offline.</li></ul><p>Your catches, photos and notes never leave. The app has no account, no analytics, no ads and sets no cookies. Whoever hosts this site may keep ordinary server logs.</p><p><a class="btn sm" href="privacy.html" target="_blank" rel="noopener">Read the full privacy page</a></p>'},
   {id:'rules',q:'Does it tell me what’s legal to keep?',a:'<p>No. It only records what you enter. Check your state’s fishing rules for licenses, size and bag limits, seasons and closed waters. Ask permission before fishing on private property.</p>'},
-  {id:'share',q:'Can I share a trip without giving away my spot?',a:'<p>Yes. Open a trip and tap <b>Share trip card</b>. The image has your best photo, the totals and the date. It has no spot name and no location.</p>'},
+  {id:'share',q:'Can I share a trip without giving away my spot?',a:'<p>Yes. Open a trip and tap <b>Share trip card</b>. The image has your best photo, pixel art of the fish you caught with a count for each, the totals, the date and a short weather line. It has no spot name and no location.</p>'},
   {id:'sync',q:'Can I use it on my phone and my computer?',a:'<p>Yes, but nothing syncs automatically. Export a backup on one device and import it on the other. Importing merges, so it’s safe to do more than once.</p>'}]},
  {sec:'Location and map problems',items:[
   {id:'loc',q:'Why isn’t my location working?',a:'<ul><li>The site must load over <b>https</b>. A file opened straight from your computer usually blocks location.</li><li>Click the 🔒 icon next to the address bar and allow <b>Location</b>.</li><li>On Windows, check Settings → Privacy → Location.</li></ul><p>Computers have no GPS, so they only get a rough guess from Wi-Fi or IP. You can always <b>search for a place</b> instead.</p>'},

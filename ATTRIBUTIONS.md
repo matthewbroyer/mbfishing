@@ -53,3 +53,5 @@ Rules for adding or editing a species: only cite a page you actually read, tie e
 - **Open-Meteo is free for non-commercial use only.** If the app ever gets ads or a paid plan, buy their commercial plan or switch weather providers first.
 - **Photon's public server is a fair-use demo.** If traffic grows, run your own Photon instance or use another geocoder.
 - **Name and domain:** "mbfishing.online" was not checked against trademark registries. Run a search (USPTO TESS/trademark search and a general web search for "mbfishing") before building a brand around it.
+- **Logo, icons and OG image** (`favicon.svg`, `icon-*.png`, `apple-touch-icon.png`, `og-image.png`): original 8-bit pixel art made for this project.
+- **Pixel font and weather icons** (`pixel-kit.js`): a 5x7 bitmap font and small icons drawn in code for the share card.

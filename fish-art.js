@@ -86,8 +86,9 @@
   function draw(spec, opt) {
     opt = opt || {};
     var key = JSON.stringify(spec);
-    var body = cache[key];
-    if (!body) { body = cache[key] = render(spec); }
+    var e = cache[key] || (cache[key] = {});
+    if (!e.g) e.g = render(spec);
+    var body = e.s || (e.s = toSvg(e.g));
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" class="' + (opt.cls || 'fish-svg') + '"' +
       (opt.label ? ' role="img" aria-label="' + String(opt.label).replace(/[<>"&]/g, '') + '"' : ' aria-hidden="true" focusable="false"') +
       ' shape-rendering="crispEdges">' + body + '</svg>';
@@ -412,8 +413,12 @@
     post.forEach(function (fn) { fn(); });
 
 
-    /* to SVG: horizontal runs, one path per colour */
-    var byCol = {};
+    return G;
+  }
+
+  /* grid -> SVG runs, one path per colour */
+  function toSvg(G) {
+    var byCol = {}, y, xx;
     for (y = 0; y < H; y++) {
       var run = null;
       for (xx = 0; xx <= W; xx++) {
@@ -424,6 +429,12 @@
     }
     return Object.keys(byCol).map(function (cc) { return '<path fill="' + cc + '" d="' + byCol[cc].join('') + '"/>'; }).join('');
   }
+  /* the raw pixel grid (for drawing onto a canvas): { w, h, g } where g[y * w + x] is a colour or null */
+  function grid(spec) {
+    var key = JSON.stringify(spec), e = cache[key] || (cache[key] = {});
+    if (!e.g) e.g = render(spec);
+    return { w: W, h: H, g: e.g };
+  }
 
-  root.FishArt = { draw: draw, templates: Object.keys(T) };
+  root.FishArt = { draw: draw, grid: grid, templates: Object.keys(T) };
 })(typeof window !== 'undefined' ? window : this);
