@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-bLROpOrZCDL+JOo3mE2UfO3Dtb0HoLrLHHqszc68vjg='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-iFIk3DgtNjaMxbfZzjQlEMnKLvpKEWPWUFqloKZjRzA='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Fishing | Log</title>
 <meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
@@ -583,12 +583,18 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
 .fc-strip{display:flex;align-items:flex-end;gap:2px;height:84px;margin-top:8px}
 .fc-strip i,.fc-key i{flex:1;min-width:0;border-radius:3px 3px 0 0;background:var(--line-strong)}
 .fc-strip i.t1,.fc-key i.t1{background:var(--gold)}.fc-strip i.t2,.fc-key i.t2{background:var(--good)}.fc-strip i.t3,.fc-key i.t3{background:var(--accent)}
-.fc-strip i.now{outline:2px solid var(--ink);outline-offset:1px}
 .fc-ticks{position:relative;height:18px;margin-top:4px;font-size:11px;color:var(--muted)}
 .fc-ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
 .fc-key{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
 .fc-key span{display:inline-flex;align-items:center;gap:5px}
 .fc-key i{flex:none;width:12px;height:12px;border-radius:3px}
+.fc-tip{margin-top:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);min-height:84px;display:flex;flex-direction:column;gap:2px}
+.fc-tip-h{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fc-up{color:var(--accent);font-weight:700}.fc-dn{color:var(--danger);font-weight:700}
+.fc-strip{touch-action:pan-y;cursor:crosshair;outline-offset:3px}
+.fc-strip i.sel{outline:2px solid var(--ink);outline-offset:1px;filter:brightness(1.08)}
+.fc-tide{display:block;width:100%;height:30px;margin-top:3px}.fc-tide path{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.fc-key i.tide{background:var(--accent-soft);border:1.5px solid var(--accent);border-radius:3px}
 .fc-win{list-style:none;margin:6px 0;padding:0}
 .fc-win li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
 .fc-warn{margin:12px 0 0;padding:12px 14px;border-radius:12px;border:1.5px solid var(--danger);background:var(--surface2);font-weight:600}
@@ -1611,7 +1617,46 @@ ACT['lost-add']=()=>{
   toast(`💨 Got away: ${t.lost.length} this trip`,[{label:'Undo',fn:()=>{t.lost.pop();save();refresh()}}],3500);
 };
 
-/* ---------- bite forecast: an estimate from weather, light and moon (no tides, no water data) ---------- */
+/* ---------- tides: worked out on the device from open harmonic data ---------- */
+/* tide-data.js (stations) and tide-engine.js (calculator) load only the first time Salt is used */
+let tideLoading=null;
+function tideLoad(){
+  if(window.TIDE_DB&&window.TidePredictor)return Promise.resolve();
+  return tideLoading||(tideLoading=Promise.all([window.TIDE_DB?0:loadJS('tide-data.js'),window.TidePredictor?0:loadJS('tide-engine.js')]).then(()=>{}).catch(e=>{tideLoading=null;throw e}));
+}
+/* nearest station, up to maxKm away */
+function tideNear(lat,lng,maxKm=80){
+  const S=window.TIDE_DB.s;let bi=-1,bd=maxKm*1000;
+  for(let i=0;i<S.length;i++){const r=S[i];if(Math.abs(r[2]-lat)>1.5)continue;const d=dist(lat,lng,r[2],r[3]);if(d<bd){bd=d;bi=i}}
+  return bi<0?null:{i:bi,name:S[bi][1],km:bd/1000,sub:typeof S[bi][5]!=='string',src:window.TIDE_DB.src[S[bi][S[bi].length-1]]};
+}
+/* high and low tides between two times: [{t (ms), hi (bool), v (relative level, m), h (m above chart datum, or null)}]. Heights are only given for reference stations */
+function tideExtremes(i,start,end){
+  const S=window.TIDE_DB.s,row=S[i],sub=typeof row[5]!=='string',ref=sub?S[row[4]]:row,
+    cs=ref[5].split('|').map(x=>{const p=x.split(':');return{name:p[0],amplitude:+p[1],phase:+p[2]}}),
+    pad=sub?4*36e5:0,
+    ex=window.TidePredictor(cs).getExtremesPrediction({start:new Date(start-pad),end:new Date(end+pad)}),
+    o=ref[4];
+  const out=ex.map(e=>{
+    const hi=!!e.high;
+    if(!sub)return{t:+e.time,hi,v:e.level,h:o==null?null:e.level+o};
+    const k=hi?row[7]:row[8];
+    return{t:+e.time+(hi?row[5]:row[6])*6e4,hi,v:row[9]?e.level*k:e.level,h:null};
+  }).sort((a,b)=>a.t-b.t);
+  /* keep strictly alternating highs and lows */
+  const r=[];for(const e of out){const l=r[r.length-1];if(l&&l.hi===e.hi){if(e.hi===(e.v>l.v))r[r.length-1]=e;continue}r.push(e)}
+  return r;
+}
+/* where the tide is at time t, from the neighbouring highs and lows */
+function tideAt(ex,t){
+  for(let i=0;i<ex.length-1;i++){
+    const a=ex[i],b=ex[i+1];
+    if(t>=a.t&&t<b.t){const f=(t-a.t)/(b.t-a.t);return{rate:Math.sin(Math.PI*f),rising:!a.hi,f,prev:a,next:b,range:Math.abs(b.v-a.v),v:a.v+(b.v-a.v)*(1-Math.cos(Math.PI*f))/2}}
+  }
+  return null;
+}
+
+/* ---------- bite forecast: an estimate from weather, light and moon (tides on salt water; no water temperature or clarity) ---------- */
 const FC_KEY='mbfishing.water',FC_N=['Poor','Fair','Good','Great'];
 const fcTier=s=>s>=72?3:s>=58?2:s>=42?1:0;
 const fcWater=()=>{try{return localStorage.getItem(FC_KEY)==='s'?'s':'f'}catch(e){return'f'}};
@@ -1636,8 +1681,8 @@ function sunEvents(ms,lat,lng){
 }
 
 /* one hour's score, 0-100, plus the reasons behind it. h = that hour's weather, p = the weather 3 hours earlier */
-function fcScore(h,p,ev,water){
-  const salt=water==='s',why=[];let s=40;
+function fcScore(h,p,ev,water,td){
+  const salt=water==='s',why=[];let s=40,dp=null;
   const add=(d,t)=>{s+=d;if(d)why.push([t,d])};
   const t=h.t,fin=Number.isFinite;
   /* light: dawn and dusk are the classic bite times */
@@ -1651,7 +1696,7 @@ function fcScore(h,p,ev,water){
   }
   /* pressure trend over 3 hours, in hPa */
   if(fin(h.pres)&&p&&fin(p.pres)){
-    const d=h.pres-p.pres;
+    const d=h.pres-p.pres;dp=d;
     if(d<-6)add(-12,'pressure dropping fast');
     else if(d<-3)add(-5,'pressure falling quickly');
     else if(d<=-0.5)add(8,'pressure slowly falling');
@@ -1688,11 +1733,18 @@ function fcScore(h,p,ev,water){
       else if(x<35)add(-14,'freezing');else if(x<45)add(-6,'cold');else if((x>=45&&x<55)||(x>75&&x<=85))add(1,'');
     }
   }
+  /* tide (salt water): moving water bites better than slack, and matters less where the tide barely moves */
+  if(salt&&td){
+    const k=Math.max(0,Math.min(1,(td.range-0.2)/0.8));
+    if(td.rate>=0.7)add(Math.round(8*k),'strong tide flow');
+    else if(td.rate>=0.4)add(Math.round(4*k),'tide moving');
+    else if(td.rate<0.2)add(-Math.round(6*k),'slack tide');
+  }
   /* moon: new and full moons get a small bump, a bit more on the coast */
   const mi=moon(t).i;
   if(mi===0||mi===4)add(salt?5:3,mi?'full moon':'new moon');
   s=Math.max(0,Math.min(100,Math.round(s)));
-  return{s,tier:fcTier(s),why,storm};
+  return{s,tier:fcTier(s),why,storm,dp,td:td||null};
 }
 
 /* Fresh or salt: hourly rows from the current hour on, up to 48 */
@@ -1701,7 +1753,8 @@ function fcCalc(water,now=Date.now()){
   const H=FC.hrs,ev=sunEvents(now,FC.lat,FC.lng),out=[];
   for(let i=3;i<H.length;i++){
     if(H[i].t+36e5<=now)continue;
-    out.push(Object.assign({t:H[i].t,h:H[i]},fcScore(H[i],H[i-3],ev,water)));
+    const td=water==='s'&&FC.tide&&FC.tide.ex?tideAt(FC.tide.ex,H[i].t+18e5):null;
+    out.push(Object.assign({t:H[i].t,h:H[i]},fcScore(H[i],H[i-3],ev,water,td)));
     if(out.length>=48)break;
   }
   return out;
@@ -1756,15 +1809,65 @@ function fcCard(){
   const runs=fcRuns(rows),r0=rows[0];
   return`<button class="card fc-card" data-act="fc-open"><span class="fc-pill t${r0.tier}">${FC_N[r0.tier]}</span><span class="grow"><b>Bite forecast · ${w==='s'?'Salt water':'Fresh water'}</b><br><span class="muted sm">${esc(fcLine(rows,runs))}</span></span><span class="muted" aria-hidden="true">›</span></button>`;
 }
+let fcSel=0;
+const fcHt=m=>{if(m==null)return'';const v=(U()?m:m*3.28084).toFixed(1);return(v==='-0.0'?'0.0':v)+(U()?' m':' ft')};
+const fcDist=km=>{const v=Math.round(U()?km:km*0.621371);return v<1?'under 1 '+(U()?'km':'mi'):v+(U()?' km':' mi')};
+/* what one hour looks like: shown when you hover, tap or arrow across the chart */
+function fcPanel(r){
+  const h=r.h,bits=[];
+  if(h.tempF!=null)bits.push(U()?`${Math.round((h.tempF-32)*5/9)}°C`:`${Math.round(h.tempF)}°F`);
+  bits.push(r.storm?'Thunderstorms':h.precip>=2.5?'Heavy rain':h.precip>=0.1?'Light rain':CLOUD(h.cloud));
+  if(h.windMph!=null)bits.push('wind '+(U()?`${Math.round(h.windMph*1.609)} km/h`:`${Math.round(h.windMph)} mph`));
+  if(r.dp!=null)bits.push('pressure '+(Math.abs(r.dp)<=0.5?'steady':r.dp<0?(r.dp<-3?'falling fast':'falling slowly'):(r.dp>2?'rising fast':'rising slowly')));
+  const up=r.why.filter(x=>x[1]>=3&&x[0]).sort((a,b)=>b[1]-a[1]).map(x=>x[0]),dn=r.why.filter(x=>x[1]<=-3&&x[0]).sort((a,b)=>a[1]-b[1]).map(x=>x[0]);
+  const td=r.td,tide=td?`${td.rising?'Rising':'Falling'} tide${td.rate<0.2?', near slack':''}. Next ${td.next.hi?'high':'low'} at ${fmtTime(td.next.t)}.`:'';
+  return`<div class="fc-tip-h"><b>${esc(fcDay(r.t))} · ${esc(fcHr(r.t))}</b><span class="fc-pill sm t${r.tier}">${FC_N[r.tier]}</span></div>
+    <div class="muted sm">${esc(bits.filter(Boolean).join(' · '))}</div>
+    ${tide?`<div class="sm">🌊 ${esc(tide)}</div>`:''}
+    <div class="sm">${up.length?`<span class="fc-up">Helping:</span> ${esc(up.join(', '))}. `:''}${dn.length?`<span class="fc-dn">Hurting:</span> ${esc(dn.join(', '))}.`:''}${!up.length&&!dn.length?'<span class="muted">Nothing stands out either way.</span>':''}</div>`;
+}
+function fcWire(rows){
+  const st=$('#sheet-root .fc-strip'),tip=$('#sheet-root .fc-tip');if(!st||!tip)return;
+  const bars=[...st.children];let sel=Math.max(0,Math.min(fcSel,rows.length-1));
+  const show=i=>{bars.forEach((b,j)=>b.classList.toggle('sel',j===i));tip.innerHTML=fcPanel(rows[i])};
+  const at=e=>{const r=st.getBoundingClientRect();return Math.max(0,Math.min(rows.length-1,Math.floor((e.clientX-r.left)/r.width*rows.length)))};
+  st.addEventListener('pointermove',e=>show(at(e)));
+  st.addEventListener('pointerdown',e=>{sel=fcSel=at(e);show(sel)});
+  st.addEventListener('pointerup',e=>{sel=fcSel=at(e);show(sel)});
+  st.addEventListener('pointerleave',()=>show(sel));
+  st.addEventListener('keydown',e=>{
+    const k=e.key,n=rows.length;
+    const j=k==='ArrowRight'||k==='ArrowUp'?Math.min(n-1,sel+1):k==='ArrowLeft'||k==='ArrowDown'?Math.max(0,sel-1):k==='Home'?0:k==='End'?n-1:k==='PageDown'?Math.min(n-1,sel+6):k==='PageUp'?Math.max(0,sel-6):-1;
+    if(j<0)return;e.preventDefault();sel=fcSel=j;show(sel);
+  });
+  show(sel);
+}
+/* the tide section under the chart (salt water only) */
+function fcTideBlock(rows){
+  const T=FC.tide;
+  if(!T||T.loading)return`<p class="fc-note">${busy('Loading tides…')}</p>`;
+  if(T.err)return`<p class="fc-note">Tide data didn’t load, so tides aren’t counted. Check your connection and tap Refresh.</p>`;
+  if(!T.st)return`<p class="fc-note">No tide station within ${U()?'80 km':'50 miles'} of here, so tides aren’t counted.</p>`;
+  const now=Date.now(),next=T.ex.filter(e=>e.t+36e5>now).slice(0,4);
+  return`<div class="eyebrow" style="margin-top:16px">Tides</div>
+    <p class="muted sm" style="margin:2px 0 0">${esc(T.st.name)} · ${fcDist(T.st.km)} away${T.st.sub?' · heights not shown here, times are estimated':''}</p>
+    ${next.length?`<ul class="fc-win">${next.map(e=>`<li><span><b>${e.hi?'High':'Low'}</b> · ${esc(fcDay(e.t))} ${esc(fmtTime(e.t))}</span><span class="muted">${esc(fcHt(e.h))}</span></li>`).join('')}</ul>`:''}`;
+}
+function fcTideSvg(rows){
+  const T=FC.tide;if(!T||!T.ex)return'';
+  const v=rows.map(r=>r.td?r.td.v:null);if(v.some(x=>x==null))return'';
+  const lo=Math.min(...v),hi=Math.max(...v),n=v.length,y=x=>hi===lo?10:19-(x-lo)/(hi-lo)*17;
+  return`<svg class="fc-tide" viewBox="0 0 ${n} 20" preserveAspectRatio="none" aria-hidden="true"><path d="M0,20 ${v.map((x,i)=>`L${i+.5},${y(x).toFixed(1)}`).join(' ')} L${n},20Z"/></svg>`;
+}
 function fcDraw(refocus){
   const w=fcWater(),rows=fcCalc(w);
   if(rows.length<6)return fcBody(`<p>Couldn’t read the forecast. Check your connection and try again.</p><button class="btn block" data-act="fc-open">Try again</button>`);
-  const runs=fcRuns(rows),r0=rows[0],storm=rows.slice(0,12).find(r=>r.storm);
+  const runs=fcRuns(rows),r0=rows[0],storm=rows.slice(0,12).find(r=>r.storm),salt=w==='s',tideOn=salt&&FC.tide&&FC.tide.ex;
   const up=r0.why.filter(x=>x[1]>=4&&x[0]).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]),
         dn=r0.why.filter(x=>x[1]<=-4&&x[0]).sort((a,b)=>a[1]-b[1]).slice(0,3).map(x=>x[0]);
   const why=[up.length?`Helping: ${up.join(', ')}.`:'',dn.length?`Hurting: ${dn.join(', ')}.`:''].filter(Boolean).join(' ');
   const n=rows.length,
-    bars=rows.map((r,i)=>`<i class="t${r.tier}${i===0?' now':''}" style="height:${14+r.s*.86}%"></i>`).join(''),
+    bars=rows.map(r=>`<i class="t${r.tier}" style="height:${14+r.s*.86}%"></i>`).join(''),
     ticks=rows.map((r,i)=>{const d=new Date(r.t),hh=d.getHours();
       if(i===0)return`<span style="left:${.5/n*100}%;transform:none">Now</span>`;
       if(i<3||hh%6)return'';
@@ -1772,27 +1875,40 @@ function fcDraw(refocus){
   const wins=runs.slice(0,5).map(x=>`<li><span><b>${fcDay(x.t0)}</b> · ${fcRange(x)}</span><span class="fc-pill sm t${x.tier}">${FC_N[x.tier]}</span></li>`).join('');
   const b=fcBody(`
     <p class="muted sm" style="margin:0 0 10px">📍 ${esc(FC.name)} · loaded ${esc(fmtTime(FC.t))}</p>
-    <div class="seg" role="group" aria-label="Water type"><button data-act="fc-mode" data-v="f" aria-pressed="${w==='f'}">🏞️ Fresh water</button><button data-act="fc-mode" data-v="s" aria-pressed="${w==='s'}">🌊 Salt water</button></div>
+    <div class="seg" role="group" aria-label="Water type"><button data-act="fc-mode" data-v="f" aria-pressed="${w==='f'}">🏞️ Fresh water</button><button data-act="fc-mode" data-v="s" aria-pressed="${salt}">🌊 Salt water</button></div>
     ${storm?`<div class="fc-warn" role="alert">⚡ Thunderstorms possible around ${esc(fcHr(storm.t))}. Stay off the water and get clear of open areas.</div>`:''}
     <div class="fc-now t${r0.tier}"><div><div class="eyebrow">Bite right now</div><div class="fc-big">${FC_N[r0.tier]}</div></div><div class="muted sm" style="text-align:right;max-width:55%">${esc(wxText(r0.h))}</div></div>
     <p class="fc-line"><b>${esc(fcLine(rows,runs))}</b></p>
     ${why?`<p class="muted sm">${esc(why)}</p>`:''}
     <div class="eyebrow" style="margin-top:16px">Next ${n} hours</div>
-    <div class="fc-strip" role="img" aria-label="Hourly bite rating. The best windows are listed below.">${bars}</div>
+    <div class="fc-tip" aria-live="polite"></div>
+    <div class="fc-strip" tabindex="0" role="group" aria-label="Hourly bite rating. Hover, tap, or use the arrow keys to read each hour.">${bars}</div>
+    ${tideOn?fcTideSvg(rows):''}
     <div class="fc-ticks" aria-hidden="true">${ticks}</div>
-    <div class="fc-key muted sm"><span><i class="t0"></i>Poor</span><span><i class="t1"></i>Fair</span><span><i class="t2"></i>Good</span><span><i class="t3"></i>Great</span></div>
+    <div class="fc-key muted sm"><span><i class="t0"></i>Poor</span><span><i class="t1"></i>Fair</span><span><i class="t2"></i>Good</span><span><i class="t3"></i>Great</span>${tideOn?'<span><i class="tide"></i>Tide level</span>':''}</div>
     <div class="eyebrow" style="margin-top:16px">Best windows</div>
     ${wins?`<ul class="fc-win">${wins}</ul>`:'<p class="muted sm">None in the next 2 days.</p>'}
-    ${w==='s'?'<p class="fc-note">Tides aren’t included. On the coast, moving water usually fishes better, so check a local tide chart too.</p>':''}
-    <p class="fc-note">An estimate, not a promise. It only knows the weather, daylight and moon. It can’t see water temperature, clarity or what the fish are eating, and the science behind pressure and moon effects is mixed.</p>
+    ${salt?fcTideBlock(rows):''}
+    <p class="fc-note">An estimate, not a promise. It knows the weather, daylight, moon${salt?' and tides':''}. It can’t see water temperature, clarity or what the fish are eating, and the science behind pressure and moon effects is mixed.${salt&&tideOn?' Tides are predictions, not for navigation, and don’t include storm surge or wind.':''}</p>
     <details class="fc-how"><summary>How it’s worked out</summary>
       <p>Each hour starts from a baseline, then gains or loses points for:</p>
-      <ul><li><b>Daylight:</b> the biggest boost is within an hour of sunrise or sunset. Bright midday and night lose points.</li><li><b>Air pressure:</b> slowly falling or steady is best. Fast drops or fast rises lose points.</li><li><b>Sky:</b> clouds help a little, a bright clear sky doesn’t.</li><li><b>Wind:</b> a light breeze is best. Strong wind loses a lot, a bit less so on salt water.</li><li><b>Rain:</b> light rain is fine, heavy rain isn’t. Thunderstorms are rated Poor.</li><li><b>Air temperature:</b> a comfortable range scores best. Salt water forgives more.</li><li><b>Moon:</b> new and full moons add a little, a bit more on salt water.</li></ul>
-      <p>Good is 58 points or more, Great is 72 or more. Sunrise and sunset are worked out on your device. The forecast comes from Open-Meteo using your location rounded to about 1 km.</p>
+      <ul><li><b>Daylight:</b> the biggest boost is within an hour of sunrise or sunset. Bright midday and night lose points.</li><li><b>Air pressure:</b> slowly falling or steady is best. Fast drops or fast rises lose points.</li><li><b>Sky:</b> clouds help a little, a bright clear sky doesn’t.</li><li><b>Wind:</b> a light breeze is best. Strong wind loses a lot, a bit less so on salt water.</li><li><b>Rain:</b> light rain is fine, heavy rain isn’t. Thunderstorms are rated Poor.</li><li><b>Air temperature:</b> a comfortable range scores best. Salt water forgives more.</li><li><b>Moon:</b> new and full moons add a little, a bit more on salt water.</li><li><b>Tides (salt water):</b> moving water scores best and slack tide loses points. It counts for less where the tide barely moves.</li></ul>
+      <p>Good is 58 points or more, Great is 72 or more. Sunrise, sunset and tides are worked out on your device. Only the weather forecast comes from Open-Meteo, using your location rounded to about 1 km.</p>
     </details>
     <button class="btn block" data-act="fc-reload" style="margin-top:12px">Refresh forecast</button>`);
-  if(refocus&&b){const a=b.querySelector('[data-act="fc-mode"][aria-pressed="true"]');if(a)a.focus()}
+  if(b){fcWire(rows);if(refocus){const a=b.querySelector('[data-act="fc-mode"][aria-pressed="true"]');if(a)a.focus()}}
   return b;
+}
+/* tide step: find the nearest station and work out the highs and lows (loads the tide files the first time) */
+async function fcTide(){
+  if(!FC||FC.tide)return;
+  const f=FC;f.tide={loading:true};
+  try{
+    await tideLoad();
+    const st=tideNear(f.lat,f.lng,80);
+    if(!st){f.tide={st:null};return}
+    const now=Date.now();f.tide={st,ex:tideExtremes(st.i,now-30*36e5,now+90*36e5)};
+  }catch(e){f.tide={err:true}}
 }
 async function fcLoad(force){
   if(fcBusy)return;
@@ -1804,13 +1920,18 @@ async function fcLoad(force){
     if(!pl)return fcBody(`<p>No place to forecast for yet.</p><p class="muted sm">${esc(posErr?posMsg():'Allow location, or save a fishing spot, then try again.')}</p><button class="btn block" data-act="fc-open">Try again</button>`);
     const hrs=await fcFetch(pl);
     if(!hrs)return fcBody(`<p>Couldn’t load the forecast. Check your connection and try again.</p><button class="btn block" data-act="fc-open">Try again</button>`);
-    FC={lat:pl.lat,lng:pl.lng,name:pl.name,t:Date.now(),hrs};
+    FC={lat:pl.lat,lng:pl.lng,name:pl.name,t:Date.now(),hrs};fcSel=0;
+    if(fcWater()==='s')await fcTide();
     fcDraw();
   }finally{fcBusy=false}
 }
 ACT['fc-open']=()=>{openSheet('Bite forecast','<p class="muted">'+busy('Getting the forecast…')+'</p>',{onClose:()=>{if(typeof refresh==='function')refresh()}});fcLoad(false)};
 ACT['fc-reload']=()=>fcLoad(true);
-ACT['fc-mode']=el=>{try{localStorage.setItem(FC_KEY,el.dataset.v==='s'?'s':'f')}catch(e){}fcDraw(true)};
+ACT['fc-mode']=el=>{
+  try{localStorage.setItem(FC_KEY,el.dataset.v==='s'?'s':'f')}catch(e){}
+  fcDraw(true);
+  if(el.dataset.v==='s'&&FC&&!FC.tide)fcTide().then(()=>{if(fcWater()==='s'&&$('#sheet-root .fc-strip'))fcDraw()});
+};
 
 /* ---------- input checks: stop typos before they reach your stats ---------- */
 function sizeIssue(lenS,wtS){
@@ -2800,8 +2921,9 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.10.0';
+const APP_VERSION='1.11.0';
 const RELEASES=[
+ {v:'1.11.0',d:'October 2026',n:['Bite forecast now includes tides for salt water: next highs and lows, a tide line under the chart, and moving water scores better than slack','Hover (or tap, or use the arrow keys) over any bar in the forecast chart to read what that hour looks like','New logo and app icons with the fish exactly centered']},
  {v:'1.10.0',d:'October 2026',n:['New bite forecast on the Log screen: a Poor to Great rating for right now and the next 48 hours, with the next good window, for fresh or salt water','It’s an estimate from weather, daylight and the moon. It doesn’t include tides or water conditions. The forecast loads only when you tap it']},
  {v:'1.9.0',d:'October 2026',n:['Search on the Log screen now finds any species in the guide, even if it isn’t in your region or list','56 new species: 24 more fish plus turtles, snakes, frogs, birds, otters, crabs and other wildlife you might see on the water. Fish still come first','Every species page now has the same sections and source links, and many older pages gained size, range and season info','The Species page shows how many species you’ve logged']},
  {v:'1.8.0',d:'October 2026',n:['New 8-bit logo and app icon','Share trip card is now pixel art: your fish and how many of each, the totals, and a short weather line','Link previews (Messages, Slack, social) show a new pixel-art image']},
@@ -2850,7 +2972,7 @@ const FAQ=[
   {id:'trips',q:'What’s a trip?',a:'<ul><li><b>Start:</b> tap <b>Start a trip</b>, or log a fish and one starts by itself.</li><li><b>Saved with it:</b> start time, your location (if allowed), weather (if on in More → Settings) and moon.</li><li><b>End:</b> tap <b>End trip</b>. A trip with no activity for 12 hours ends on its own.</li></ul>'},
   {id:'gotaway',q:'What does 💨 Got away do?',a:'<p>It counts a bite that didn’t make it to the net, saved with your current lure. Stats → What works compares landed vs. got away for each lure. It’s only as accurate as your taps.</p>'},
   {id:'fav',q:'How do favorites work?',a:'<p>Tap ☆ on any catch. Filter with <b>⭐ Favorites</b> in Catches and on the Map. Your latest favorites also show on Stats.</p>'},
-  {id:'bite',q:'How does the bite forecast work?',a:'<ul><li><b>What it is:</b> tap <b>Bite forecast</b> on Log for a Poor, Fair, Good or Great rating for right now and each hour of the next 48, plus the next good window. Switch between fresh and salt water at the top.</li><li><b>What it uses:</b> the hourly weather forecast, sunrise and sunset, and the moon phase. Dawn and dusk, steady or slowly falling pressure, a light breeze and mild temperatures score best.</li><li><b>What it can’t know:</b> tides, water temperature and clarity, or what the fish are eating. Treat it as a nudge, not a promise. The evidence for pressure and moon effects on fishing is mixed.</li><li><b>Privacy:</b> the forecast loads only when you open it, and sends your location rounded to about 1 km to Open-Meteo. Nothing is saved to your log. Turn weather off in More → Settings to block it.</li></ul>'},
+  {id:'bite',q:'How does the bite forecast work?',a:'<ul><li><b>What it is:</b> tap <b>Bite forecast</b> on Log for a Poor, Fair, Good or Great rating for right now and each hour of the next 48, plus the next good window. Switch between fresh and salt water at the top.</li><li><b>What it uses:</b> the hourly weather forecast, sunrise and sunset, and the moon phase. Dawn and dusk, steady or slowly falling pressure, a light breeze and mild temperatures score best.</li><li><b>Tides:</b> on salt water it also finds the nearest tide station (within about 50 miles) and counts moving water as better than slack tide. Tides are worked out on your device from station data that ships with the app, so nothing extra is sent. The tide files load the first time you tap Salt.</li><li><b>Each hour:</b> hover, tap or use the arrow keys on the chart to read what any hour looks like.</li><li><b>What it can’t know:</b> water temperature and clarity, or what the fish are eating. Treat it as a nudge, not a promise. The evidence for pressure and moon effects on fishing is mixed.</li><li><b>Privacy:</b> only the weather forecast is requested, and only when you open it. It sends your location rounded to about 1 km to Open-Meteo. Nothing is saved to your log. Turn weather off in More → Settings to block it.</li></ul>'},
   {id:'moon',q:'Why does it show the moon phase?',a:'<p>Each trip saves the moon phase for its start time, worked out on your device. Nothing is sent anywhere. Stats → What works compares it with your catches once you have enough trips with weather.</p>'}]},
  {sec:'Where your data goes',items:[
   {id:'where',q:'Where is my data stored?',a:'<p>Only in this browser on this device: entries in local storage, photos in the browser’s database. There is no account and no server copy. Clear this site’s data, or switch browsers or devices, and it’s gone. Back up regularly.</p>'},

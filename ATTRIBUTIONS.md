@@ -29,6 +29,7 @@ None of these use accounts or API keys. None are called until the person uses th
 - Map tiles: © OpenFreeMap, © OpenMapTiles. Both are credited in the map's attribution control and in `privacy.html#credits`.
 - Weather: "Weather data by Open-Meteo.com", CC BY 4.0. Credited in `privacy.html#credits` and in the More tab footer.
 - Place search: Photon, with OpenStreetMap data. Credited in `privacy.html#credits`.
+- Tides (`tide-data.js`, `tide-engine.js`): worked out on the device, no outside request. Built from `@neaps/tide-database` (MIT) and `@neaps/tide-predictor` (MIT, bundled with esbuild). Station sources kept: NOAA CO-OPS (public domain), Kartverket (CC BY 4.0), Canadian Hydrographic Service (MIT), TICON-4 (CC BY 4.0, Hart-Davis, Dettmering, Seitz 2025, doi:10.17882/109129, modified). TICON-4 stations marked CC BY-NC (about 280) were left out on purpose, so the data is fine for a site with donations or ads. Credited in `privacy.html#credits`. Not for navigation.
 
 ## Species guide content (`species-data.js`)
 
