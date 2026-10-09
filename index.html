@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-MdSFBB6W7h9DsoyAWTAU+BJrMFntAuEnBlvHPNEyzwA='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-VE6aR92AGtLrHkpTxQljloGncKT+kF/9TaM76NTctEY='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Fishing | Log</title>
 <meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
-<meta name="theme-color" content="#566f08">
+<meta name="theme-color" content="#0a3148">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fishing">
 <meta property="og:title" content="Fishing: log a fish with one tap">
@@ -31,8 +31,8 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 /* Utility theme tokens: neutral desktop-software palette, one chartreuse-olive accent. The app opens in light mode; dark applies only when you pick it. */
-:root{--bg:#f3f4f6;--surface:#fff;--surface2:#f6f7f9;--surface3:#eceef2;--ink:#1b1f24;--ink-2:#48505c;--muted:#5f6773;--line:#dfe2e7;--line-strong:#c6cbd3;--accent:#566f08;--accent-hover:#445a05;--accent-ink:#fff;--accent-soft:rgba(86,111,8,.10);--accent-line:rgba(86,111,8,.38);--gold:#b87900;--gold-ink:#7a5200;--gold-soft:#fbeecb;--good:#16a34a;--danger:#b3321f;--danger-ink:#fff;--shadow:0 1px 2px rgba(20,24,31,.06);--shadow-pop:0 8px 24px -6px rgba(20,24,31,.22),0 1px 3px rgba(20,24,31,.08);color-scheme:light}
-:root[data-theme="dark"]{--bg:#16181c;--surface:#1e2126;--surface2:#25292f;--surface3:#2d3238;--ink:#e9ecf0;--ink-2:#b4bbc5;--muted:#8e97a3;--line:#30353c;--line-strong:#434a53;--accent:#b5d33d;--accent-hover:#c6e062;--accent-ink:#1a2203;--accent-soft:rgba(181,211,61,.13);--accent-line:rgba(181,211,61,.45);--gold:#f2b632;--gold-ink:#f2b632;--gold-soft:#3b2f0f;--good:#22c55e;--danger:#ff806b;--danger-ink:#1a0905;--shadow:0 1px 2px rgba(0,0,0,.3);--shadow-pop:0 10px 28px -6px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.03);color-scheme:dark}
+:root{--bg:#f3f4f6;--surface:#fff;--surface2:#f6f7f9;--surface3:#eceef2;--ink:#1b1f24;--ink-2:#48505c;--muted:#5f6773;--line:#dfe2e7;--line-strong:#c6cbd3;--accent:#0b6b8a;--accent-hover:#08566f;--accent-ink:#fff;--accent-soft:rgba(11,107,138,.10);--accent-line:rgba(11,107,138,.38);--gold:#b87900;--gold-ink:#7a5200;--gold-soft:#fbeecb;--good:#16a34a;--danger:#b3321f;--danger-ink:#fff;--shadow:0 1px 2px rgba(20,24,31,.06);--shadow-pop:0 8px 24px -6px rgba(20,24,31,.22),0 1px 3px rgba(20,24,31,.08);color-scheme:light}
+:root[data-theme="dark"]{--bg:#16181c;--surface:#1e2126;--surface2:#25292f;--surface3:#2d3238;--ink:#e9ecf0;--ink-2:#b4bbc5;--muted:#8e97a3;--line:#30353c;--line-strong:#434a53;--accent:#5cc6e4;--accent-hover:#8ad8ee;--accent-ink:#06222e;--accent-soft:rgba(92,198,228,.13);--accent-line:rgba(92,198,228,.45);--gold:#f2b632;--gold-ink:#f2b632;--gold-soft:#3b2f0f;--good:#22c55e;--danger:#ff806b;--danger-ink:#1a0905;--shadow:0 1px 2px rgba(0,0,0,.3);--shadow-pop:0 10px 28px -6px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.03);color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html,body{height:100%}
@@ -227,7 +227,7 @@ summary{cursor:pointer;font-weight:650;padding:10px 0;color:var(--muted)}
 .pop img{width:100%;max-height:130px;object-fit:cover;border-radius:8px;margin:6px 0}
 .pop .btns{display:flex;gap:6px;margin-top:8px}
 .pop button,.pop a{flex:1;text-align:center;min-height:44px;border-radius:10px;border:1.5px solid #cfd8dc;background:#fff;color:#13222c;font-weight:700;font-size:14px;text-decoration:none;display:grid;place-items:center}
-.pop button.p{background:#566f08;border-color:#566f08;color:#fff}
+.pop button.p{background:#0b6b8a;border-color:#0b6b8a;color:#fff}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
 /* place search */
@@ -421,7 +421,7 @@ a:not(.btn):not(.skip){color:var(--accent);text-underline-offset:2px}
   .fab:hover,#totop:hover{transform:translateY(-2px)}
   .map-list-btn:hover{border-color:var(--accent)}
   .map-hint button:hover{text-decoration:underline}
-  .pop button:not(.p):hover,.pop a:hover{border-color:#566f08;background:#f1f5e3}
+  .pop button:not(.p):hover,.pop a:hover{border-color:#0b6b8a;background:#e6f3f8}
   #toast button:hover{background:rgba(255,255,255,.14);border-radius:10px}
   .ps-res button:hover{background:var(--accent-soft)}
   summary:hover{color:var(--accent)}
@@ -2961,7 +2961,7 @@ function applyTheme(){
   const dark=themePref()==='dark';
   document.documentElement.setAttribute('data-theme',dark?'dark':'light');
   const b=$('#theme-btn');if(b)b.setAttribute('aria-checked',dark?'true':'false');
-  const m=$('meta[name=theme-color]');if(m)m.content=dark?'#1e2126':'#566f08';
+  const m=$('meta[name=theme-color]');if(m)m.content=dark?'#1e2126':'#0a3148';
 }
 function setTheme(p){try{localStorage.setItem(THEME_KEY,p==='dark'?'dark':'light')}catch(e){}applyTheme()}
 ACT['theme-toggle']=()=>setTheme(effTheme()==='dark'?'light':'dark');
