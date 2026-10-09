@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-VE6aR92AGtLrHkpTxQljloGncKT+kF/9TaM76NTctEY='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-gmO0/79m4Z6blEzckEi1l4j/GPr1hKi+4roXGu50LQM='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Fishing | Log</title>
 <meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
@@ -164,11 +164,11 @@ summary{cursor:pointer;font-weight:650;padding:10px 0;color:var(--muted)}
 .sheet-head{display:flex;align-items:center;justify-content:space-between;padding:14px 12px 6px 18px;flex:none}
 .sheet-head h2{font-size:19px;letter-spacing:-.01em}
 .x{width:44px;height:44px;border-radius:50%;border:0;background:var(--surface2);font-size:16px;color:var(--muted)}
-.sheet-body{overflow:auto;padding:4px 18px calc(20px + env(safe-area-inset-bottom));overscroll-behavior:contain}
+.sheet-body{min-height:0;overflow:auto;padding:4px 18px calc(20px + env(safe-area-inset-bottom));overscroll-behavior:contain}
 #toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 74px);transform:translate(-50%,16px);width:max-content;max-width:calc(100vw - 24px);z-index:2200;background:#13222c;color:#fff;border-radius:14px;padding:6px 8px 6px 14px;display:flex;align-items:center;gap:6px;max-width:94vw;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 8px 26px rgba(0,0,0,.35);font-size:15px}
 #toast.show{opacity:1;transform:translate(-50%,0);pointer-events:none}
 #toast.show button{pointer-events:auto}
-#toast button{background:none;border:0;color:#c5e05a;font-weight:750;font-size:15px;min-height:44px;padding:0 12px}
+#toast button{background:none;border:0;color:#5cc6e4;font-weight:750;font-size:15px;min-height:44px;padding:0 12px}
 #dlg{position:fixed;inset:0;z-index:2500;display:grid;place-items:center;padding:20px}
 .dlg-back{position:absolute;inset:0;background:rgba(5,15,20,.55)}
 .dlg{position:relative;background:var(--surface);border-radius:18px;padding:20px;max-width:420px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,.4)}
@@ -201,7 +201,7 @@ summary{cursor:pointer;font-weight:650;padding:10px 0;color:var(--muted)}
 .fab.alt{background:var(--surface);color:var(--ink);border:1.5px solid var(--line)}
 .map-list-btn{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);z-index:1100;background:var(--surface);border:1.5px solid var(--line);border-radius:999px;min-height:48px;padding:0 20px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.3)}
 .map-hint{position:absolute;left:12px;right:12px;top:116px;z-index:1100;background:#13222c;color:#fff;border-radius:14px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:600}
-.map-hint button{background:none;border:0;color:#c5e05a;font-weight:750;min-height:44px;padding:0 10px}
+.map-hint button{background:none;border:0;color:#5cc6e4;font-weight:750;min-height:44px;padding:0 10px}
 .map-msg{position:absolute;inset:0;z-index:1050;display:grid;place-content:center;text-align:center;padding:30px;background:var(--surface2);color:var(--muted)}
 .map-msg b{color:var(--ink);font-size:18px}
 .leaflet-container{font:inherit}
@@ -1450,25 +1450,7 @@ function endTrip(){
   t.end=Math.max(Date.now(),t.start+6e4);db.activeTripId=null;
   if(t.spotId)db.settings.lastSpotId=t.spotId;
   quickOrder=null;save();refresh();
-  openTripDone(t);
-}
-function openTripDone(t){
-  const cs=catchesOf(t.id),lost=(t.lost||[]).length,b=bestOf(cs),n=cs.length;
-  openSheet('Trip complete',`
-    <div class="ob-art" style="min-height:64px;font-size:48px" aria-hidden="true">🎣</div>
-    <div class="tiles">
-      <div class="tile"><b>${n}</b><span>${n===1?'fish':'fish'}</span></div>
-      <div class="tile"><b>${fmtDur(t.end-t.start)}</b><span>on the water</span></div>
-    </div>
-    ${b?`<p class="mt">🏆 Best fish: <b>${esc(nm(b))}</b> ${esc(sizeStr(b))}</p>`:''}
-    ${lost?`<p>💨 Landed ${n} of ${n+lost} (${pct(n,n+lost)}%)</p>`:''}
-    ${backupDue()?`<p class="muted sm">💾 Your last backup is more than 2 weeks old.</p>`:''}
-    <div class="col gap mt" style="display:flex;flex-direction:column;gap:10px">
-      ${n?`<button class="btn primary tall block" data-act="trip-share" data-id="${t.id}">📤 Share trip card</button>`:''}
-      ${backupDue()?`<button class="btn block" data-act="bk-now">💾 Save backup now</button>`:''}
-      <button class="btn block" data-act="trip-open" data-id="${t.id}">📝 Add notes to this trip</button>
-      <button class="btn block link" data-act="trip-undo" data-id="${t.id}">↩ Undo, keep fishing</button>
-    </div>`);
+  openTripSheet(t.id,{ended:true}); // straight to the trip's details so it can be checked and fixed
 }
 ACT['trip-undo']=el=>{const t=tripById(el.dataset.id);if(!t)return;t.end=null;db.activeTripId=t.id;save();closeSheet();refresh()};
 function tripForTime(t){
@@ -1589,7 +1571,7 @@ function renderLog(){
       ${histLine(t)}
       ${!t.spotId&&t.lat==null&&posErr?`<p class="muted sm" style="margin:10px 0 0">📍 ${esc(posMsg())}</p>`:''}`
     :`<div><div class="eyebrow">Ready?</div><div class="big">Tap a species to log a fish</div><div class="muted sm" style="margin-top:4px">Your first tap starts a trip and saves the time. Allow location to add place and weather.</div></div>
-      <button class="btn primary tall block" data-act="trip-start">🎣 Start a trip</button>
+      <button class="btn primary tall block" data-act="trip-start">Start a trip</button>
       <div class="chips" style="margin-top:0">${lureChip()}</div>`}
   </div>
   <div class="sp-grid">${quickOrder.map(s=>`<button class="sp" data-act="quick" data-sp="${esc(s)}"><span>${esc(s)}</span>${counts[s]?`<b class="badge">${counts[s]}</b>`:''}</button>`).join('')}</div>
@@ -1876,7 +1858,6 @@ function fcDraw(refocus){
   const n=rows.length,
     bars=rows.map(r=>`<i class="t${r.tier}" style="height:${14+r.s*.86}%"></i>`).join(''),
     ticks=rows.map((r,i)=>{const d=new Date(r.t),hh=d.getHours();
-      if(i===0)return`<span style="left:${.5/n*100}%;transform:none">Now</span>`;
       if(i<3||hh%6)return'';
       return`<span style="left:${(i+.5)/n*100}%">${hh===0?d.toLocaleDateString(undefined,{weekday:'short'}):fcHr(r.t)}</span>`}).join('');
   const wins=runs.slice(0,5).map(x=>`<li><span><b>${fcDay(x.t0)}</b> · ${fcRange(x)}</span><span class="fc-pill sm t${x.tier}">${FC_N[x.tier]}</span></li>`).join('');
@@ -2169,7 +2150,7 @@ function renderSpeciesDetail(s){
 function openSpeciesPicker(){
   const all=speciesOrder();
   const body=openSheet('Which fish?',`
-    <input id="sp-q" placeholder="Search or type a new species" autocomplete="off" data-inp="sp-q">
+    <input id="sp-q" placeholder="Search or type a new species" autocomplete="off" enterkeyhint="go" data-inp="sp-q" data-enter="sp-first">
     ${G.length?((db.settings.regions||[]).length?`<p class="muted sm" style="margin:8px 0 0">Fish for ${esc(regLabel(db.settings.regions))}, plus anything you’ve logged. Search looks at every species. <button class="btn sm link" data-act="region-open" style="min-height:44px;padding:0 6px">Change region</button></p>`:`<p class="muted sm" style="margin:8px 0 0">Search looks at every species. <button class="btn sm link" data-act="region-open" style="min-height:44px;padding:0 6px">📍 Set your region</button> to see fish from your area.</p>`):''}
     <div class="chips" id="sp-list" style="margin-top:12px"></div>`);
   const chip=n=>`<button class="chip" data-act="sp-log" data-sp="${esc(n)}" style="min-height:44px">${wildTag(n)}${esc(n)}</button>`;
@@ -2185,6 +2166,7 @@ function openSpeciesPicker(){
   };
   INP['sp-q']=el=>draw(el.value);draw('');
 }
+ACT['sp-first']=()=>{const c=$('#sp-list [data-act=sp-log]');if(c)ACT['sp-log'](c)};
 ACT['sp-log']=el=>{const s=el.dataset.sp.trim();if(!s)return;if(!db.settings.species.includes(s)){db.settings.species.push(s);save()}closeSheet();quickLog(s)};
 function openLureSheet(){
   openSheet('Lure / bait',`
@@ -2326,12 +2308,13 @@ $('#cam').addEventListener('change',handleFiles);
 $('#gal').addEventListener('change',handleFiles);
 
 /* ---------- Trip sheet ---------- */
-function openTripSheet(id){
+function openTripSheet(id,opts={}){
   const t=tripById(id);if(!t)return;
   const cs=catchesOf(id),P=pbs(),best=bestOf(cs),dur=tripDur(t),rate=tripRate(t,cs.length);
   const lure=sortedGroups(group(cs.filter(c=>c.lure),c=>c.lure))[0];
   const w=wxText(t.weather);
   openSheet(tripName(t),`
+    ${opts.ended?`<div class="insight"><b>Trip saved.</b> Check the details below and fix anything that’s off.${backupDue()?' Your last backup is more than 2 weeks old.':''}<br><button class="btn sm link" data-act="trip-undo" data-id="${id}">Undo, keep fishing</button>${backupDue()?' <button class="btn sm link" data-act="bk-now">Save backup now</button>':''}</div>`:''}
     <div class="tiles">
       <div class="tile"><b>${cs.length}</b><span>fish${new Set(cs.map(c=>c.species)).size?` · ${new Set(cs.map(c=>c.species)).size} species`:''}</span></div>
       <div class="tile"><b>${t.manual?'n/a':fmtDur(dur)}</b><span>${t.end?'on the water':'so far'}${rate!=null?` · ${r1(rate)}/hr`:''}</span></div>
