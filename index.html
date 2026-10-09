@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-b+ckna6aS4HItMa1CjH2XexrdSsDKLv/Oe0dBUS1qcg='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-uu9deo70Wg3hCmy4oViiXVDAr+KMn109H3pa8Bh3Wgk='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Fishing | Log</title>
 <meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
@@ -2925,8 +2925,9 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.11.4';
+const APP_VERSION='1.11.5';
 const RELEASES=[
+ {v:'1.11.5',d:'October 2026',n:['New logo and app icon: a gold fishing hook on a green gradient, with a matching link preview image']},
  {v:'1.11.3',d:'October 2026',n:['New logo and app icon: a new fish facing left on a richer green gradient, with a full outline and dorsal fin, centered with equal margins','The link preview image now uses the same fish and gradient so the logo, icons and preview match']},
  {v:'1.11.1',d:'October 2026',n:['All pixel art redrawn in 16-bit style: smoother shading, highlights and colored outlines on every fish, plus a new logo, app icon, weather icons and share card','Colors and markings checked against real photos for all fish, with fixes for many species','The Species guide is now fish only: the turtle, snake, frog, bird, mammal and crab entries were removed. Anything you already logged under those names is kept']},
  {v:'1.11.0',d:'October 2026',n:['Bite forecast now includes tides for salt water: next highs and lows, a tide line under the chart, and moving water scores better than slack','Hover (or tap, or use the arrow keys) over any bar in the forecast chart to read what that hour looks like','New logo and app icons with the fish exactly centered']},
