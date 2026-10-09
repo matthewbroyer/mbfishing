@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-HjwVM88W9+i9oJH1wW7EJYnR8pFDgNa2T/aSdCTqXjs='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-0G3+f+yzoK9tuIpDKQJM03hIkCDoZPgp59k+UZlUV7c='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B6B8A">
 <title>Fishing | Log</title>
@@ -625,6 +625,8 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
   --ctl:38px; --ctl-sm:32px;
   --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px;
   --ease:120ms ease;
+  /* page width: every app's header and content share one container (mbmoney.online's) */
+  --page-max:1280px; --gutter:16px;
   /* neutrals */
   --bg:#f3f4f6; --surface:#ffffff; --surface-2:#f6f7f9; --surface-3:#eceef2;
   --ink:#1b1f24; --ink-2:#48505c; --muted:#5f6773;
@@ -710,13 +712,45 @@ img.logo{border-radius:var(--r)}
 .tile b{font-variant-numeric:tabular-nums}
 #toast{background:var(--ink);color:var(--surface)}
 :root[data-theme="dark"] #toast{background:#2d3238;color:var(--ink)}
+/* app bar: same title + tab style as mbmoney.online (desktop: top bar + underline tabs, no sidebar) */
+#top h1{font-size:14.5px;font-weight:650;letter-spacing:-.005em}
+.lockup{gap:9px;align-items:center}
+.lockup img.logo{width:28px;height:28px}
+.lockup .lk-t{gap:3px}
+.lockup .lk-d{font-size:11px;font-weight:400;color:var(--muted);letter-spacing:.01em}
+@media(min-width:900px){
+  body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr)}
+  #top,#nav{--gut:max(36px,calc((100% - 1200px) / 2 + 36px))}
+  #top{grid-column:1;grid-row:1;padding:12px var(--gut) 4px;border-bottom:0;box-shadow:none;align-items:center}
+  #top h1{position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:nowrap}
+  #nav{grid-column:1;grid-row:2;flex-direction:row;align-items:stretch;gap:0;padding:0 var(--gut);border-right:0;border-bottom:1px solid var(--border);box-shadow:var(--shadow);background:var(--surface);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;z-index:59}
+  #nav::-webkit-scrollbar{display:none}
+  #nav .brand{display:none}
+  #nav button{width:auto;flex:none;flex-direction:row;gap:7px;min-height:40px;padding:0 12px;border-radius:0;font-size:14px;font-weight:500;color:var(--ink-2)}
+  #nav button:hover{background:var(--surface-2);color:var(--ink)}
+  #nav button[aria-current=page]{background:none;color:var(--accent);font-weight:600;box-shadow:inset 0 -2px 0 var(--accent)}
+  #nav .ic{width:16px;height:16px;opacity:.75}
+  #nav .ic .uic{width:16px;height:16px}
+  #nav button[aria-current=page] .ic{opacity:1}
+  #nav .dot{top:8px;right:4px;left:auto}
+  main{grid-column:1;grid-row:3}
+  #notice{left:24px}
+}
+/* page width: same container as mbmoney.online (1280px, 16px gutters on every screen size) */
+.view{max-width:var(--page-max);padding-left:max(var(--gutter),env(safe-area-inset-left));padding-right:max(var(--gutter),env(safe-area-inset-right))}
+#top{padding-left:max(var(--gutter),env(safe-area-inset-left));padding-right:max(var(--gutter),env(safe-area-inset-right))}
+@media(min-width:900px){
+  #top,#nav{--gut:max(var(--gutter),calc((100% - var(--page-max)) / 2 + var(--gutter)))}
+  #top{padding-left:var(--gut);padding-right:var(--gut)}
+  .view{padding-left:var(--gutter);padding-right:var(--gutter)}
+}
 
 </style>
 </head>
 <body>
 <a class="skip" href="#main" data-act="skip">Skip to content</a>
 <header id="top">
-  <h1><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Your catch log. No account.</span></span></a></h1>
+  <h1><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.0</span></span></a></h1>
   <div class="hdr-tools">
     <button id="pill" data-act="go" data-v="log" hidden></button>
     <button class="ib" id="search-btn" data-act="gs-open" aria-label="Search everything"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><span class="lbl">Search everything</span><kbd>/</kbd></button>
@@ -755,7 +789,7 @@ img.logo{border-radius:var(--r)}
   <section id="v-more" class="view" hidden></section>
 </main>
 <nav id="nav" aria-label="Main">
-  <div class="brand"><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Your catch log. No account.</span></span></a></div>
+  <div class="brand"><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.0</span></span></a></div>
   <button data-act="go" data-v="log" aria-current="page"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>Log</button>
   <button data-act="go" data-v="catches"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 12c2.5-4 8.5-4.8 12.5 0-4 4.8-10 4-12.5 0z"/><path d="M6.5 12 3 9v6z"/><circle cx="15.5" cy="11.3" r=".9" fill="currentColor" stroke="none"/></svg></span>Catches</button>
   <button data-act="go" data-v="map"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg></span>Map</button>
@@ -2974,7 +3008,7 @@ async function renderMore(){
   </div>
   <div class="blk" id="faq-blk"><h3>Help &amp; FAQ</h3><button class="btn sm" data-act="tour" style="margin-bottom:10px">▶ Replay the quick tour</button>${faqHTML()}</div>
   </div>
-  <p class="muted sm" style="text-align:center;margin:22px 0 64px"><button class="btn sm" data-act="whats-new">v${APP_VERSION} · What’s new</button><br><br>mbfishing.online · No account. Your catches stay on this device.<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>`;
+  <p class="muted sm" style="text-align:center;margin:22px 0 64px"><button class="btn sm" data-act="whats-new">v1.0 · What’s new</button><br><br>mbfishing.online · No account. Your catches stay on this device.<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>`;
   try{
     const est=navigator.storage&&navigator.storage.estimate?await navigator.storage.estimate():null,per=navigator.storage&&navigator.storage.persisted?await navigator.storage.persisted():null;
     const s=$('#stor');if(s)s.textContent=`${est?`Using about ${r1((est.usage||0)/1048576)} MB. `:''}${per===true?'Protected from automatic clean-up ✓':per===false?'Not yet protected from automatic clean-up. Back up regularly.':''}`;
@@ -3133,7 +3167,7 @@ ACT['menu-open']=()=>{
       <button class="item" data-act="faq-go" data-id="privacy"><span class="th">🔒</span><span class="grow"><b>Privacy &amp; your data</b></span></button>
       <button class="item" data-act="menu-backup"><span class="th">💾</span><span class="grow"><b>Save backup now</b><br><span class="muted sm">JSON to your backup folder</span></span></button>
     </div>
-    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · v${APP_VERSION}<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
+    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · Official Web App · v1.0<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
 };
 ACT['menu-backup']=()=>{closeSheet();saveBackupNow()};
 
