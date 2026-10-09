@@ -37,6 +37,7 @@ The Species tab's text is written in our own words from the pages listed under e
 
 - Take Me Fishing, Recreational Boating & Fishing Foundation: https://www.takemefishing.org
 - Maine Dept. of Inland Fisheries & Wildlife, Minnesota DNR, Massachusetts Division of Marine Fisheries, Oregon Dept. of Fish & Wildlife, North Carolina Wildlife Resources Commission, Texas Parks & Wildlife Dept., NOAA Fisheries (specific pages are linked per species)
+- Added in 1.12.0 ("Through the ice" lines on 15 species): Minnesota DNR (ice fishing pages for walleye, perch, northern pike, crappie, bluegill and lake trout; the ice safety page linked from the forecast), New Hampshire Fish and Game (Ice Fishing), Maine Dept. of Inland Fisheries & Wildlife (brook trout ice fishing blog; lake whitefish page), Utah Division of Wildlife Resources (burbot blog) and Take Me Fishing (two ice fishing blog posts). Summarized in our own words and linked from each species.
 - Added in 1.9.0 (fish and wildlife entries): U.S. Fish & Wildlife Service, National Park Service, USGS Nonindigenous Aquatic Species, Florida Fish and Wildlife Conservation Commission, Florida Museum of Natural History, Missouri Dept. of Conservation, South Carolina DNR, Virginia DWR, Tennessee Wildlife Resources Agency, Alaska Dept. of Fish & Game, California Dept. of Fish and Wildlife, Washington Dept. of Fish & Wildlife, several other state agencies, Sea Grant programs and university extension services, Cornell Lab of Ornithology (All About Birds) and the Audubon Field Guide. Every page is linked from the species it supports.
 
 Rules for adding or editing a species: only cite a page you actually read, tie each line to its source with the `^1,2` markers, and keep wording your own. Regions (`r:` codes) are our own rough grouping, not a range map. Source links open other sites only when tapped, so no new host is needed in the CSP.
@@ -46,7 +47,7 @@ Rules for adding or editing a species: only cite a page you actually read, tie e
 - **Fonts:** none loaded. The app uses the system font stack of the visitor's device.
 - **Icons in the interface:** emoji, drawn by the visitor's own device font. No icon library.
 - **App icon** (`icon-192.png`, `icon-512.png`): created for this project. No stock or third-party artwork.
-- **Fish drawings** (`fish-art.js`): original 8-bit pixel-art illustrations drawn in code for this project. They are simplified, not photos.
+- **Fish drawings** (`fish-art.js`): original 16-bit pixel-art illustrations drawn in code for this project (a shaded drawing, then a code pass that adds a colored outline and limits it to 16 colors). They are simplified, not photos.
 - **Photos:** only the visitor's own, stored on their device.
 - **Music, video, stock images:** none.
 
@@ -55,5 +56,5 @@ Rules for adding or editing a species: only cite a page you actually read, tie e
 - **Open-Meteo is free for non-commercial use only.** If the app ever gets ads or a paid plan, buy their commercial plan or switch weather providers first.
 - **Photon's public server is a fair-use demo.** If traffic grows, run your own Photon instance or use another geocoder.
 - **Name and domain:** "mbfishing.online" was not checked against trademark registries. Run a search (USPTO TESS/trademark search and a general web search for "mbfishing") before building a brand around it.
-- **Logo, icons and OG image** (`favicon.svg`, `icon-*.png`, `apple-touch-icon.png`, `og-image.png`): original 8-bit pixel art made for this project.
+- **Logo, icons and OG image** (`favicon.svg`, `icon-*.png`, `apple-touch-icon.png`, `og-image.png`): original 16-bit pixel art made for this project.
 - **Pixel font and weather icons** (`pixel-kit.js`): a 5x7 bitmap font and small icons drawn in code for the share card.

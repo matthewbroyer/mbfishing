@@ -2,7 +2,7 @@
    It lets the app open with no signal (the app files, plus the map code once you've opened the map)
    and remembers map tiles you've already viewed. Your fishing data is never touched by this file.
    "Delete all data" in the app also empties the tile cache below. */
-const VERSION = 'mbfishing-v14';
+const VERSION = 'mbfishing-v15';
 const SHELL = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png', 'favicon.svg', 'privacy.html', 'terms.html', 'fish-art.js', 'pixel-kit.js', 'species-data.js'];
 const RUNTIME = 'mbfishing-runtime-v1';
 const MAX_RUNTIME = 900;

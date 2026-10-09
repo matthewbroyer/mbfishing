@@ -78,14 +78,31 @@
     if (c == null) return null;
     return c < 20 ? 'sun' : c < 50 ? 'part' : c < 85 ? 'cloud' : 'dark';
   }
+  /* icons are drawn on the 8-bit grid above; when FishArt is loaded they get the same 16-bit pass as the fish
+     (shading and a dark outline, at twice the pixel density). Falls back to the plain 8-bit icon otherwise. */
+  var HI = {};
+  function hiIcon(name) {
+    if (HI[name] !== undefined) return HI[name];
+    var ic = ICONS[name], FA = root.FishArt;
+    if (!ic || !FA || !FA.sprite16) return (HI[name] = null);
+    var ow = ic[0].length + 2, oh = ic.length + 2, w = ow * 2, h = oh * 2, cells = [], r, c;
+    for (r = 0; r < h; r++) for (c = 0; c < w; c++) { var rr = (r >> 1) - 1, cc = (c >> 1) - 1, k = rr >= 0 && cc >= 0 && rr < ic.length && cc < ic[0].length ? ic[rr][cc] : '.'; cells.push(k !== '.' && C[k] ? C[k] : null); }
+    return (HI[name] = { w: w, h: h, g: FA.sprite16(cells, w, h, '#0c1c2c', { solid: 1, k: 8 }), k: 2 });
+  }
   function icon(g, name, x, y, s) {
     var ic = ICONS[name]; if (!ic) return 0;
+    var hi = hiIcon(name);
+    if (hi) { sprite(g, hi, x - s, y - s, s); return ic[0].length * s; }
     for (var r = 0; r < ic.length; r++) for (var c = 0; c < ic[r].length; c++) { var k = ic[r][c]; if (k !== '.') { g.fillStyle = C[k]; g.fillRect(x + c * s, y + r * s, s, s); } }
     return ic[0].length * s;
   }
-  /* draw a fish grid from FishArt.grid() at integer scale s */
+  /* draw a fish grid from FishArt.grid(). s is the size of one 8-bit pixel; a 32-bit grid has grid.k cells per 8-bit pixel */
   function sprite(g, grid, x, y, s) {
-    for (var yy = 0; yy < grid.h; yy++) for (var xx = 0; xx < grid.w; xx++) { var c = grid.g[yy * grid.w + xx]; if (c) { g.fillStyle = c; g.fillRect(x + xx * s, y + yy * s, s, s); } }
+    var k = grid.k || 1, u = s / k;
+    for (var yy = 0; yy < grid.h; yy++) for (var xx = 0; xx < grid.w; xx++) {
+      var c = grid.g[yy * grid.w + xx];
+      if (c) { var x0 = Math.round(x + xx * u), y0 = Math.round(y + yy * u); g.fillStyle = c; g.fillRect(x0, y0, Math.round(x + (xx + 1) * u) - x0, Math.round(y + (yy + 1) * u) - y0); }
+    }
   }
   root.PixelKit = { text: text, width: width, fit: fit, icon: icon, wxIcon: wxIcon, sprite: sprite };
 })(typeof window !== 'undefined' ? window : this);
