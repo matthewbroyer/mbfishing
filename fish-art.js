@@ -1,14 +1,13 @@
-/* fish-art.js: 16-bit pixel-art fish and wildlife, returned as inline SVG (one <path> per colour).
-   Each animal is drawn on a 72x30 grid with a smooth colour ramp, then a 16-bit pass adds a coloured outline, light from the top left
-   (highlight and shadow tones) and squeezes the picture into at most 16 colours. FishArt.bits = 8 gives the old flat look, 32 a
-   double-resolution version (not used by the app).
+/* fish-art.js: 16-bit pixel-art fish and wildlife, drawn on a small grid and returned as inline SVG (one <path> per colour).
+   16-bit look = a 72x30 sprite with at most 16 colours, 3 to 5 shading steps, a coloured (selective) outline, soft edge
+   pixels and one light from the top left. Colours and markings were checked against real reference photos (see ATTRIBUTIONS.md).
    These are illustrations, not photos: shapes and colour patterns are approximate and real fish vary.
    No network, no images. Used by the Species guide in index.html. */
 (function (root) {
   'use strict';
   var W = 72, H = 30, CY = 15, S = .3, X0 = 5, L = 52;
   var ST = [0, .04, .12, .26, .42, .58, .74, .88, 1];
-  var cache = {}, M16 = false;
+  var cache = {};
 
   function rng(seed) {
     var s = 7;
@@ -66,7 +65,7 @@
       fins: [[.34, .48, 'sp', 10, 'u'], [.56, .64, 'soft', 6, 'u'], [.66, .88, 'lets', 4, 'u'], [.60, .66, 'soft', 6, 'd'], [.68, .88, 'lets', 4, 'd']], pec: .24, pel: .34, tail: ['lunate', 26, 26, .55] },
     tuna: { U: [1.5, 7, 13, 18, 20, 17, 11, 6, 3.4], D: [1.5, 7, 12.5, 17, 18.5, 16, 10.5, 6, 3.4], mouth: [.17, 3, 4.5], eye: [.10, -.08, 3.2], gill: .20,
       fins: [[.32, .44, 'sp', 11, 'u'], [.50, .60, 'sail', 14, 'u'], [.62, .88, 'lets', 4.5, 'u'], [.52, .62, 'sail', 12, 'd'], [.66, .88, 'lets', 4.5, 'd']], pec: .22, pel: .30, tail: ['lunate', 28, 30, .55] },
-    mahi: { U: [8, 15, 18.5, 19, 17, 14.5, 11, 7.5, 5], D: [3.5, 8, 10.5, 12, 12.5, 11, 8.5, 6.5, 4.5], mouth: [.14, 3, 4], eye: [.11, -.08, 3.2], gill: .20,
+    mahi: { U: [3, 12, 17, 18.5, 17, 14.5, 11, 7.5, 5], D: [1.5, 6.5, 10, 12, 12.5, 11, 8.5, 6.5, 4.5], mouth: [.14, 3, 4], eye: [.11, -.08, 3.2], gill: .20,
       fins: [[.12, .86, 'sail', 12, 'u'], [.58, .86, 'soft', 8, 'd']], pec: .22, pel: .32, tail: ['fork', 24, 26, .40] },
     tarpon: { U: [1.5, 8, 15, 20, 21, 19, 14, 9, 6], D: [1.5, 7, 13, 17, 18, 16.5, 12, 8, 5.8], mouth: [.19, 3, 7], eye: [.11, -.10, 3.8], gill: .22,
       fins: [[.56, .66, 'tail', 14, 'u'], [.66, .78, 'soft', 8, 'd']], pec: .24, pel: .48, tail: ['fork', 26, 28, .35], bigscales: 1, upmouth: 1 },
@@ -86,22 +85,132 @@
       fins: [[.12, .90, 'fringe', 8, 'u'], [.28, .90, 'fringe', 8, 'd']], pec: .22, pel: 2, tail: ['round', 16, 13, 0], twoeyes: 1 }
   };
 
-  /* the cached 8-bit drawing, and (when bits is 32) its 32-bit version */
-  function entry(spec, bits) {
-    var key = JSON.stringify(spec), e = cache[key] || (cache[key] = {});
-    if (!e.g) e.g = render(spec);
-    if (bits === 16 && !e.g16) { M16 = true; try { e.g16 = render(spec); } finally { M16 = false; } }
-    if (bits >= 32 && !e.h) e.h = up32(e.g, W, H);
-    if (bits === 16 && !e.m) e.m = up16(e.g16, W, H);
-    return e;
-  }
+  var BITS = 16; /* 16 = the shipped look; 8 = the older flat look (kept for comparison) */
+  function bitsOf(opt) { return opt && opt.bits === 8 ? 8 : 16; }
   function draw(spec, opt) {
     opt = opt || {};
-    var bits = opt.bits || root.FishArt.bits, hi = bits >= 32, e = entry(spec, bits), w = hi ? W2 : W, h = hi ? H2 : H;
-    var body = hi ? (e.sh || (e.sh = toSvg(e.h, W2, H2))) : bits === 16 ? (e.s16 || (e.s16 = toSvg(e.m, W, H))) : (e.s || (e.s = toSvg(e.g, W, H)));
-    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '" class="' + (opt.cls || 'fish-svg') + '"' +
+    var b = bitsOf(opt), key = b + JSON.stringify(spec);
+    var e = cache[key] || (cache[key] = {});
+    if (!e.g) e.g = render(spec, b);
+    var body = e.s || (e.s = toSvg(e.g));
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" class="' + (opt.cls || 'fish-svg') + '"' +
       (opt.label ? ' role="img" aria-label="' + String(opt.label).replace(/[<>"&]/g, '') + '"' : ' aria-hidden="true" focusable="false"') +
       ' shape-rendering="crispEdges">' + body + '</svg>';
+  }
+
+
+  /* ---- 16-bit finishing: colour helpers, coloured outline, light from the top left, 16-colour limit ---- */
+  function toHsl(c) {
+    var r = c[0] / 255, g = c[1] / 255, b = c[2] / 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, h = 0, sv = 0, d = mx - mn;
+    if (d) { sv = l > .5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h /= 6; }
+    return [h, sv, l];
+  }
+  function fromHsl(a) {
+    var h = a[0], s2 = a[1], l = a[2];
+    function f(p, q, t) { if (t < 0) t += 1; if (t > 1) t -= 1; return t < 1 / 6 ? p + (q - p) * 6 * t : t < .5 ? q : t < 2 / 3 ? p + (q - p) * (2 / 3 - t) * 6 : p; }
+    if (!s2) { var v = Math.round(l * 255); return [v, v, v]; }
+    var q = l < .5 ? l * (1 + s2) : l + s2 - l * s2, p2 = 2 * l - q;
+    return [Math.round(f(p2, q, h + 1 / 3) * 255), Math.round(f(p2, q, h) * 255), Math.round(f(p2, q, h - 1 / 3) * 255)];
+  }
+  /* a little more colour, as on a 16-bit palette (skips greys) */
+  function punch(hex, k) { var a = toHsl(rgb(hex)); if (a[1] < .06) return hex; a[1] = Math.min(1, a[1] * k); return hx(fromHsl(a)); }
+  /* shadow tones lean blue, light tones lean warm: the usual 16-bit palette trick */
+  function shadowOf(c, k) { return mix(c, '#1d2140', k); }
+  function lightOf(c, k) { return mix(c, '#fff3cf', k); }
+
+  /* squeeze a grid to at most K colours: seed with the commonest colour, then keep adding the colour furthest from the set
+     (so small accents like an eye or a red stripe survive), then a few rounds of weighted k-means */
+  function quant(G, K) {
+    var cnt = {}, i, j, k;
+    for (i = 0; i < G.length; i++) if (G[i]) cnt[G[i]] = (cnt[G[i]] || 0) + 1;
+    var cols = Object.keys(cnt);
+    if (cols.length <= K) return G;
+    var P = cols.map(function (c) { return { c: c, n: cnt[c], v: rgb(c) }; });
+    var d2 = function (a, b) { var r = a[0] - b[0], g = a[1] - b[1], bl = a[2] - b[2]; return 2 * r * r + 4 * g * g + 3 * bl * bl; };
+    P.sort(function (a, b) { return b.n - a.n; });
+    var seeds = [P[0].v.slice()];
+    while (seeds.length < K) {
+      var best = null, bs = -1;
+      P.forEach(function (p) { var m = 1e12; seeds.forEach(function (sd) { var q = d2(p.v, sd); if (q < m) m = q; }); var sc = m * (1 + Math.log(p.n)); if (sc > bs) { bs = sc; best = p; } });
+      seeds.push(best.v.slice());
+    }
+    var asg = function (p) { var b = 0, bd = 1e12; for (var q = 0; q < seeds.length; q++) { var dd = d2(p.v, seeds[q]); if (dd < bd) { bd = dd; b = q; } } return b; };
+    for (var it = 0; it < 6; it++) {
+      var acc = seeds.map(function () { return [0, 0, 0, 0]; });
+      P.forEach(function (p) { var b = asg(p); acc[b][0] += p.v[0] * p.n; acc[b][1] += p.v[1] * p.n; acc[b][2] += p.v[2] * p.n; acc[b][3] += p.n; });
+      for (k = 0; k < seeds.length; k++) if (acc[k][3]) seeds[k] = [acc[k][0] / acc[k][3], acc[k][1] / acc[k][3], acc[k][2] / acc[k][3]];
+    }
+    var map = {};
+    P.forEach(function (p) { map[p.c] = hx(seeds[asg(p)].map(Math.round)); });
+    return G.map(function (c) { return c ? map[c] : c; });
+  }
+
+  /* selective outline: a dark tone of the colour each edge touches, not one black line. Few tones on purpose (16-colour limit):
+     fish get one for the back edge, one for the belly edge (darker, the shadow side) and one for fins and tail */
+  function outlineFish(G, O, ink, isFin, isBody, pal) {
+    var out = [];
+    O.forEach(function (pt) {
+      var x = pt[0], y = pt[1];
+      if (G[y * W + x] !== ink) return;
+      var nf = 0, nbd = 0;
+      [[0, -1], [-1, 0], [1, 0], [0, 1]].forEach(function (d) {
+        var xx = x + d[0], yy = y + d[1];
+        if (xx < 0 || xx >= W || yy < 0 || yy >= H || G[yy * W + xx] == null || G[yy * W + xx] === ink) return;
+        if (isBody(xx, yy)) nbd++; else if (isFin(xx, yy)) nf++;
+      });
+      if (!nf && !nbd) return;
+      out.push([x, y, nf > nbd ? pal.fin : (y < CY ? pal.top : pal.bot)]);
+    });
+    out.forEach(function (o) { G[o[1] * W + o[0]] = o[2]; });
+  }
+  /* shapes: outline is a dark tint of the sprite's commonest colour, lighter on the top and left, darker on the bottom and right */
+  function outlineShape(G, O, ink, base) {
+    var cnt = {}, best = null, bn = 0, out = [];
+    base.forEach(function (c) { if (c && c !== ink) { cnt[c] = (cnt[c] || 0) + 1; if (cnt[c] > bn) { bn = cnt[c]; best = c; } } });
+    var lit = mix(shadowOf(best || ink, .2), shade(best || ink, -.9), .62), dark = mix(shadowOf(best || ink, .3), shade(best || ink, -.9), .80);
+    O.forEach(function (pt) {
+      var x = pt[0], y = pt[1];
+      if (G[y * W + x] !== ink) return;
+      var dn = y > 0 && G[(y - 1) * W + x] != null && G[(y - 1) * W + x] !== ink, rt = x > 0 && G[y * W + x - 1] != null && G[y * W + x - 1] !== ink;
+      var up = y < H - 1 && G[(y + 1) * W + x] != null && G[(y + 1) * W + x] !== ink, lf = x < W - 1 && G[y * W + x + 1] != null && G[y * W + x + 1] !== ink;
+      if (!(dn || rt || up || lf)) return;
+      out.push([x, y, (dn || rt) && !(up || lf) ? dark : lit]);
+    });
+    out.forEach(function (o) { G[o[1] * W + o[0]] = o[2]; });
+  }
+
+  /* shapes (wildlife): give every body part volume. A height map is built from each pixel's distance to the edge of the sprite,
+     lightly smoothed; its slope against a light from the top left gives up to five tones per colour (highlight, light, base,
+     shade, deep shade). The two commonest colours get all five, small details only three, which keeps within 16 colours. */
+  function lightShapes(G) {
+    var N = W * H, d = new Array(N), x, y, i, INF = 99;
+    for (i = 0; i < N; i++) d[i] = G[i] == null ? 0 : INF;
+    var get = function (a, xx, yy) { return xx < 0 || xx >= W || yy < 0 || yy >= H ? 0 : a[yy * W + xx]; };
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++) if (d[y * W + x]) d[y * W + x] = Math.min(d[y * W + x], get(d, x - 1, y) + 1, get(d, x, y - 1) + 1, get(d, x - 1, y - 1) + 1.4, get(d, x + 1, y - 1) + 1.4);
+    for (y = H - 1; y >= 0; y--) for (x = W - 1; x >= 0; x--) if (d[y * W + x]) d[y * W + x] = Math.min(d[y * W + x], get(d, x + 1, y) + 1, get(d, x, y + 1) + 1, get(d, x + 1, y + 1) + 1.4, get(d, x - 1, y + 1) + 1.4);
+    var R = 3.2, h = d.map(function (v) { return Math.min(v, R); }), h2 = new Array(N);
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
+      var sum = 0, cnt = 0;
+      for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) { var w = (dx === 0 && dy === 0) ? 2 : 1; sum += w * get(h, x + dx, y + dy); cnt += w; }
+      h2[y * W + x] = sum / cnt;
+    }
+    var cnt2 = {}, i2;
+    for (i2 = 0; i2 < N; i2++) if (G[i2] != null) cnt2[G[i2]] = (cnt2[G[i2]] || 0) + 1;
+    var main = Object.keys(cnt2).sort(function (a, b) { return cnt2[b] - cnt2[a]; }).slice(0, 2);
+    var L = [-.55, -.65, .6], ll = Math.sqrt(L[0] * L[0] + L[1] * L[1] + L[2] * L[2]);
+    L = [L[0] / ll, L[1] / ll, L[2] / ll];
+    var out = [];
+    for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
+      var c = G[y * W + x]; if (c == null) continue;
+      var gx = (get(h2, x + 1, y) - get(h2, x - 1, y)) / 2, gy = (get(h2, x, y + 1) - get(h2, x, y - 1)) / 2;
+      var nx = -gx * 1.3, ny = -gy * 1.3, nz = 1, nl = Math.sqrt(nx * nx + ny * ny + 1);
+      var dl = (nx * L[0] + ny * L[1] + nz * L[2]) / nl - L[2], tone = dl > .34 ? 2 : dl > .13 ? 1 : dl < -.34 ? -2 : dl < -.13 ? -1 : 0;
+      if (main.indexOf(c) < 0) tone = tone > 0 ? 1 : tone < 0 ? -1 : 0;
+      var col = c;
+      if (tone === 2) col = lightOf(c, .30); else if (tone === 1) col = lightOf(c, .13); else if (tone === -1) col = shadowOf(c, .17); else if (tone === -2) col = shadowOf(shade(c, -.1), .32);
+      if (col !== c) out.push([x, y, col]);
+    }
+    out.forEach(function (o) { G[o[1] * W + o[0]] = o[2]; });
   }
 
   /* Shape mode (turtles, birds, mammals, crabs...): spec.sh is a list of ops painted in order on the same grid, then outlined.
@@ -113,7 +222,7 @@
        ['c', x, y, w, h]               clear a rectangle (carve a shape)
      A trailing flag: 'on' paints only pixels that already have colour (shading, markings); 'post' draws after the outline (thin details).
      spec.flip mirrors left-right; spec.ink sets the outline colour. */
-  function renderSh(spec) {
+  function renderSh(spec, bits) {
     var G = new Array(W * H), ink = spec.ink || '#1b2028', i, j, post = [];
     function put(x, y, c, on) { x = Math.round(x); y = Math.round(y); if (x < 0 || x >= W || y < 0 || y >= H) return; if (on && G[y * W + x] == null) return; G[y * W + x] = c; }
     function ln(x0, y0, x1, y1, c, on) {
@@ -141,17 +250,37 @@
       else if (k === 'px') o[1].forEach(function (p) { put(p[0], p[1], o[2], on); });
     }
     (spec.sh || []).forEach(function (o) { run(o, false); });
+    var M16 = bits !== 8;
+    var baseG = M16 ? G.slice() : null;
+    if (M16 && !spec.flat) lightShapes(G);
     var O = [], fill = function (x, y) { return x >= 0 && x < W && y >= 0 && y < H && G[y * W + x] != null; };
     for (j = 0; j < H; j++) for (i = 0; i < W; i++) if (G[j * W + i] == null && (fill(i - 1, j) || fill(i + 1, j) || fill(i, j - 1) || fill(i, j + 1))) O.push([i, j]);
     O.forEach(function (p) { G[p[1] * W + p[0]] = ink; });
+    if (M16) outlineShape(G, O, ink, baseG);
     (spec.sh || []).forEach(function (o) { run(o, true); });
+    if (M16) { for (j = 0; j < G.length; j++) if (G[j]) G[j] = punch(G[j], 1.06); G = quant(G, 16); }
     if (spec.flip) for (j = 0; j < H; j++) for (i = 0; i < W >> 1; i++) { var t = G[j * W + i]; G[j * W + i] = G[j * W + W - 1 - i]; G[j * W + W - 1 - i] = t; }
-    G.ink = ink;
     return G;
   }
 
-  function render(spec) {
-    if (spec.sh) return renderSh(spec);
+  /* Bitmap mode (hand-drawn wildlife): spec.bmp = { pal: { letter: '#hex' }, rows: ['..oo..', ...] }. '.' is empty. The drawing is centred
+     in the grid by its bounding box; spec.flip mirrors it. Colours are kept exactly as drawn (up to 16). */
+  function renderBmp(spec) {
+    var B = spec.bmp, rows = B.rows, G = new Array(W * H), x, y, x0 = 99, x1 = -1, y0 = 99, y1 = -1;
+    for (y = 0; y < rows.length; y++) for (x = 0; x < rows[y].length; x++) if (rows[y][x] !== '.' && rows[y][x] !== ' ') { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    if (x1 < 0) return G;
+    var ox = Math.floor((W - (x1 - x0 + 1)) / 2) - x0, oy = Math.floor((H - (y1 - y0 + 1)) / 2) - y0;
+    for (y = 0; y < rows.length; y++) for (x = 0; x < rows[y].length; x++) {
+      var ch = rows[y][x], c = B.pal[ch], px = x + ox, py = y + oy;
+      if (c && px >= 0 && px < W && py >= 0 && py < H) G[py * W + px] = c;
+    }
+    if (spec.flip) for (y = 0; y < H; y++) for (x = 0; x < W >> 1; x++) { var t = G[y * W + x]; G[y * W + x] = G[y * W + W - 1 - x]; G[y * W + W - 1 - x] = t; }
+    return quant(G, 16);
+  }
+  function render(spec, bits) {
+    if (spec.bmp) return renderBmp(spec);
+    if (spec.sh) return renderSh(spec, bits);
+    var M16 = bits !== 8;
     var tp = T[spec.t] || T.bass, rnd = rng(spec.s || spec.t || 'x'), dep = spec.dep || 1;
     var G = new Array(W * H), BODY = new Array(W * H), TAILM = new Array(W * H), FINM = new Array(W * H);
     var back = spec.back || '#5b6b3a', side = spec.side || shade(back, .35), belly = spec.belly || '#efecd8', fin = spec.fin || shade(back, .15);
@@ -244,35 +373,40 @@
         else if (k === 'sail') { hh3 = u2 < .15 ? .45 + u2 * 3.6 : (u2 > .82 ? 1 - (u2 - .82) * 3.8 : 1); hh3 = Math.max(1, Math.round(hh3 * h)); }
         else if (k === 'fringe') { hh3 = Math.max(1, Math.round(h * (.55 + .45 * Math.sin(u2 * Math.PI)))); }
         else { hh3 = u2 < .2 ? .4 + u2 * 3 : 1 - .82 * Math.pow((u2 - .2) / .8, 1.5); hh3 = Math.max(1, Math.round(hh3 * h)); }
-        place(cc, hh3, (spec.lead && !top && cc - a < 2) ? spec.lead : ((cc % 2 === 0) ? finRay : fc));
+        place(cc, hh3, (spec.lead && !top && cc - a < 2) ? spec.lead : ((cc % 2 === 0) ? (fn[5] ? shade(fn[5], -.2) : finRay) : fc));
         if (cc % 2) { var e = edge(cc); finPix(X0 + cc, top ? e - 1 - (hh3 - 1) : e + (hh3 - 1), fc); }
       }
     });
 
-    /* body fill: colour bands with a one-pixel checker dither where bands meet */
+    /* body fill. 8-bit: colour bands with a one-pixel checker dither where bands meet.
+       16-bit: smooth bands (no dither): dark rim on the back, back, upper side, side, a soft belly edge, belly,
+       a streak of highlight along the shoulder and a shaded underside */
     var mid = mix(back, side, .5), bandBelly = spec.bandBelly == null ? .66 : spec.bandBelly, bandSide = spec.bandSide == null ? .42 : spec.bandSide;
     var bellyEdge = mix(side, belly, .5);
+    var cHi = lightOf(mix(back, side, .55), .30), cRim = shade(back, -.16), cBot = shadowOf(shade(belly, -.08), .22), cBack2 = mix(back, mid, .45);
     for (c = 0; c <= L; c++) {
+      var hiRow = topA[c] + (botA[c] - topA[c] > 9 ? 3 : 2), hiOn = c > L * .24 && c < L * .80 && !(c > L * .70 && (c & 1));
       for (var y = topA[c]; y < botA[c]; y++) {
-        var fr = (y + .5 - topA[c]) / (botA[c] - topA[c]), dd = M16 ? 0 : ((c + y) & 1) ? .045 : -.045, g = fr + dd, col;
+        var fr = (y + .5 - topA[c]) / (botA[c] - topA[c]), col;
         if (M16) {
-          /* 16-bit: smooth ramp from a dark back to a light belly, no checker dither, a soft highlight along the upper side and a shaded underside */
-          if (g < .07) col = shade(back, -.12); else if (g < .17) col = back; else if (g < bandSide - .1) col = mid; else if (g < bandBelly - .15) col = side; else if (g < bandBelly - .1) col = mix(side, bellyEdge, .5); else if (g < bandBelly + .04) col = bellyEdge; else col = belly;
-          if (g >= .17 && g < .17 + 1.5 / (botA[c] - topA[c]) && c > L * .12 && c < L * .8) col = hl16(col, .1);
-          if (y === botA[c] - 1 && fr > .6) col = sh16(belly, .3); else if (y === botA[c] - 2 && fr > .75) col = sh16(belly, .12);
+          if (fr < .17) col = back; else if (fr < bandSide - .1) col = mid; else if (fr < bandBelly - .1) col = side; else if (fr < bandBelly + .04) col = bellyEdge; else col = belly;
+          if (y === topA[c] && spec.rim !== 0) col = cRim;
+          else if (hiOn && y === hiRow && !spec.noHi) col = cHi;
+          if (y === botA[c] - 1 && fr > .6) col = cBot;
         } else {
-        if (g < .17) col = back; else if (g < bandSide - .1) col = mid; else if (g < bandBelly - .1) col = side; else if (g < bandBelly + .04) col = bellyEdge; else col = belly;
-        if (y === topA[c] && spec.rim !== 0) col = shade(back, -.12);
-        if (y === botA[c] - 1 && fr > .6) col = shade(belly, -.1);
+          var dd = ((c + y) & 1) ? .045 : -.045, g = fr + dd;
+          if (g < .17) col = back; else if (g < bandSide - .1) col = mid; else if (g < bandBelly - .1) col = side; else if (g < bandBelly + .04) col = bellyEdge; else col = belly;
+          if (y === topA[c] && spec.rim !== 0) col = shade(back, -.12);
+          if (y === botA[c] - 1 && fr > .6) col = shade(belly, -.1);
         }
         put(X0 + c, y, col); BODY[y * W + X0 + c] = 1;
       }
     }
 
     /* scale texture */
-    if (!M16 && (spec.scales || tp.bigscales || spec.bigscales)) {
+    if (spec.scales || tp.bigscales || spec.bigscales) {
       for (c = Math.round(L * .26); c < Math.round(L * .88); c++) for (y = topA[c] + 1; y < botA[c] - 1; y++) {
-        if (c % 3 === 0 && (y + (Math.floor(c / 3) % 2) * 2) % 4 === 0) over(X0 + c, y, shade(side, -.55), .32);
+        if (c % 3 === 0 && (y + (Math.floor(c / 3) % 2) * 2) % 4 === 0) { over(X0 + c, y, M16 ? lightOf(side, .6) : shade(side, -.55), M16 ? .55 : .32); if (M16) over(X0 + c, y + 1, shadowOf(side, .35), .32); }
       }
     }
     if (tp.scutes) { // sturgeon: rows of bony plates
@@ -461,8 +595,7 @@
       } else { put(x, y, ic); put(x + 1, y, ic); put(x, y + 1, ic); put(x + 1, y + 1, '#101418'); put(x, y, spec.eyeHi || '#f4efe0'); }
     };
     eyeAt(ex, ey);
-    var eyes = [[ex, ey]];
-    if (tp.twoeyes) { eyeAt(ex + 3, ey + 4); eyes.push([ex + 3, ey + 4]); }
+    if (tp.twoeyes) eyeAt(ex + 3, ey + 4);
 
     /* outline: any empty pixel touching the fish; fins get a darker version of their colour on the body side */
     var fill = function (x, y) { return x >= 0 && x < W && y >= 0 && y < H && G[y * W + x] != null; }, O = [];
@@ -470,173 +603,24 @@
       if (G[y * W + xx] == null && (fill(xx - 1, y) || fill(xx + 1, y) || fill(xx, y - 1) || fill(xx, y + 1))) O.push([xx, y]);
     }
     O.forEach(function (p) { G[p[1] * W + p[0]] = ink; });
+    var outlinePts = O;
     /* where a fin meets the body, a darker seam */
     for (y = 0; y < H; y++) for (xx = 0; xx < W; xx++) {
       if ((FINM[y * W + xx] || TAILM[y * W + xx]) && !BODY[y * W + xx] && (isB(xx - 1, y) || isB(xx, y - 1) || isB(xx, y + 1)) && G[y * W + xx] !== ink) G[y * W + xx] = finEdge;
     }
 
     post.forEach(function (fn) { fn(); });
-
-    G.ink = ink; G.eyes = eyes; G.body = BODY; G.scaly = SCALY.indexOf(spec.t) >= 0 && !spec.smooth;
+    if (M16) {
+      outlineFish(G, outlinePts, ink, function (x, y) { return FINM[y * W + x] || TAILM[y * W + x]; }, function (x, y) { return BODY[y * W + x]; },
+        { top: mix(shadowOf(back, .2), shade(back, -.9), .6), bot: mix(shadowOf(side, .3), shade(side, -.9), .78), fin: mix(shadowOf(fin, .2), shade(fin, -.9), .62) });
+      for (var q = 0; q < G.length; q++) if (G[q]) G[q] = punch(G[q], 1.07);
+      G = quant(G, 16);
+    }
     return G;
   }
 
-  /* ---- the 16-bit pass: same size as the 8-bit drawing, but a colored (selective) outline, three-step shading from one light
-     (top left), softened outline corners, and a palette of at most 16 colours, like a SNES sprite ---- */
-  function quant(cells, K) {
-    var cnt = {}, k, i, j;
-    cells.forEach(function (c) { if (c) cnt[c] = (cnt[c] || 0) + 1; });
-    var cols = Object.keys(cnt);
-    if (cols.length <= K) return cells;
-    var P = cols.map(function (c) { return { c: c, n: cnt[c], v: rgb(c) }; });
-    var d2 = function (a, b) { var dr = a[0] - b[0], dg = a[1] - b[1], db = a[2] - b[2]; return dr * dr * .3 + dg * dg * .59 + db * db * .11; };
-    /* seeds: biggest colour first, then whichever colour is furthest from the seeds so far, weighted by sqrt of its pixel count */
-    P.sort(function (a, b) { return b.n - a.n; });
-    var seeds = [P[0].v];
-    while (seeds.length < K) {
-      var best = null, bs = -1;
-      P.forEach(function (p) { var m = 1e9; seeds.forEach(function (s) { m = Math.min(m, d2(p.v, s)); }); var sc = m * Math.sqrt(p.n); if (sc > bs) { bs = sc; best = p; } });
-      seeds.push(best.v);
-    }
-    for (var it = 0; it < 6; it++) {
-      var sum = seeds.map(function () { return [0, 0, 0, 0]; });
-      P.forEach(function (p) { var bi = 0, bd = 1e9; seeds.forEach(function (s, i2) { var d = d2(p.v, s); if (d < bd) { bd = d; bi = i2; } }); p.k = bi; for (j = 0; j < 3; j++) sum[bi][j] += p.v[j] * p.n; sum[bi][3] += p.n; });
-      seeds = seeds.map(function (s, i2) { return sum[i2][3] ? [0, 1, 2].map(function (j2) { return sum[i2][j2] / sum[i2][3]; }) : s; });
-    }
-    var map = {};
-    P.forEach(function (p) { var bi = 0, bd = 1e9; seeds.forEach(function (s, i2) { var d = d2(p.v, s); if (d < bd) { bd = d; bi = i2; } }); map[p.c] = hx(seeds[bi].map(Math.round)); });
-    return cells.map(function (c) { return c ? map[c] : null; });
-  }
-  function up16(G, W, H, K) {
-    var ink = G.ink, N = W * H, x, y, k, c, i, j, O = G.slice(0, N);
-    var at = function (x, y) { return x >= 0 && y >= 0 && x < W && y < H ? G[y * W + x] : null; };
-    var isOut = function (x, y) { var v = at(x, y); return v === ink && (at(x - 1, y) == null || at(x + 1, y) == null || at(x, y - 1) == null || at(x, y + 1) == null); };
-    var solid = function (x, y) { var v = at(x, y); return v != null && !isOut(x, y); };
-    /* distance (in pixels, 8-neighbour chamfer) from the edge of the coloured area */
-    var d = new Float32Array(N), INF = 99, dv = function (x, y) { return x < 0 || y < 0 || x >= W || y >= H ? 0 : d[y * W + x]; };
-    for (k = 0; k < N; k++) d[k] = solid(k % W, (k / W) | 0) ? INF : 0;
-    for (y = 0; y < H; y++) for (x = 0; x < W; x++) if (d[y * W + x]) d[y * W + x] = Math.min(d[y * W + x], dv(x - 1, y) + 1, dv(x, y - 1) + 1, dv(x - 1, y - 1) + 1.4, dv(x + 1, y - 1) + 1.4);
-    for (y = H - 1; y >= 0; y--) for (x = W - 1; x >= 0; x--) if (d[y * W + x]) d[y * W + x] = Math.min(d[y * W + x], dv(x + 1, y) + 1, dv(x, y + 1) + 1, dv(x + 1, y + 1) + 1.4, dv(x - 1, y + 1) + 1.4);
-    var hh = function (x, y) { x = Math.max(0, Math.min(W - 1, x)); y = Math.max(0, Math.min(H - 1, y)); return Math.min(2.2, d[y * W + x]); };
-    for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
-      k = y * W + x; c = G[k]; if (c == null) continue;
-      if (isOut(x, y)) {
-        /* selective outline: a dark version of the colours it touches, darker on the shadow side */
-        var r = 0, g = 0, b = 0, n = 0;
-        for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) { if (!dx && !dy) continue; var v = at(x + dx, y + dy); if (v != null && v !== ink && !isOut(x + dx, y + dy)) { var a = rgb(v); r += a[0]; g += a[1]; b += a[2]; n++; } }
-        if (n) { var base = hx([Math.round(r / n), Math.round(g / n), Math.round(b / n)]); O[k] = mix(shade(base, -.46 - (at(x, y + 1) == null || at(x + 1, y) == null ? .1 : 0)), '#1a1030', .16); }
-        continue;
-      }
-      if (c === ink) continue;
-      var gx = (hh(x + 1, y) - hh(x - 1, y)) / 2, gy = (hh(x, y + 1) - hh(x, y - 1)) / 2, lit = (-gx * -.45 + -gy * -.9);
-      var l = lit > .32 ? 1 : lit < -.32 ? -1 : 0;
-      O[k] = l ? (l > 0 ? hl16(c, .12) : sh16(c, .22)) : c;
-    }
-    /* soften stair-steps on the outline: a mid-tone pixel in each inside corner */
-    for (y = 0; y < H; y++) for (x = 0; x < W; x++) if (G[y * W + x] == null) {
-      var L = at(x - 1, y) != null, R = at(x + 1, y) != null, U = at(x, y - 1) != null, D = at(x, y + 1) != null;
-      if (!(L || R || U || D)) {
-        var nb = [[-1, -1], [1, -1], [-1, 1], [1, 1]].filter(function (o) { return at(x + o[0], y + o[1]) != null; });
-        if (nb.length === 1) { var ref = O[(y + nb[0][1]) * W + x + nb[0][0]]; if (ref && ref !== at(x + nb[0][0], y + nb[0][1]) || true) O[y * W + x] = null; }
-      }
-    }
-    return quant(O.map(function (c) { return c ? sat(c, 1.14) : c; }), K || 16);
-  }
-
-  /* ---- the 32-bit pass ---- */
-  var SCALY = ['bass', 'sunfish', 'crappie', 'perch', 'walleye', 'drum', 'carp', 'snapper', 'seabass', 'jack', 'tuna', 'mahi', 'tarpon', 'snook', 'bluefish', 'shad', 'deep', 'grayling', 'cod'];
-  var W2 = W * 2, H2 = H * 2, BAY = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5], tcache = {};
-  /* lighter and a little warmer for l > 0, darker and a little cooler for l < 0 */
-  function tone(c, l) {
-    var k = c + '|' + l; if (tcache[k]) return tcache[k];
-    return tcache[k] = l === 0 ? c : l > 0 ? mix(shade(c, .10 * l), '#fff0c0', .06 * l) : mix(shade(c, .13 * l), '#2a2c6e', -.05 * l);
-  }
-  /* 16-bit tones: shadows turn warmer on light colours and bluer on dark ones, highlights turn warmer */
-  function sat(c, k) { var a = rgb(c), l = a[0] * .3 + a[1] * .59 + a[2] * .11; return hx(a.map(function (v) { return Math.max(0, Math.min(255, Math.round(l + (v - l) * k))); })); }
-  function sh16(c, a) { var t = luma(c) > 150 ? '#a8683a' : '#1c2a66'; return mix(shade(c, -a * .6), t, a * .28); }
-  function hl16(c, a) { return mix(shade(c, a), '#fff0b0', .14); }
-  function luma(c) { var a = rgb(c); return a[0] * .3 + a[1] * .59 + a[2] * .11; }
-  function up32(G, W, H) {
-    var W2 = W * 2, H2 = H * 2, ink = G.ink, i, j, x, y, k, c;
-    var sol = function (x, y) { return x >= 0 && x < W && y >= 0 && y < H && G[y * W + x] != null; };
-    /* 1. drop the old one-pixel outline, we draw a finer one later */
-    var A = new Array(W * H);
-    for (j = 0; j < H; j++) for (i = 0; i < W; i++) {
-      c = G[j * W + i];
-      A[j * W + i] = c != null && !(c === ink && (!sol(i - 1, j) || !sol(i + 1, j) || !sol(i, j - 1) || !sol(i, j + 1))) ? c : null;
-    }
-    /* whiskers, legs and other one-pixel lines stay as thin as they were: no growing, no outline */
-    var th = function (x, y) {
-      if (!A[y * W + x]) return false;
-      var s = function (xx, yy) { return xx >= 0 && yy >= 0 && xx < W && yy < H && A[yy * W + xx] != null; };
-      return !((s(x + 1, y) && s(x, y + 1) && s(x + 1, y + 1)) || (s(x - 1, y) && s(x, y + 1) && s(x - 1, y + 1)) || (s(x + 1, y) && s(x, y - 1) && s(x + 1, y - 1)) || (s(x - 1, y) && s(x, y - 1) && s(x - 1, y - 1)));
-    };
-    var TH = new Uint8Array(W2 * H2);
-    for (y = 0; y < H; y++) for (x = 0; x < W; x++) if (th(x, y)) { TH[2 * y * W2 + 2 * x] = TH[2 * y * W2 + 2 * x + 1] = TH[(2 * y + 1) * W2 + 2 * x] = TH[(2 * y + 1) * W2 + 2 * x + 1] = 1; }
-    /* 2. double it, rounding off the stair-steps (EPX) */
-    var B = new Array(W2 * H2), a = function (x, y) { return x >= 0 && x < W && y >= 0 && y < H && !TH[2 * y * W2 + 2 * x] ? A[y * W + x] : null; };
-    for (y = 0; y < H; y++) for (x = 0; x < W; x++) {
-      var P = A[y * W + x], tp0 = TH[2 * y * W2 + 2 * x], U = a(x, y - 1), R = a(x + 1, y), Lf = a(x - 1, y), Dn = a(x, y + 1), p1 = P, p2 = P, p3 = P, p4 = P;
-      if (Lf === U && Lf !== Dn && U !== R) p1 = U;
-      if (U === R && U !== Lf && R !== Dn) p2 = R;
-      if (Dn === Lf && Dn !== R && Lf !== U) p3 = Lf;
-      if (R === Dn && R !== U && Dn !== Lf) p4 = Dn;
-      if (tp0) { p1 = p2 = p3 = p4 = P; }
-      B[2 * y * W2 + 2 * x] = p1; B[2 * y * W2 + 2 * x + 1] = p2; B[(2 * y + 1) * W2 + 2 * x] = p3; B[(2 * y + 1) * W2 + 2 * x + 1] = p4;
-    }
-    /* 3. grow the shape by one fine pixel to take the place of the old outline */
-    var F = B.slice(), b2 = function (x, y) { return x >= 0 && x < W2 && y >= 0 && y < H2 ? B[y * W2 + x] : null; };
-    for (y = 0; y < H2; y++) for (x = 0; x < W2; x++) if (B[y * W2 + x] == null) {
-      var nb = (!TH[y * W2 + x - 1] && b2(x - 1, y)) || (!TH[(y - 1) * W2 + x] && b2(x, y - 1)) || (!TH[y * W2 + x + 1] && b2(x + 1, y)) || (!TH[(y + 1) * W2 + x] && b2(x, y + 1));
-      if (nb) F[y * W2 + x] = nb;
-    }
-    var M = function (x, y) { return x >= 0 && x < W2 && y >= 0 && y < H2 && F[y * W2 + x] != null; };
-    /* 4. distance from the edge, then a height bump from it, for the light */
-    var N = W2 * H2, d = new Float32Array(N), INF = 1e5, at = function (x, y) { return x < 0 || y < 0 || x >= W2 || y >= H2 ? 0 : d[y * W2 + x]; };
-    for (k = 0; k < N; k++) d[k] = F[k] != null ? INF : 0;
-    for (y = 0; y < H2; y++) for (x = 0; x < W2; x++) if (d[y * W2 + x]) d[y * W2 + x] = Math.min(d[y * W2 + x], at(x - 1, y) + 3, at(x, y - 1) + 3, at(x - 1, y - 1) + 4, at(x + 1, y - 1) + 4);
-    for (y = H2 - 1; y >= 0; y--) for (x = W2 - 1; x >= 0; x--) if (d[y * W2 + x]) d[y * W2 + x] = Math.min(d[y * W2 + x], at(x + 1, y) + 3, at(x, y + 1) + 3, at(x + 1, y + 1) + 4, at(x - 1, y + 1) + 4);
-    var hgt = new Float32Array(N), hb = new Float32Array(N);
-    for (k = 0; k < N; k++) hgt[k] = Math.min(2.6, Math.sqrt(d[k] / 3));
-    for (y = 0; y < H2; y++) for (x = 0; x < W2; x++) { var sm = 0, cn = 0; for (var yy = -1; yy <= 1; yy++) for (var xx = -1; xx <= 1; xx++) { var X = x + xx, Y = y + yy; if (X >= 0 && Y >= 0 && X < W2 && Y < H2) { sm += hgt[Y * W2 + X]; cn++; } } hb[y * W2 + x] = sm / cn; }
-    var Lx = -.35, Ly = -.78, Lz = .55, ll = Math.sqrt(Lx * Lx + Ly * Ly + Lz * Lz); Lx /= ll; Ly /= ll; Lz /= ll;
-    var H_ = function (x, y) { x = Math.max(0, Math.min(W2 - 1, x)); y = Math.max(0, Math.min(H2 - 1, y)); return hb[y * W2 + x]; };
-    var OUT = new Array(N), lvl = new Int8Array(N);
-    for (y = 0; y < H2; y++) for (x = 0; x < W2; x++) {
-      k = y * W2 + x; if (F[k] == null) continue;
-      var gx = (H_(x + 1, y) - H_(x - 1, y)) / 2, gy = (H_(x, y + 1) - H_(x, y - 1)) / 2, nx = -gx * 1.2, ny = -gy * 1.2, nl = Math.sqrt(nx * nx + ny * ny + 1);
-      var delta = (nx * Lx + ny * Ly + Lz) / nl - Lz, v = delta * 3.4 * (G.amp == null ? 1 : G.amp) + (BAY[(y & 3) * 4 + (x & 3)] / 16 - .5) * .4;
-      var lv = Math.max(-2, Math.min(2, Math.round(v))); lvl[k] = lv;
-      OUT[k] = tone(F[k], lv);
-    }
-    /* 5. fish scales: a faint diamond pattern on scaly bodies */
-    if (G.scaly && G.body) for (y = 0; y < H2; y++) for (x = 0; x < W2; x++) {
-      k = y * W2 + x; if (OUT[k] == null || !G.body[(y >> 1) * W + (x >> 1)] || d[k] < 9) continue;
-      if ((y & 1) === 1 && ((x + ((y >> 1) & 1) * 2) & 7) === 0 && lvl[k] >= 0) OUT[k] = tone(F[k], lvl[k] - 1);
-    }
-    /* 6. glint in the eye: a small bright pixel on the upper left of each dark round spot */
-    var seen = new Uint8Array(N), nearEye = function (kk) { var qx = kk % W2, qy = (kk - qx) / W2; return (G.eyes || []).some(function (e) { return Math.abs(qx - 2 * e[0] - 2) <= 5 && Math.abs(qy - 2 * e[1] - 2) <= 5; }); };
-    for (k = 0; k < N; k++) if (OUT[k] != null && !seen[k] && luma(F[k]) < 55 && d[k] >= 6 && nearEye(k)) {
-      var st = [k], comp = [], mnx = 1e9, mny = 1e9, mxx = -1, mxy = -1, edgeish = false; seen[k] = 1;
-      while (st.length && comp.length < 60) {
-        var q = st.pop(), qx = q % W2, qy = (q - qx) / W2; comp.push(q);
-        mnx = Math.min(mnx, qx); mxx = Math.max(mxx, qx); mny = Math.min(mny, qy); mxy = Math.max(mxy, qy);
-        [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(function (o) { var X = qx + o[0], Y = qy + o[1]; if (X < 0 || Y < 0 || X >= W2 || Y >= H2) return; var kk = Y * W2 + X; if (!seen[kk] && OUT[kk] != null && luma(F[kk]) < 55) { seen[kk] = 1; st.push(kk); if (d[kk] < 6) edgeish = true; } });
-      }
-      var bw = mxx - mnx + 1, bh = mxy - mny + 1;
-      if (!edgeish && comp.length >= 3 && comp.length <= 30 && bw <= 6 && bh <= 6 && comp.length >= bw * bh * .6) { var hx0 = mnx + (bw > 2 ? 1 : 0), hy0 = mny + (bh > 2 ? 1 : 0); OUT[hy0 * W2 + hx0] = '#f4efe0'; }
-    }
-    /* 7. a fine outline, in a dark tone of whatever it touches (selective outlining) */
-    var ok = function (x, y) { return x >= 0 && x < W2 && y >= 0 && y < H2 && F[y * W2 + x] != null; };
-    for (y = 0; y < H2; y++) for (x = 0; x < W2; x++) if (F[y * W2 + x] == null) {
-      var nc = (ok(x, y + 1) && !TH[(y + 1) * W2 + x] && F[(y + 1) * W2 + x]) || (ok(x - 1, y) && !TH[y * W2 + x - 1] && F[y * W2 + x - 1]) || (ok(x + 1, y) && !TH[y * W2 + x + 1] && F[y * W2 + x + 1]) || (ok(x, y - 1) && !TH[(y - 1) * W2 + x] && F[(y - 1) * W2 + x]);
-      if (nc) OUT[y * W2 + x] = G.fixInk || mix(shade(nc, -.5), '#0b0f18', .45);
-    }
-    return OUT;
-  }
-
   /* grid -> SVG runs, one path per colour */
-  function toSvg(G, W, H) {
+  function toSvg(G) {
     var byCol = {}, y, xx;
     for (y = 0; y < H; y++) {
       var run = null;
@@ -649,25 +633,11 @@
     return Object.keys(byCol).map(function (cc) { return '<path fill="' + cc + '" d="' + byCol[cc].join('') + '"/>'; }).join('');
   }
   /* the raw pixel grid (for drawing onto a canvas): { w, h, g } where g[y * w + x] is a colour or null */
-  /* grid(spec): { w, h, g, k, lw, lh }: k cells make one 8-bit pixel, lw x lh is the size in 8-bit pixels */
   function grid(spec, opt) {
-    var bits = (opt && opt.bits) || root.FishArt.bits, e = entry(spec, bits);
-    return bits >= 32 ? { w: W2, h: H2, g: e.h, k: 2, lw: W, lh: H } : { w: W, h: H, g: bits === 16 ? e.m : e.g, k: 1, lw: W, lh: H };
+    var b = bitsOf(opt), key = b + JSON.stringify(spec), e = cache[key] || (cache[key] = {});
+    if (!e.g) e.g = render(spec, b);
+    return { w: W, h: H, g: e.g };
   }
 
-  /* up(cells, w, h, ink, opts): the 32-bit pass on any small grid (used for the logo); cells is an array of colours or null */
-  function up(cells, w, h, ink, opts) { var G = cells.slice(); G.ink = ink; G.scaly = false; G.eyes = (opts && opts.eyes) || null; G.amp = opts && opts.amp; G.fixInk = opts && opts.fixInk; return up32(G, w, h); }
-  /* sprite16(cells, w, h, ink, opts): a small hand-built picture (colours or null) gets a one-pixel outline, then the 16-bit pass.
-     Used for the logo and the weather icons. Leave a one-pixel empty border for the outline. */
-  function sprite16(cells, w, h, ink, opts) {
-    var G = cells.slice(), x, y;
-    var f = function (x, y) { return x >= 0 && y >= 0 && x < w && y < h && cells[y * w + x] != null; };
-    for (y = 0; y < h; y++) for (x = 0; x < w; x++) if (cells[y * w + x] == null && (f(x - 1, y) || f(x + 1, y) || f(x, y - 1) || f(x, y + 1))) G[y * w + x] = ink;
-    G.ink = ink; G.scaly = false;
-    var out = up16(G, w, h, opts && opts.k);
-    if (opts && opts.solid) for (var q = 0; q < G.length; q++) if (G[q] === ink && out[q]) out[q] = ink;
-    if (opts && opts.keep) opts.keep.forEach(function (k) { out[k[1] * w + k[0]] = k[2]; });
-    return out;
-  }
-  root.FishArt = { sprite16: sprite16, up: up, draw: draw, grid: grid, bits: 16, templates: Object.keys(T) };
+  root.FishArt = { draw: draw, grid: grid, templates: Object.keys(T) };
 })(typeof window !== 'undefined' ? window : this);

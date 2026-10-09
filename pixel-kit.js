@@ -1,4 +1,4 @@
-/* pixel-kit.js: a tiny 5x7 pixel font and small weather icons, drawn onto a canvas with plain rectangles.
+/* pixel-kit.js: a tiny 5x7 pixel font and small 16-bit weather icons, drawn onto a canvas with plain rectangles.
    Used by the share card in index.html. No network, no images, no font files. */
 (function (root) {
   'use strict';
@@ -62,13 +62,14 @@
     return s;
   }
 
-  var C = { W: '#ffffff', G: '#b9c4cc', Y: '#f2b640', O: '#e08a1e', B: '#4aa3e0', K: '#8d9aa5' };
+  /* 16-bit weather icons: 16x16, shaded, with a coloured outline. Letters are palette keys. */
+  var C = { a: '#fff1a0', b: '#ffd23f', c: '#f2a01e', d: '#b8661a', e: '#ffffff', f: '#e6eff6', g: '#bdcfdf', h: '#6f879e', i: '#b1bfcb', j: '#8392a2', k: '#5d6c80', l: '#34425a', m: '#8ad0f4', n: '#3f8fd0' };
   var ICONS = {
-    sun: ['....Y....', '.Y..Y..Y.', '..YYYYY..', '..YYYYY..', 'Y.YYYYY.Y', '..YYYYY..', '..YYYYY..', '.Y..Y..Y.', '....Y....'],
-    part: ['...Y......', '.Y.Y..Y...', '..YYY.....', '.YYYYYWWW.', '..YYWWWWWW', '...WWWWWWW', '..WWWWWWWW', '...WWWWWW.'],
-    cloud: ['....WWW....', '..WWWWWWW..', '.WWWWWWWWW.', 'WWWWWWWWWWW', 'WWWWWWWWWWW', '.GGGGGGGGG.'],
-    dark: ['....KKK....', '..KKKKKKK..', '.KKKKKKKKK.', 'KKKKKKKKKKK', 'KKKKKKKKKKK', '.GGGGGGGGG.'],
-    rain: ['....KKK....', '..KKKKKKK..', '.KKKKKKKKK.', 'KKKKKKKKKKK', '.GGGGGGGGG.', '..B..B..B..', '.B..B..B...']
+    sun: ['................', '.......c........', '.......b........', '...c..dddd..c...', '....bdaabbdb....', '....dbbbbbbd....', '...dbbbbbbbbd...', '...dbbbbbbbbd...', '.cbdbbbbbbccdbc.', '...dbbbcccccd...', '....dccccccd....', '....bdccccdb....', '...c..dddd..c...', '........b.......', '........c.......', '................'],
+    part: ['.....b..........', '.c.dddd.bc......', '..daabbd........', '.dbbbbbbd.......', '.dbbbbbbd.......', 'bdbbbbccd.hh....', '.dbccccchhefhh..', '..dcccchffffffh.', '.b.ddddhffffffh.', '.c....hfffffffh.', '.....hfffffffggh', '.....hfffggggggh', '.....hgggggggggh', '......hggggggggh', '.......hhhhhhhh.', '................'],
+    cloud: ['................', '................', '.......hhh......', '.....hheefh.....', '....hffffffh....', '...hffffffffh...', '...hffffffffh...', '..hffffffffffh..', '.hffffffffffggh.', '.hffffffgggggggh', '.hffgggggggggggh', '.hggggggggggggh.', '.hgggggggggggh..', '..hhhhhhhhhhh...', '................', '................'],
+    dark: ['................', '................', '.......lll......', '.....lliijl.....', '....ljjjjjjl....', '...ljjjjjjjjl...', '...ljjjjjjjjl...', '..ljjjjjjjjjjl..', '.ljjjjjjjjjjkkl.', '.ljjjjjjkkkkkkkl', '.ljjkkkkkkkkkkkl', '.lkkkkkkkkkkkkl.', '.lkkkkkkkkkkkl..', '..lllllllllll...', '................', '................'],
+    rain: ['......lllll.....', '.....liiijjl....', '....ljjjjjjl....', '..lljjjjjjjjll..', '.ljjjjjjjjjjjjl.', '.ljjjjjjjjjkkkl.', '.ljjjjkkkkkkkkl.', '.lkkkkkkkkkkkkl.', '.lkkkkkkkkkkkl..', '..lllllllllll...', '................', '.....m.......m..', '.....n...m...n..', '.........n......', '.......m...m....', '................']
   };
   /* weather icon for a trip's weather record, or null. */
   function wxIcon(w) {
@@ -78,31 +79,14 @@
     if (c == null) return null;
     return c < 20 ? 'sun' : c < 50 ? 'part' : c < 85 ? 'cloud' : 'dark';
   }
-  /* icons are drawn on the 8-bit grid above; when FishArt is loaded they get the same 16-bit pass as the fish
-     (shading and a dark outline, at twice the pixel density). Falls back to the plain 8-bit icon otherwise. */
-  var HI = {};
-  function hiIcon(name) {
-    if (HI[name] !== undefined) return HI[name];
-    var ic = ICONS[name], FA = root.FishArt;
-    if (!ic || !FA || !FA.sprite16) return (HI[name] = null);
-    var ow = ic[0].length + 2, oh = ic.length + 2, w = ow * 2, h = oh * 2, cells = [], r, c;
-    for (r = 0; r < h; r++) for (c = 0; c < w; c++) { var rr = (r >> 1) - 1, cc = (c >> 1) - 1, k = rr >= 0 && cc >= 0 && rr < ic.length && cc < ic[0].length ? ic[rr][cc] : '.'; cells.push(k !== '.' && C[k] ? C[k] : null); }
-    return (HI[name] = { w: w, h: h, g: FA.sprite16(cells, w, h, '#0c1c2c', { solid: 1, k: 8 }), k: 2 });
-  }
   function icon(g, name, x, y, s) {
     var ic = ICONS[name]; if (!ic) return 0;
-    var hi = hiIcon(name);
-    if (hi) { sprite(g, hi, x - s, y - s, s); return ic[0].length * s; }
     for (var r = 0; r < ic.length; r++) for (var c = 0; c < ic[r].length; c++) { var k = ic[r][c]; if (k !== '.') { g.fillStyle = C[k]; g.fillRect(x + c * s, y + r * s, s, s); } }
     return ic[0].length * s;
   }
-  /* draw a fish grid from FishArt.grid(). s is the size of one 8-bit pixel; a 32-bit grid has grid.k cells per 8-bit pixel */
+  /* draw a fish grid from FishArt.grid() at integer scale s */
   function sprite(g, grid, x, y, s) {
-    var k = grid.k || 1, u = s / k;
-    for (var yy = 0; yy < grid.h; yy++) for (var xx = 0; xx < grid.w; xx++) {
-      var c = grid.g[yy * grid.w + xx];
-      if (c) { var x0 = Math.round(x + xx * u), y0 = Math.round(y + yy * u); g.fillStyle = c; g.fillRect(x0, y0, Math.round(x + (xx + 1) * u) - x0, Math.round(y + (yy + 1) * u) - y0); }
-    }
+    for (var yy = 0; yy < grid.h; yy++) for (var xx = 0; xx < grid.w; xx++) { var c = grid.g[yy * grid.w + xx]; if (c) { g.fillStyle = c; g.fillRect(x + xx * s, y + yy * s, s, s); } }
   }
   root.PixelKit = { text: text, width: width, fit: fit, icon: icon, wxIcon: wxIcon, sprite: sprite };
 })(typeof window !== 'undefined' ? window : this);

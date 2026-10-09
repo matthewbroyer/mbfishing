@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-OGf5tOgyvXpqg8xQbzsDjHZYusDLtDlkqCHNyUEMDYY='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-SNmBwbAxlWZYyVGYmpJRVS0kIjADavKiTnA5LM/ETKI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Fishing | Log</title>
 <meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
@@ -1659,8 +1659,7 @@ function tideAt(ex,t){
 /* ---------- bite forecast: an estimate from weather, light and moon (tides on salt water; no water temperature or clarity) ---------- */
 const FC_KEY='mbfishing.water',FC_N=['Poor','Fair','Good','Great'];
 const fcTier=s=>s>=72?3:s>=58?2:s>=42?1:0;
-const fcWater=()=>{try{const v=localStorage.getItem(FC_KEY);return v==='s'||v==='i'?v:'f'}catch(e){return'f'}};
-const fcLabel=w=>w==='s'?'Salt water':w==='i'?'Ice fishing':'Fresh water';
+const fcWater=()=>{try{return localStorage.getItem(FC_KEY)==='s'?'s':'f'}catch(e){return'f'}};
 let FC=null,fcBusy=false; // {lat,lng,name,t,hrs} lives in memory only; never saved to your log
 
 /* sunrise and sunset (ms) for the days around `ms`, worked out on the device (the standard "sunrise equation") */
@@ -1683,7 +1682,7 @@ function sunEvents(ms,lat,lng){
 
 /* one hour's score, 0-100, plus the reasons behind it. h = that hour's weather, p = the weather 3 hours earlier */
 function fcScore(h,p,ev,water,td){
-  const salt=water==='s',ice=water==='i',why=[];let s=40,dp=null;
+  const salt=water==='s',why=[];let s=40,dp=null;
   const add=(d,t)=>{s+=d;if(d)why.push([t,d])};
   const t=h.t,fin=Number.isFinite;
   /* light: dawn and dusk are the classic bite times */
@@ -1692,8 +1691,8 @@ function fcScore(h,p,ev,water,td){
   if(ev.length&&day!==null){
     const m=near/6e4;
     if(m<=60)add(22,'dawn or dusk light');else if(m<=120)add(12,'near dawn or dusk');else if(m<=180)add(5,'near dawn or dusk');
-    if(day&&m>=180)add(ice?-3:-5,'middle of the day');
-    if(!day&&m>180)add(salt?-5:ice?-10:-8,'night');
+    if(day&&m>=180)add(-5,'middle of the day');
+    if(!day&&m>180)add(salt?-5:-8,'night');
   }
   /* pressure trend over 3 hours, in hPa */
   if(fin(h.pres)&&p&&fin(p.pres)){
@@ -1707,15 +1706,14 @@ function fcScore(h,p,ev,water,td){
     else add(-9,'pressure rising fast');
   }
   /* sky */
-  if(!ice&&fin(h.cloud)){
+  if(fin(h.cloud)){
     if(h.cloud>=40&&(day!==false))add(4,'cloud cover');
     else if(h.cloud<15&&day)add(-3,'bright, clear sky');
   }
   /* wind, mph */
   if(fin(h.windMph)){
     const w=h.windMph;
-    if(ice){if(w<=10)add(2,'light wind');else if(w>25)add(-24,'very strong wind');else if(w>18)add(-14,'strong wind');else if(w>12)add(-5,'breezy')}
-    else if(salt){if(w>=5&&w<=15)add(2,'light to moderate wind');else if(w>25)add(-24,'very strong wind');else if(w>20)add(-14,'strong wind');else if(w>15)add(-4,'breezy')}
+    if(salt){if(w>=5&&w<=15)add(2,'light to moderate wind');else if(w>25)add(-24,'very strong wind');else if(w>20)add(-14,'strong wind');else if(w>15)add(-4,'breezy')}
     else{if(w>=3&&w<=12)add(4,'light breeze');else if(w>25)add(-22,'very strong wind');else if(w>18)add(-12,'strong wind');else if(w>12)add(-4,'breezy')}
   }
   /* rain and storms */
@@ -1728,9 +1726,7 @@ function fcScore(h,p,ev,water,td){
   /* air temperature, F, as a stand-in for the water */
   if(fin(h.tempF)){
     const x=h.tempF;
-    if(ice){
-      if(x<=0)add(-14,'bitter cold');else if(x<10)add(-7,'very cold');else if(x<=32)add(3,'cold');else if(x>40)add(-8,'well above freezing');else add(-3,'above freezing');
-    }else if(salt){
+    if(salt){
       if(x>=55&&x<=80)add(4,'comfortable temperature');else if(x>90)add(-6,'very hot');else if(x<32)add(-14,'freezing');else if(x<45)add(-8,'cold');
     }else{
       if(x>=55&&x<=75)add(5,'comfortable temperature');else if(x>92)add(-14,'very hot');else if(x>85)add(-6,'hot');
@@ -1746,7 +1742,7 @@ function fcScore(h,p,ev,water,td){
   }
   /* moon: new and full moons get a small bump, a bit more on the coast */
   const mi=moon(t).i;
-  if(!ice&&(mi===0||mi===4))add(salt?5:3,mi?'full moon':'new moon');
+  if(mi===0||mi===4)add(salt?5:3,mi?'full moon':'new moon');
   s=Math.max(0,Math.min(100,Math.round(s)));
   return{s,tier:fcTier(s),why,storm,dp,td:td||null};
 }
@@ -1811,7 +1807,7 @@ function fcCard(){
   const w=fcWater(),rows=FC?fcCalc(w):[];
   if(rows.length<6)return`<button class="card fc-card" data-act="fc-open"><span class="fc-ic" aria-hidden="true">🎣</span><span class="grow"><b>Bite forecast</b><br><span class="muted sm">Is the bite likely good, and when? Tap to check.</span></span><span class="muted" aria-hidden="true">›</span></button>`;
   const runs=fcRuns(rows),r0=rows[0];
-  return`<button class="card fc-card" data-act="fc-open"><span class="fc-pill t${r0.tier}">${FC_N[r0.tier]}</span><span class="grow"><b>Bite forecast · ${fcLabel(w)}</b><br><span class="muted sm">${esc(fcLine(rows,runs))}</span></span><span class="muted" aria-hidden="true">›</span></button>`;
+  return`<button class="card fc-card" data-act="fc-open"><span class="fc-pill t${r0.tier}">${FC_N[r0.tier]}</span><span class="grow"><b>Bite forecast · ${w==='s'?'Salt water':'Fresh water'}</b><br><span class="muted sm">${esc(fcLine(rows,runs))}</span></span><span class="muted" aria-hidden="true">›</span></button>`;
 }
 let fcSel=0;
 const fcHt=m=>{if(m==null)return'';const v=(U()?m:m*3.28084).toFixed(1);return(v==='-0.0'?'0.0':v)+(U()?' m':' ft')};
@@ -1866,7 +1862,7 @@ function fcTideSvg(rows){
 function fcDraw(refocus){
   const w=fcWater(),rows=fcCalc(w);
   if(rows.length<6)return fcBody(`<p>Couldn’t read the forecast. Check your connection and try again.</p><button class="btn block" data-act="fc-open">Try again</button>`);
-  const runs=fcRuns(rows),r0=rows[0],storm=rows.slice(0,12).find(r=>r.storm),salt=w==='s',ice=w==='i',tideOn=salt&&FC.tide&&FC.tide.ex;
+  const runs=fcRuns(rows),r0=rows[0],storm=rows.slice(0,12).find(r=>r.storm),salt=w==='s',tideOn=salt&&FC.tide&&FC.tide.ex;
   const up=r0.why.filter(x=>x[1]>=4&&x[0]).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]),
         dn=r0.why.filter(x=>x[1]<=-4&&x[0]).sort((a,b)=>a[1]-b[1]).slice(0,3).map(x=>x[0]);
   const why=[up.length?`Helping: ${up.join(', ')}.`:'',dn.length?`Hurting: ${dn.join(', ')}.`:''].filter(Boolean).join(' ');
@@ -1879,8 +1875,8 @@ function fcDraw(refocus){
   const wins=runs.slice(0,5).map(x=>`<li><span><b>${fcDay(x.t0)}</b> · ${fcRange(x)}</span><span class="fc-pill sm t${x.tier}">${FC_N[x.tier]}</span></li>`).join('');
   const b=fcBody(`
     <p class="muted sm" style="margin:0 0 10px">📍 ${esc(FC.name)} · loaded ${esc(fmtTime(FC.t))}</p>
-    <div class="seg" role="group" aria-label="Water type"><button data-act="fc-mode" data-v="f" aria-pressed="${w==='f'}">🏞️ Fresh</button><button data-act="fc-mode" data-v="s" aria-pressed="${salt}">🌊 Salt</button><button data-act="fc-mode" data-v="i" aria-pressed="${ice}">❄️ Ice</button></div>
-    ${storm?`<div class="fc-warn" role="alert">⚡ Thunderstorms possible around ${esc(fcHr(storm.t))}. Stay off the ${ice?'ice':'water'} and get clear of open areas.</div>`:''}
+    <div class="seg" role="group" aria-label="Water type"><button data-act="fc-mode" data-v="f" aria-pressed="${w==='f'}">🏞️ Fresh water</button><button data-act="fc-mode" data-v="s" aria-pressed="${salt}">🌊 Salt water</button></div>
+    ${storm?`<div class="fc-warn" role="alert">⚡ Thunderstorms possible around ${esc(fcHr(storm.t))}. Stay off the water and get clear of open areas.</div>`:''}
     <div class="fc-now t${r0.tier}"><div><div class="eyebrow">Bite right now</div><div class="fc-big">${FC_N[r0.tier]}</div></div><div class="muted sm" style="text-align:right;max-width:55%">${esc(wxText(r0.h))}</div></div>
     <p class="fc-line"><b>${esc(fcLine(rows,runs))}</b></p>
     ${why?`<p class="muted sm">${esc(why)}</p>`:''}
@@ -1893,12 +1889,11 @@ function fcDraw(refocus){
     <div class="eyebrow" style="margin-top:16px">Best windows</div>
     ${wins?`<ul class="fc-win">${wins}</ul>`:'<p class="muted sm">None in the next 2 days.</p>'}
     ${salt?fcTideBlock(rows):''}
-    ${ice?`<p class="fc-note"><b>It can’t see the ice.</b> Nothing here knows how thick or safe the ice is. The Minnesota DNR says <a href="https://www.dnr.state.mn.us/safety/ice/index.html" target="_blank" rel="noopener noreferrer">there is no such thing as 100 percent safe ice</a>, and ice seldom freezes evenly. Check local ice reports first.</p>
-    <p class="fc-note">An estimate, not a promise. It only knows the weather and daylight. It can’t see what the fish are doing under the ice, and the science behind pressure effects is mixed. Fishing through the ice is allowed on some waters and not others, so check your state’s rules.</p>`:`<p class="fc-note">An estimate, not a promise. It knows the weather, daylight, moon${salt?' and tides':''}. It can’t see water temperature, clarity or what the fish are eating, and the science behind pressure and moon effects is mixed.${salt&&tideOn?' Tides are predictions, not for navigation, and don’t include storm surge or wind.':''}</p>`}
+    <p class="fc-note">An estimate, not a promise. It knows the weather, daylight, moon${salt?' and tides':''}. It can’t see water temperature, clarity or what the fish are eating, and the science behind pressure and moon effects is mixed.${salt&&tideOn?' Tides are predictions, not for navigation, and don’t include storm surge or wind.':''}</p>
     <details class="fc-how"><summary>How it’s worked out</summary>
       <p>Each hour starts from a baseline, then gains or loses points for:</p>
-      ${ice?`<ul><li><b>Daylight:</b> the biggest boost is within an hour of sunrise or sunset, since the Minnesota DNR lists dawn and dusk as the usual best times for walleye, perch, bluegill and crappie. Night loses points (burbot are the exception and bite best at night).</li><li><b>Air pressure:</b> slowly falling or steady is best. Fast drops or fast rises lose points.</li><li><b>Wind:</b> a light wind is best. Strong wind on open ice loses a lot.</li><li><b>Snow and rain:</b> light is fine, heavy isn’t. Thunderstorms are rated Poor.</li><li><b>Air temperature:</b> cold, below freezing, scores best. Bitter cold loses points, and so do mild days above freezing.</li><li><b>Not counted:</b> moon, tides, cloud cover, water temperature and ice thickness.</li></ul>`:`<ul><li><b>Daylight:</b> the biggest boost is within an hour of sunrise or sunset. Bright midday and night lose points.</li><li><b>Air pressure:</b> slowly falling or steady is best. Fast drops or fast rises lose points.</li><li><b>Sky:</b> clouds help a little, a bright clear sky doesn’t.</li><li><b>Wind:</b> a light breeze is best. Strong wind loses a lot, a bit less so on salt water.</li><li><b>Rain:</b> light rain is fine, heavy rain isn’t. Thunderstorms are rated Poor.</li><li><b>Air temperature:</b> a comfortable range scores best. Salt water forgives more.</li><li><b>Moon:</b> new and full moons add a little, a bit more on salt water.</li><li><b>Tides (salt water):</b> moving water scores best and slack tide loses points. It counts for less where the tide barely moves.</li></ul>`}
-      <p>Good is 58 points or more, Great is 72 or more. ${ice?'The weights are our own judgment, not measured from data. ':''}Sunrise, sunset${salt?' and tides':''} are worked out on your device. Only the weather forecast comes from Open-Meteo, using your location rounded to about 1 km.</p>
+      <ul><li><b>Daylight:</b> the biggest boost is within an hour of sunrise or sunset. Bright midday and night lose points.</li><li><b>Air pressure:</b> slowly falling or steady is best. Fast drops or fast rises lose points.</li><li><b>Sky:</b> clouds help a little, a bright clear sky doesn’t.</li><li><b>Wind:</b> a light breeze is best. Strong wind loses a lot, a bit less so on salt water.</li><li><b>Rain:</b> light rain is fine, heavy rain isn’t. Thunderstorms are rated Poor.</li><li><b>Air temperature:</b> a comfortable range scores best. Salt water forgives more.</li><li><b>Moon:</b> new and full moons add a little, a bit more on salt water.</li><li><b>Tides (salt water):</b> moving water scores best and slack tide loses points. It counts for less where the tide barely moves.</li></ul>
+      <p>Good is 58 points or more, Great is 72 or more. Sunrise, sunset and tides are worked out on your device. Only the weather forecast comes from Open-Meteo, using your location rounded to about 1 km.</p>
     </details>
     <button class="btn block" data-act="fc-reload" style="margin-top:12px">Refresh forecast</button>`);
   if(b){fcWire(rows);if(refocus){const a=b.querySelector('[data-act="fc-mode"][aria-pressed="true"]');if(a)a.focus()}}
@@ -1933,7 +1928,7 @@ async function fcLoad(force){
 ACT['fc-open']=()=>{openSheet('Bite forecast','<p class="muted">'+busy('Getting the forecast…')+'</p>',{onClose:()=>{if(typeof refresh==='function')refresh()}});fcLoad(false)};
 ACT['fc-reload']=()=>fcLoad(true);
 ACT['fc-mode']=el=>{
-  try{localStorage.setItem(FC_KEY,['s','i'].includes(el.dataset.v)?el.dataset.v:'f')}catch(e){}
+  try{localStorage.setItem(FC_KEY,el.dataset.v==='s'?'s':'f')}catch(e){}
   fcDraw(true);
   if(el.dataset.v==='s'&&FC&&!FC.tide)fcTide().then(()=>{if(fcWater()==='s'&&$('#sheet-root .fc-strip'))fcDraw()});
 };
@@ -2085,7 +2080,7 @@ function spRow(s,n){
 }
 function spListHTML(){
   const regs=db.settings.regions||[],q=(V.spQ||'').trim().toLowerCase(),mine=regs.length&&V.spAll!=='1'&&!q;
-  let list=G.filter(s=>V.spW==='f'?(!s.k&&s.w!=='s'):V.spW==='s'?(!s.k&&s.w!=='f'):V.spW==='w'?!!s.k:V.spW==='i'?!!s.ice:true);
+  let list=G.filter(s=>V.spW==='f'?(!s.k&&s.w!=='s'):V.spW==='s'?(!s.k&&s.w!=='f'):V.spW==='w'?!!s.k:true);
   if(mine)list=list.filter(s=>popIn(s,regs)>0);
   if(q)list=list.filter(s=>gText(s).includes(q));
   const cmp=regs.length?regCmp(regs):(a,b)=>a.n.localeCompare(b.n);
@@ -2107,11 +2102,11 @@ function renderSpecies(){
   const s=V.spId&&gById.get(V.spId);
   if(s){renderSpeciesDetail(s);return}
   const regs=db.settings.regions||[];
-  el.innerHTML=`<div class="toolbar"><input type="search" id="sp-find" placeholder="Search fish or wildlife, e.g. walleye or heron" value="${esc(V.spQ)}" data-inp="sp-find" autocomplete="off" aria-label="Search species">
+  el.innerHTML=`<div class="toolbar"><input type="search" id="sp-find" placeholder="Search fish, e.g. walleye or bass" value="${esc(V.spQ)}" data-inp="sp-find" autocomplete="off" aria-label="Search species">
     <div class="chips">
       <button class="chip ${regs.length?'on':'ghost'}" data-act="region-open">📍 ${regs.length?esc(regLabel(regs)):'Set your region'}</button>
       ${regs.length?`<button class="chip" data-act="set" data-k="spAll" data-v="${V.spAll==='1'?'':'1'}" aria-pressed="${V.spAll==='1'}">${V.spAll==='1'?'Showing all regions':'Show all regions'}</button>`:''}
-      ${[['','All'],['f','Freshwater fish'],['s','Saltwater fish'],['w','Wildlife'],['i','❄️ Ice fishing']].map(([k,l])=>`<button class="chip ${V.spW===k?'on':''}" data-act="set" data-k="spW" data-v="${k}" aria-pressed="${V.spW===k}">${l}</button>`).join('')}
+      ${[['','All'],['f','Freshwater fish'],['s','Saltwater fish']].map(([k,l])=>`<button class="chip ${V.spW===k?'on':''}" data-act="set" data-k="spW" data-v="${k}" aria-pressed="${V.spW===k}">${l}</button>`).join('')}
     </div></div>
     ${seenLine()}
     <div class="mt" id="sp-list">${spListHTML()}</div>
@@ -2154,7 +2149,6 @@ function renderSpeciesDetail(s){
     <h3>How to identify it</h3>
     <div class="card">${bl(s.idm)}${lk?`<div class="sp-sec"><h4>Easily confused with</h4><ul class="bl">${lk}</ul></div>`:''}${(s.sz||s.rng)?`<div class="sp-sec">${fact('Size',s.sz)}${fact('Range',s.rng)}</div>`:''}</div>
     ${catchHtml?`<h3>${spot?'How to spot it':'How to catch it'}</h3><div class="card">${catchHtml}</div>`:''}
-    ${s.ice?`<h3>❄️ Through the ice</h3><div class="card">${bl(s.ice)}<p class="muted sm" style="margin:8px 0 0">Ice is never guaranteed safe. Check local ice reports before you go, and rules for ice fishing differ by state and water.</p></div>`:''}
     <h3>Sources</h3>
     <div class="card">
       <ol class="srcs">${srcs.map(r=>`<li id="src-${r.n}"><a href="${esc(r.u)}" target="_blank" rel="noopener noreferrer">${esc(r.t)}</a><br><span class="muted sm">${esc(r.p)}${r.p?' · ':''}${esc(hostOf(r.u))}</span></li>`).join('')}</ol>
@@ -2498,12 +2492,18 @@ async function shareTrip(id){
   toast(busy('Making your card…'),[],4000);
   const W=1080,c=document.createElement('canvas');c.width=W;c.height=W;const g=c.getContext('2d');g.imageSmoothingEnabled=false;
   const R=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(x,y,w,h)};
-  /* 8-bit water: flat bands, a few bubbles */
-  const BAND=['#2f86b0','#2a78a0','#256a90','#205c80','#1b4e70','#164260','#123650'];
-  for(let y=0,i=0;y<W;y+=60,i++)R(0,y,W,60,BAND[Math.min(i,6)]);
-  [[40,700,12],[1030,600,12],[1010,640,8],[70,880,8],[540,990,8],[980,860,12]].forEach(b=>R(b[0],b[1],b[2],b[2],'#a8dcf0'));
+  /* 16-bit water: smooth stepped gradient, soft light ripples, a few bubbles with highlights */
+  const mixc=(a,b,k)=>{const p=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));const A=p(a),B=p(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*k).toString(16).padStart(2,'0')).join('')};
+  const water=(x,y,w,h,top,bot,seed)=>{
+    const st=Math.ceil(h/24);
+    for(let i=0;i<st;i++)R(x,y+i*24,w,Math.min(24,h-i*24),mixc(top,bot,i/Math.max(1,st-1)));
+    const rc=mixc(top,'#c8f0ff',.35);
+    for(let r=0;r<Math.ceil(h/96);r++)for(let k=0;k<5;k++){const rx=x+((seed*37+r*211+k*197)%(w-80)),ry=y+r*96+18+((k*29+seed)%48);R(rx,ry,48,6,rc);R(rx+12,ry+6,24,6,mixc(rc,top,.5))}
+  };
+  water(0,0,W,W,'#3a9cc4','#10304a',3);
+  [[40,700,12],[1030,600,12],[1010,640,8],[70,880,8],[540,990,8],[980,860,12]].forEach(b=>{R(b[0],b[1],b[2],b[2],'#8fd0ea');R(b[0],b[1],b[2]/2,b[2]/2,'#e4f8ff')});
   const artFor=name=>{const s=window.SPECIES&&guideFor(name);return FA.grid(Object.assign({s:s?s.id:'fish'},s?s.art:{t:'bass',back:'#4a6a5a',side:'#9ab0a0',belly:'#eef0e8',fin:'#6a8a7a'}))};
-  const fish=(gr,x,y,sc,flip)=>{g.save();if(flip){g.translate(x+gr.lw*sc,y);g.scale(-1,1);PK.sprite(g,gr,0,0,sc)}else PK.sprite(g,gr,x,y,sc);g.restore()};
+  const fish=(gr,x,y,sc,flip)=>{g.save();if(flip){g.translate(x+gr.w*sc,y);g.scale(-1,1);PK.sprite(g,gr,0,0,sc)}else PK.sprite(g,gr,x,y,sc);g.restore()};
   const T=(txt,x,y,s,col,al,maxW)=>{while(maxW&&s>1&&PK.width(txt,s)>maxW)s--;PK.text(g,txt,x+s,y+s,s,'rgba(0,0,0,.5)',al);PK.text(g,txt,x,y,s,col,al);return s};
   /* top panel: your best photo, or a little scene with your top fish */
   const X=60,Y=60,PW=960,PHt=420;
@@ -2511,11 +2511,9 @@ async function shareTrip(id){
   g.save();g.beginPath();g.rect(X,Y,PW,PHt);g.clip();
   if(pc){try{const r=await PH.get(pc.photos[0]);if(r){const b=await createImageBitmap(r.blob),s=Math.max(PW/b.width,PHt/b.height),w=b.width*s,h=b.height*s;g.imageSmoothingEnabled=true;g.drawImage(b,X+(PW-w)/2,Y+(PHt-h)/2,w,h);g.imageSmoothingEnabled=false;drew=true;if(b.close)b.close()}}catch(e){}}
   if(!drew){
-    const SC=['#6fb8d8','#3a96c0','#2f86b0','#2a78a0','#256a90','#205c80','#1b4e70'];
-    for(let y=0,i=0;y<PHt;y+=60,i++)R(X,Y+y,PW,60,SC[Math.min(i,6)]);
-    for(let x=0;x<PW;x+=24)R(X+x,Y+((x/24)%2?0:12),24,12,'#a8dcf0');
-    [[120,200,12],[160,150,8],[820,160,12],[860,300,8],[500,330,8]].forEach(b=>R(X+b[0],Y+b[1],b[2],b[2],'#a8dcf0'));
-    if(sp.length&&FA&&PK){const gr=artFor(sp[0][0]);fish(gr,X+(PW-gr.lw*9)/2,Y+(PHt-gr.lh*9)/2+10,9,false)}
+    water(X,Y,PW,PHt,'#7cc8e4','#1f5f86',5);
+    [[120,200,12],[160,150,8],[820,160,12],[860,300,8],[500,330,8]].forEach(b=>{R(X+b[0],Y+b[1],b[2],b[2],'#8fd0ea');R(X+b[0],Y+b[1],b[2]/2,b[2]/2,'#e4f8ff')});
+    if(sp.length&&FA&&PK){const gr=artFor(sp[0][0]);fish(gr,X+(PW-gr.w*9)/2,Y+(PHt-gr.h*9)/2+10,9,false)}
     else T('NO CATCHES YET',X+PW/2,Y+PHt/2-20,6,'#ffffff','center');
   }
   g.restore();
@@ -2534,9 +2532,9 @@ async function shareTrip(id){
     const shown=sp.length>4?sp.slice(0,3):sp,more=sp.length>4?sp.length-3:0,n=shown.length+(more?1:0),sc=n<=3?4:3,cw=PW/n;
     shown.forEach(([name,list],i)=>{
       const gr=artFor(name),cx=X+cw*i+cw/2;
-      fish(gr,cx-gr.lw*sc/2,y,sc,i%2===1);
-      T(`×${list.length}`,cx,y+gr.lh*sc+6,5,'#ffffff','center');
-      T(name,cx,y+gr.lh*sc+50,2,'#cfe8f5','center',cw-12);
+      fish(gr,cx-gr.w*sc/2,y,sc,i%2===1);
+      T(`×${list.length}`,cx,y+gr.h*sc+6,5,'#ffffff','center');
+      T(name,cx,y+gr.h*sc+50,2,'#cfe8f5','center',cw-12);
     });
     if(more){const cx=X+cw*shown.length+cw/2;T(`+${more}`,cx,y+gr0(sc)/2-20,6,'#f2b640','center');T('MORE SPECIES',cx,y+gr0(sc)+50,2,'#cfe8f5','center',cw-12)}
     y+=30*sc+76;
@@ -2545,7 +2543,7 @@ async function shareTrip(id){
   /* best catch, weather, trip bits */
   if(best){T(`BEST: ${nm(best)}${sizeStr(best)?' '+sizeStr(best):''}`,X,y,4,'#f2b640','left',PW);y+=28+22}
   const wxs=wxText(t.weather),wi=PK&&PK.wxIcon(t.weather);
-  if(wxs){let x0=X;if(wi)x0+=PK.icon(g,wi,X,y-4,4)+16;T(wxs,x0,y,4,'#ffffff','left',PW-(x0-X));y+=28+22}
+  if(wxs){let x0=X;if(wi)x0+=PK.icon(g,wi,X,y-10,3)+16;T(wxs,x0,y,4,'#ffffff','left',PW-(x0-X));y+=28+22}
   const bits=[t.manual?'':fmtDur(tripDur(t)),lure||'',lost?`${lost} got away`:''].filter(Boolean).join('  ·  ');
   if(bits){T(bits,X,y,3,'#cfe8f5','left',PW);y+=21+20}
   T(fmtDateY(t.start),X,1030,3,'#cfe8f5','left');
@@ -2927,9 +2925,9 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.12.0';
+const APP_VERSION='1.11.1';
 const RELEASES=[
- {v:'1.12.0',d:'October 2026',n:['All the art is now 16-bit: colored outlines, smooth shading and highlights, and a 16-color palette on every fish and animal, plus the logo, app icons, share card and weather icons','Ice fishing: a new Ice filter in the Species tab, with a “Through the ice” section on 15 species (perch, walleye, pike, lake trout, crappie, bluegill, trout and more), each tip tied to a state agency or Take Me Fishing page','Bite forecast has a third mode, Ice, that scores cold-weather conditions. It can’t see the ice, so it says nothing about thickness or safety']},
+ {v:'1.11.1',d:'October 2026',n:['All pixel art redrawn in 16-bit style: smoother shading, highlights and colored outlines on every fish, plus a new logo, app icon, weather icons and share card','Colors and markings checked against real photos for all fish, with fixes for many species','The Species guide is now fish only: the turtle, snake, frog, bird, mammal and crab entries were removed. Anything you already logged under those names is kept']},
  {v:'1.11.0',d:'October 2026',n:['Bite forecast now includes tides for salt water: next highs and lows, a tide line under the chart, and moving water scores better than slack','Hover (or tap, or use the arrow keys) over any bar in the forecast chart to read what that hour looks like','New logo and app icons with the fish exactly centered']},
  {v:'1.10.0',d:'October 2026',n:['New bite forecast on the Log screen: a Poor to Great rating for right now and the next 48 hours, with the next good window, for fresh or salt water','It’s an estimate from weather, daylight and the moon. It doesn’t include tides or water conditions. The forecast loads only when you tap it']},
  {v:'1.9.0',d:'October 2026',n:['Search on the Log screen now finds any species in the guide, even if it isn’t in your region or list','56 new species: 24 more fish plus turtles, snakes, frogs, birds, otters, crabs and other wildlife you might see on the water. Fish still come first','Every species page now has the same sections and source links, and many older pages gained size, range and season info','The Species page shows how many species you’ve logged']},
@@ -2979,7 +2977,7 @@ const FAQ=[
   {id:'trips',q:'What’s a trip?',a:'<ul><li><b>Start:</b> tap <b>Start a trip</b>, or log a fish and one starts by itself.</li><li><b>Saved with it:</b> start time, your location (if allowed), weather (if on in More → Settings) and moon.</li><li><b>End:</b> tap <b>End trip</b>. A trip with no activity for 12 hours ends on its own.</li></ul>'},
   {id:'gotaway',q:'What does 💨 Got away do?',a:'<p>It counts a bite that didn’t make it to the net, saved with your current lure. Stats → What works compares landed vs. got away for each lure. It’s only as accurate as your taps.</p>'},
   {id:'fav',q:'How do favorites work?',a:'<p>Tap ☆ on any catch. Filter with <b>⭐ Favorites</b> in Catches and on the Map. Your latest favorites also show on Stats.</p>'},
-  {id:'bite',q:'How does the bite forecast work?',a:'<ul><li><b>What it is:</b> tap <b>Bite forecast</b> on Log for a Poor, Fair, Good or Great rating for right now and each hour of the next 48, plus the next good window. Switch between fresh water, salt water and ice at the top.</li><li><b>What it uses:</b> the hourly weather forecast, sunrise and sunset, and the moon phase. Dawn and dusk, steady or slowly falling pressure, a light breeze and mild temperatures score best.</li><li><b>Tides:</b> on salt water it also finds the nearest tide station (within about 50 miles) and counts moving water as better than slack tide. Tides are worked out on your device from station data that ships with the app, so nothing extra is sent. The tide files load the first time you tap Salt.</li><li><b>Ice mode:</b> scores cold-weather conditions: dawn and dusk light, steady pressure, light wind and temperatures below freezing. It ignores moon and tides. It can’t see the ice, so it says nothing about thickness or safety. Check local ice reports first.</li><li><b>Each hour:</b> hover, tap or use the arrow keys on the chart to read what any hour looks like.</li><li><b>What it can’t know:</b> water temperature and clarity, or what the fish are eating. Treat it as a nudge, not a promise. The evidence for pressure and moon effects on fishing is mixed.</li><li><b>Privacy:</b> only the weather forecast is requested, and only when you open it. It sends your location rounded to about 1 km to Open-Meteo. Nothing is saved to your log. Turn weather off in More → Settings to block it.</li></ul>'},
+  {id:'bite',q:'How does the bite forecast work?',a:'<ul><li><b>What it is:</b> tap <b>Bite forecast</b> on Log for a Poor, Fair, Good or Great rating for right now and each hour of the next 48, plus the next good window. Switch between fresh and salt water at the top.</li><li><b>What it uses:</b> the hourly weather forecast, sunrise and sunset, and the moon phase. Dawn and dusk, steady or slowly falling pressure, a light breeze and mild temperatures score best.</li><li><b>Tides:</b> on salt water it also finds the nearest tide station (within about 50 miles) and counts moving water as better than slack tide. Tides are worked out on your device from station data that ships with the app, so nothing extra is sent. The tide files load the first time you tap Salt.</li><li><b>Each hour:</b> hover, tap or use the arrow keys on the chart to read what any hour looks like.</li><li><b>What it can’t know:</b> water temperature and clarity, or what the fish are eating. Treat it as a nudge, not a promise. The evidence for pressure and moon effects on fishing is mixed.</li><li><b>Privacy:</b> only the weather forecast is requested, and only when you open it. It sends your location rounded to about 1 km to Open-Meteo. Nothing is saved to your log. Turn weather off in More → Settings to block it.</li></ul>'},
   {id:'moon',q:'Why does it show the moon phase?',a:'<p>Each trip saves the moon phase for its start time, worked out on your device. Nothing is sent anywhere. Stats → What works compares it with your catches once you have enough trips with weather.</p>'}]},
  {sec:'Where your data goes',items:[
   {id:'where',q:'Where is my data stored?',a:'<p>Only in this browser on this device: entries in local storage, photos in the browser’s database. There is no account and no server copy. Clear this site’s data, or switch browsers or devices, and it’s gone. Back up regularly.</p>'},
