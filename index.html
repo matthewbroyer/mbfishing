@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-0G3+f+yzoK9tuIpDKQJM03hIkCDoZPgp59k+UZlUV7c='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-t5lGpYBaDxTfELkru2DaUQ7yke10enwug5xSwQKziYU='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B6B8A">
 <title>Fishing | Log</title>
@@ -716,7 +716,7 @@ img.logo{border-radius:var(--r)}
 #top h1{font-size:14.5px;font-weight:650;letter-spacing:-.005em}
 .lockup{gap:9px;align-items:center}
 .lockup img.logo{width:28px;height:28px}
-.lockup .lk-t{gap:3px}
+.lockup .lk-t{gap:0;align-self:stretch;padding:1px 0}
 .lockup .lk-d{font-size:11px;font-weight:400;color:var(--muted);letter-spacing:.01em}
 @media(min-width:900px){
   body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr)}
@@ -750,7 +750,7 @@ img.logo{border-radius:var(--r)}
 <body>
 <a class="skip" href="#main" data-act="skip">Skip to content</a>
 <header id="top">
-  <h1><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.0</span></span></a></h1>
+  <h1><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.1</span></span></a></h1>
   <div class="hdr-tools">
     <button id="pill" data-act="go" data-v="log" hidden></button>
     <button class="ib" id="search-btn" data-act="gs-open" aria-label="Search everything"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><span class="lbl">Search everything</span><kbd>/</kbd></button>
@@ -789,7 +789,7 @@ img.logo{border-radius:var(--r)}
   <section id="v-more" class="view" hidden></section>
 </main>
 <nav id="nav" aria-label="Main">
-  <div class="brand"><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.0</span></span></a></div>
+  <div class="brand"><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.1</span></span></a></div>
   <button data-act="go" data-v="log" aria-current="page"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>Log</button>
   <button data-act="go" data-v="catches"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 12c2.5-4 8.5-4.8 12.5 0-4 4.8-10 4-12.5 0z"/><path d="M6.5 12 3 9v6z"/><circle cx="15.5" cy="11.3" r=".9" fill="currentColor" stroke="none"/></svg></span>Catches</button>
   <button data-act="go" data-v="map"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg></span>Map</button>
@@ -3008,7 +3008,7 @@ async function renderMore(){
   </div>
   <div class="blk" id="faq-blk"><h3>Help &amp; FAQ</h3><button class="btn sm" data-act="tour" style="margin-bottom:10px">▶ Replay the quick tour</button>${faqHTML()}</div>
   </div>
-  <p class="muted sm" style="text-align:center;margin:22px 0 64px"><button class="btn sm" data-act="whats-new">v1.0 · What’s new</button><br><br>mbfishing.online · No account. Your catches stay on this device.<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>`;
+  <p class="muted sm" style="text-align:center;margin:22px 0 64px"><button class="btn sm" data-act="whats-new">v1.1 · What’s new</button><br><br>mbfishing.online · No account. Your catches stay on this device.<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>`;
   try{
     const est=navigator.storage&&navigator.storage.estimate?await navigator.storage.estimate():null,per=navigator.storage&&navigator.storage.persisted?await navigator.storage.persisted():null;
     const s=$('#stor');if(s)s.textContent=`${est?`Using about ${r1((est.usage||0)/1048576)} MB. `:''}${per===true?'Protected from automatic clean-up ✓':per===false?'Not yet protected from automatic clean-up. Back up regularly.':''}`;
@@ -3053,8 +3053,9 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.11.5';
+const APP_VERSION='1.1';
 const RELEASES=[
+ {v:'1.1',d:'October 2026',n:['Logo redrawn with the fish exactly centered in the app icon, favicon, home-screen icons and link preview image','More space between the site name and the “Official Web App” line in the header']},
  {v:'1.11.5',d:'October 2026',n:['New logo and app icon: a gold fishing hook on a green gradient, with a matching link preview image','The logo in the header now has a one-line description under the site name, and tapping it takes you back to the Log screen']},
  {v:'1.11.3',d:'October 2026',n:['New logo and app icon: a new fish facing left on a richer green gradient, with a full outline and dorsal fin, centered with equal margins','The link preview image now uses the same fish and gradient so the logo, icons and preview match']},
  {v:'1.11.1',d:'October 2026',n:['All pixel art redrawn in 16-bit style: smoother shading, highlights and colored outlines on every fish, plus a new logo, app icon, weather icons and share card','Colors and markings checked against real photos for all fish, with fixes for many species','The Species guide is now fish only: the turtle, snake, frog, bird, mammal and crab entries were removed. Anything you already logged under those names is kept']},
@@ -3167,7 +3168,7 @@ ACT['menu-open']=()=>{
       <button class="item" data-act="faq-go" data-id="privacy"><span class="th">🔒</span><span class="grow"><b>Privacy &amp; your data</b></span></button>
       <button class="item" data-act="menu-backup"><span class="th">💾</span><span class="grow"><b>Save backup now</b><br><span class="muted sm">JSON to your backup folder</span></span></button>
     </div>
-    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · Official Web App · v1.0<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
+    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · Official Web App · v1.1<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
 };
 ACT['menu-backup']=()=>{closeSheet();saveBackupNow()};
 
