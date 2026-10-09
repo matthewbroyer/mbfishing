@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-gmO0/79m4Z6blEzckEi1l4j/GPr1hKi+4roXGu50LQM='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-HjwVM88W9+i9oJH1wW7EJYnR8pFDgNa2T/aSdCTqXjs='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B6B8A">
 <title>Fishing | Log</title>
 <meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
-<meta name="theme-color" content="#0a3148">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fishing">
 <meta property="og:title" content="Fishing: log a fish with one tap">
@@ -16,7 +16,7 @@
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Pixel-art fish swimming under the word FISHING">
+<meta property="og:image:alt" content="mbfishing.online: log a fish with one tap. The app's species buttons and a Start a trip button.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fishing: log a fish with one tap">
 <meta name="twitter:description" content="No account. Your catches are saved in your browser, not on a server.">
@@ -26,8 +26,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Fishing">
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 /* Utility theme tokens: neutral desktop-software palette, one chartreuse-olive accent. The app opens in light mode; dark applies only when you pick it. */
@@ -607,6 +607,110 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
 .fc-warn{margin:12px 0 0;padding:12px 14px;border-radius:12px;border:1.5px solid var(--danger);background:var(--surface2);font-weight:600}
 .fc-note{margin:12px 0 0;font-size:13px;color:var(--muted)}
 .fc-how{margin-top:12px;font-size:14px}.fc-how summary{min-height:44px;display:flex;align-items:center;font-weight:650;cursor:pointer}.fc-how ul{padding-left:20px}.fc-how li{margin:4px 0}
+
+/* MB SUITE v1 */
+/* =====================================================================
+   MB SUITE v1 — shared design tokens ("Microsoft/Google Alternative" Utility)
+   Same file in every app. Only the 10 accent lines in the APP ACCENT block change.
+   Load order: last <style> in <head> (after the app's own CSS) so it wins.
+   ===================================================================== */
+:root{
+  color-scheme:light;
+  /* type */
+  --font:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono",Consolas,"SF Mono",Menlo,monospace;
+  --fs-xs:11.5px; --fs-sm:12.5px; --fs:14px; --fs-md:15px; --fs-lg:17px; --fs-h2:22px; --fs-num:26px;
+  /* geometry: one radius for panels, one for controls, one for overlays */
+  --r:6px; --r-sm:4px; --r-lg:8px;
+  --ctl:38px; --ctl-sm:32px;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px;
+  --ease:120ms ease;
+  /* neutrals */
+  --bg:#f3f4f6; --surface:#ffffff; --surface-2:#f6f7f9; --surface-3:#eceef2;
+  --ink:#1b1f24; --ink-2:#48505c; --muted:#5f6773;
+  --border:#dfe2e7; --border-strong:#c6cbd3;
+  --hover-band:rgba(20,24,31,.045);
+  /* semantic (keep restrained) */
+  --good:#16a34a; --good-ink:#0b7a35; --warn:#e5a100; --warn-ink:#8a5a00; --crit:#c9302c; --crit-ink:#b42824; --info:#2563eb;
+  /* depth */
+  --shadow:0 1px 2px rgba(20,24,31,.06);
+  --shadow-pop:0 8px 24px -6px rgba(20,24,31,.22),0 1px 3px rgba(20,24,31,.08);
+  --scrim:rgba(10,12,16,.45);
+}
+:root[data-theme="dark"],:root.dark{
+  color-scheme:dark;
+  --bg:#16181c; --surface:#1e2126; --surface-2:#25292f; --surface-3:#2d3238;
+  --ink:#e9ecf0; --ink-2:#b4bbc5; --muted:#8e97a3;
+  --border:#30353c; --border-strong:#434a53;
+  --hover-band:rgba(255,255,255,.05);
+  --good:#22c55e; --good-ink:#4ade80; --warn:#f0b429; --warn-ink:#f5c95c; --crit:#ff6b6b; --crit-ink:#ff8a8a; --info:#60a5fa;
+  --shadow:0 1px 2px rgba(0,0,0,.3);
+  --shadow-pop:0 10px 28px -6px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.03);
+  --scrim:rgba(0,0,0,.6);
+}
+
+/* ---- APP ACCENT (the only per-app block) ---- */
+:root{
+  --brand:#0B6B8A;                 /* logo badge, OG image, theme-color */
+  --accent:#0B6B8A; --accent-hover:#085670; --accent-ink:#ffffff;
+  --accent-soft:color-mix(in srgb,var(--accent) 9%,transparent);
+  --accent-line:color-mix(in srgb,var(--accent) 38%,transparent);
+}
+:root[data-theme="dark"],:root.dark{
+  --accent:#5CC6E4; --accent-hover:#82D5EC; --accent-ink:#04202A;
+  --accent-soft:color-mix(in srgb,var(--accent) 13%,transparent);
+  --accent-line:color-mix(in srgb,var(--accent) 45%,transparent);
+}
+
+/* ---- primitives every app shares ---- */
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font);font-size:var(--fs);line-height:1.45;background:var(--bg);color:var(--ink);font-feature-settings:normal;-webkit-font-smoothing:antialiased}
+::selection{background:color-mix(in srgb,var(--accent) 28%,transparent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+input[type=checkbox],input[type=radio],input[type=range],progress{accent-color:var(--accent)}
+.tabular,.num,time{font-variant-numeric:tabular-nums}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important;scroll-behavior:auto!important}}
+@media(pointer:coarse),(max-width:700px){:root{--ctl:44px;--ctl-sm:44px}}
+.tld{font-style:normal;color:var(--accent)}
+
+/* ---- MB SUITE v1 · mbfishing.online adapter ---- */
+:root{--line:var(--border);--line-strong:var(--border-strong);--surface2:var(--surface-2);--surface3:var(--surface-3);--danger:var(--crit)}
+/* family signature: 3px accent line across the very top */
+body::before{content:"";position:fixed;left:0;right:0;top:0;height:3px;background:var(--accent);z-index:200;pointer-events:none}
+#top{padding-top:calc(env(safe-area-inset-top) + 9px)}
+/* line icons replace emoji in navigation and header tools */
+.uic{display:block;flex:none}
+#nav .ic{display:grid;place-items:center;height:22px}
+#nav .ic .uic{width:21px;height:21px}
+.ib .uic{width:19px;height:19px}
+@media(min-width:900px){
+  #nav{padding-top:18px}
+  #nav .ic{width:22px;height:20px}
+  #nav .ic .uic{width:18px;height:18px}
+  #nav button[aria-current=page]{background:var(--accent-soft);color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+  .brand{padding:2px 12px 16px}
+}
+.lockup img.logo{width:28px;height:28px;border-radius:var(--r)}
+img.logo{border-radius:var(--r)}
+/* squared geometry for the last rounded bits */
+.fc-pill{border-radius:var(--r-sm);font-weight:700}
+.fc-now,.fc-tip,.fc-warn{border-radius:var(--r);border-width:1px}
+.fc-strip i{border-radius:2px 2px 0 0}
+.fc-key i{border-radius:2px}
+.sp-th,.sp-art{border-radius:var(--r-sm)}
+:root[data-theme="dark"] .sp-th,:root[data-theme="dark"] .sp-art{background:#25303a}
+.lockup{border-radius:var(--r-sm)}
+.ib{border-radius:var(--r-sm)}
+#pill{border-radius:var(--r-sm)}
+.seg{border-radius:var(--r-sm)}
+.card{border-radius:var(--r)}
+.eyebrow{font-size:var(--fs-xs);letter-spacing:.06em;font-weight:650}
+.big{font-weight:650;letter-spacing:-.015em}
+.count b{font-weight:650;font-variant-numeric:tabular-nums}
+.tile b{font-variant-numeric:tabular-nums}
+#toast{background:var(--ink);color:var(--surface)}
+:root[data-theme="dark"] #toast{background:#2d3238;color:var(--ink)}
+
 </style>
 </head>
 <body>
@@ -615,9 +719,9 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
   <h1><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Your catch log. No account.</span></span></a></h1>
   <div class="hdr-tools">
     <button id="pill" data-act="go" data-v="log" hidden></button>
-    <button class="ib" id="search-btn" data-act="gs-open" aria-label="Search everything"><span aria-hidden="true">🔍</span><span class="lbl">Search everything</span><kbd>/</kbd></button>
+    <button class="ib" id="search-btn" data-act="gs-open" aria-label="Search everything"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><span class="lbl">Search everything</span><kbd>/</kbd></button>
     <button class="ib themesw" id="theme-btn" data-act="theme-toggle" role="switch" aria-checked="false" aria-label="Dark mode"><span class="sw-tk"><span class="sw-th"></span></span></button>
-    <button class="ib" id="menu-btn" data-act="menu-open" aria-label="Menu"><span aria-hidden="true">☰</span><i class="dot" hidden></i></button>
+    <button class="ib" id="menu-btn" data-act="menu-open" aria-label="Menu"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><i class="dot" hidden></i></button>
   </div>
   <div id="prog" aria-hidden="true"><i></i></div>
 </header>
@@ -652,12 +756,12 @@ label.bk-chk{display:flex;align-items:center;gap:8px;margin:10px 0 0;font-size:1
 </main>
 <nav id="nav" aria-label="Main">
   <div class="brand"><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Your catch log. No account.</span></span></a></div>
-  <button data-act="go" data-v="log" aria-current="page"><span class="ic">🎣</span>Log</button>
-  <button data-act="go" data-v="catches"><span class="ic">🐟</span>Catches</button>
-  <button data-act="go" data-v="map"><span class="ic">🗺️</span>Map</button>
-  <button data-act="go" data-v="stats"><span class="ic">📊</span>Stats</button>
-  <button data-act="go" data-v="species"><span class="ic">📖</span>Species</button>
-  <button data-act="go" data-v="more" id="nav-more"><span class="ic">⚙️</span>More</button>
+  <button data-act="go" data-v="log" aria-current="page"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>Log</button>
+  <button data-act="go" data-v="catches"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 12c2.5-4 8.5-4.8 12.5 0-4 4.8-10 4-12.5 0z"/><path d="M6.5 12 3 9v6z"/><circle cx="15.5" cy="11.3" r=".9" fill="currentColor" stroke="none"/></svg></span>Catches</button>
+  <button data-act="go" data-v="map"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg></span>Map</button>
+  <button data-act="go" data-v="stats"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/></svg></span>Stats</button>
+  <button data-act="go" data-v="species"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 6.5C10.5 5 8 4.5 4 4.5v13c4 0 6.5.5 8 2 1.5-1.5 4-2 8-2v-13c-4 0-6.5.5-8 2z"/><path d="M12 6.5v13"/></svg></span>Species</button>
+  <button data-act="go" data-v="more" id="nav-more"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="5.5" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="18.5" cy="12" r="1.2" fill="currentColor"/></svg></span>More</button>
 </nav>
 <button id="totop" data-act="totop" aria-label="Back to top">↑</button>
 <div id="ob" role="dialog" aria-modal="true" aria-labelledby="ob-h" tabindex="-1" hidden></div>
@@ -2944,7 +3048,7 @@ function applyTheme(){
   const dark=themePref()==='dark';
   document.documentElement.setAttribute('data-theme',dark?'dark':'light');
   const b=$('#theme-btn');if(b)b.setAttribute('aria-checked',dark?'true':'false');
-  const m=$('meta[name=theme-color]');if(m)m.content=dark?'#1e2126':'#0a3148';
+  const m=$('meta[name=theme-color]');if(m)m.content=dark?'#1e2126':'#0B6B8A';
 }
 function setTheme(p){try{localStorage.setItem(THEME_KEY,p==='dark'?'dark':'light')}catch(e){}applyTheme()}
 ACT['theme-toggle']=()=>setTheme(effTheme()==='dark'?'light':'dark');
