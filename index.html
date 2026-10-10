@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-t5lGpYBaDxTfELkru2DaUQ7yke10enwug5xSwQKziYU='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-8pg0vtGjQ7nLqe4cF+yCFuGCxFhlnPUaorGmQA6qUSw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B6B8A">
 <title>Fishing | Log</title>
@@ -12,7 +12,7 @@
 <meta property="og:title" content="Fishing: log a fish with one tap">
 <meta property="og:description" content="No account. Your catches are saved in your browser, not on a server.">
 <meta property="og:url" content="https://mbfishing.online/">
-<meta property="og:image" content="https://mbfishing.online/og-image.png">
+<meta property="og:image" content="https://mbfishing.online/og-image.png?v=2">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,15 +20,15 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fishing: log a fish with one tap">
 <meta name="twitter:description" content="No account. Your catches are saved in your browser, not on a server.">
-<meta name="twitter:image" content="https://mbfishing.online/og-image.png">
+<meta name="twitter:image" content="https://mbfishing.online/og-image.png?v=2">
 <script>var __t="light";try{if(localStorage.getItem("mbfishing.theme")==="dark")__t="dark"}catch(e){}document.documentElement.setAttribute("data-theme",__t)</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Fishing">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="favicon.ico" sizes="48x48">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.ico?v=2" sizes="48x48">
+<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <style>
 /* Utility theme tokens: neutral desktop-software palette, one chartreuse-olive accent. The app opens in light mode; dark applies only when you pick it. */
 :root{--bg:#f3f4f6;--surface:#fff;--surface2:#f6f7f9;--surface3:#eceef2;--ink:#1b1f24;--ink-2:#48505c;--muted:#5f6773;--line:#dfe2e7;--line-strong:#c6cbd3;--accent:#0b6b8a;--accent-hover:#08566f;--accent-ink:#fff;--accent-soft:rgba(11,107,138,.10);--accent-line:rgba(11,107,138,.38);--gold:#b87900;--gold-ink:#7a5200;--gold-soft:#fbeecb;--good:#16a34a;--danger:#b3321f;--danger-ink:#fff;--shadow:0 1px 2px rgba(20,24,31,.06);--shadow-pop:0 8px 24px -6px rgba(20,24,31,.22),0 1px 3px rgba(20,24,31,.08);color-scheme:light}
@@ -746,11 +746,142 @@ img.logo{border-radius:var(--r)}
 }
 
 </style>
+<style id="mb-suite-cutouts">
+/* =====================================================================
+   MB SUITE v2 · PAPER CUTOUTS surface layer
+   Additive and accent-driven. Load LAST in <head>: after mb-suite-core.css,
+   mb-suite-appbar.css and the app's adapter. Never edit core to get this look.
+   Changes SURFACE only: gradients, page wash, cutout art. Geometry (6/4/8px),
+   layout, density, type, components, motion and behavior stay MB Suite v1.
+   Per-app tweaks go in adapters/<app>-cutouts.css, not here.
+   ===================================================================== */
+
+/* ---- art + gradient tokens (all derived from --accent; no per-app hex) ---- */
+:root{
+  --cut-deep:var(--accent);
+  --cut-mid:color-mix(in srgb,var(--accent) 52%,#fff);
+  --cut-soft:color-mix(in srgb,var(--accent) 24%,#fff);
+  --cut-near:color-mix(in srgb,var(--accent) 62%,#0aa6b8);      /* neighbor hue; upgraded below where supported */
+  --cut-butter:#FFD98A;
+  --cut-blush:#F7B8A8;
+  --wash-top:color-mix(in srgb,var(--accent) 7%,#fff);
+  --wash-mid:color-mix(in srgb,var(--accent) 4%,var(--bg));
+  --g-line:linear-gradient(90deg,var(--accent),var(--cut-mid) 55%,var(--cut-butter));
+  --g-underline:linear-gradient(90deg,var(--accent),var(--cut-mid));
+  --g-pri:linear-gradient(135deg,var(--accent),var(--accent-hover));
+  --g-bar:linear-gradient(90deg,var(--accent),var(--cut-mid));
+  --g-tile:linear-gradient(135deg,color-mix(in srgb,var(--accent) 11%,var(--surface)),var(--surface) 65%);
+}
+@supports (color:oklch(from red l c h)){
+  :root{--cut-near:oklch(from var(--accent) calc(l + .04) c calc(h + 34))}
+}
+:root[data-theme="dark"],:root.dark{
+  --cut-mid:color-mix(in srgb,var(--accent) 60%,var(--surface));
+  --cut-soft:color-mix(in srgb,var(--accent) 30%,var(--surface));
+  --cut-near:color-mix(in srgb,var(--accent) 62%,#0aa6b8);
+  --cut-butter:#D9B363;
+  --cut-blush:#C98C80;
+  --wash-top:color-mix(in srgb,var(--accent) 16%,var(--bg));
+  --wash-mid:color-mix(in srgb,var(--accent) 7%,var(--bg));
+}
+@supports (color:oklch(from red l c h)){
+  :root[data-theme="dark"],:root.dark{--cut-near:oklch(from var(--accent) calc(l - .06) c calc(h + 34))}
+}
+
+/* ---- page wash: accent-derived, fades into the neutral page by ~680px ---- */
+html{background:linear-gradient(180deg,var(--wash-top) 0,var(--wash-mid) 420px,var(--bg) 680px) no-repeat,var(--bg)}
+body{background:none}
+
+/* ---- app bar: gradient accent line + gradient underline on the current tab ---- */
+.top,.app-bar{box-shadow:var(--shadow)!important}
+.top::before,.app-bar::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--g-line);pointer-events:none;z-index:1}
+.tabs button[aria-current="page"],nav.tabs button[aria-current="page"],
+:root[data-theme="dark"] nav.tabs button[aria-current="page"]{box-shadow:none!important;background:var(--g-underline) bottom/100% 2px no-repeat!important}
+.bnav button[aria-current="page"]{box-shadow:none!important;background:var(--g-underline) top/100% 2px no-repeat!important}
+
+/* ---- gradient is allowed ONLY here (everything else stays flat v1) ----
+   primary buttons, progress/bar fills, the hero stat tile, the banner, the page wash, the accent line.
+   Map the app's own selectors in adapters/<app>-cutouts.css; these are the common ones. */
+:is(.btn.primary,.btn.pri,.btn-primary,button.primary,.primary-btn){background:var(--g-pri)!important;border-color:transparent!important;color:var(--accent-ink)!important}
+.cu-hero{background:var(--g-tile)}
+.cu-bar{background:var(--g-bar)!important}                 /* use on the fill element of a progress/bar */
+
+/* ---- banner ---- */
+.cu-banner{position:relative;overflow:hidden;min-height:128px;margin:0 0 var(--sp-4);padding:22px 24px;border-radius:var(--r-lg);
+  border:1px solid color-mix(in srgb,var(--accent) 16%,transparent);box-shadow:var(--shadow);
+  background:linear-gradient(105deg,color-mix(in srgb,var(--accent) 3%,var(--surface)) 0%,color-mix(in srgb,var(--accent) 9%,var(--surface)) 60%,
+    color-mix(in srgb,var(--cut-butter) 22%,color-mix(in srgb,var(--accent) 5%,var(--surface))) 100%)}
+.cu-banner.slim{min-height:72px;padding:16px 24px}
+.cu-banner .cu-txt{position:relative;z-index:1}
+.cu-banner.slim .cu-art:not(.at-bottom):not(.at-top){max-width:58%}
+.cu-banner .cu-t{margin:0;font-size:var(--fs-h2);font-weight:650;letter-spacing:-.015em;color:var(--ink)}
+.cu-banner .cu-s{margin:4px 0 0;font-size:13.5px;color:var(--ink-2)}
+
+/* ---- art: roles (never hardcode hexes; recolor by role class or palette class) ---- */
+.cu-art{position:absolute;right:0;top:0;height:100%;width:auto;max-width:75%;pointer-events:none}
+.cu-art .d{fill:var(--cu-d,var(--cut-deep))}
+.cu-art .m{fill:var(--cu-m,var(--cut-mid))}
+.cu-art .s{fill:var(--cu-s,var(--cut-soft))}
+.cu-art .n{fill:var(--cu-n,var(--cut-near))}
+.cu-art .b{fill:var(--cu-b,var(--cut-butter))}
+.cu-art .r{fill:var(--cu-r,var(--cut-blush))}
+.cu-art .sd{fill:none;stroke:var(--cu-d,var(--cut-deep));stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.cu-art .sm{fill:none;stroke:var(--cu-m,var(--cut-mid));stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---- palettes: put on the svg or any ancestor ---- */
+.cu-p-mono{--cu-n:color-mix(in srgb,var(--accent) 78%,#000);--cu-b:color-mix(in srgb,var(--accent) 14%,var(--surface));--cu-r:color-mix(in srgb,var(--accent) 38%,var(--surface))}
+.cu-p-soft{--cu-d:var(--cut-mid);--cu-m:var(--cut-soft);--cu-s:color-mix(in srgb,var(--accent) 12%,var(--surface));
+  --cu-n:color-mix(in srgb,var(--cut-near) 45%,var(--surface));--cu-b:color-mix(in srgb,var(--cut-butter) 70%,var(--surface));--cu-r:color-mix(in srgb,var(--cut-blush) 70%,var(--surface))}
+.cu-p-bold{--cu-d:var(--accent-hover);--cu-m:var(--accent);--cu-s:var(--cut-mid)}
+
+/* ---- placement / size / modifiers (all optional; size with --cu-w or height) ---- */
+.cu-art.at-right{right:0;left:auto;top:0}
+.cu-art.at-left{left:0;right:auto;top:0}
+.cu-art.at-top{left:0;right:0;top:0;width:100%;height:auto;max-width:none}
+.cu-art.at-bottom{left:0;right:0;top:auto;bottom:0;width:100%;height:auto;max-width:none}
+.cu-art.at-corner{top:0;right:0;height:auto;width:var(--cu-w,220px);max-width:none}
+.cu-art.at-corner-bl{top:auto;right:auto;bottom:0;left:0;height:auto;width:var(--cu-w,220px);max-width:none}
+.cu-art.inline{position:relative;display:block;right:auto;top:auto;margin:0 auto;width:var(--cu-w,100%);max-width:100%;height:auto}
+.cu-art.mirror{transform:scaleX(-1)}
+.cu-art.flip{transform:scaleY(-1)}
+.cu-art.fade{opacity:.35}
+.cu-art.xs{--cu-w:64px}.cu-art.sm{--cu-w:120px}.cu-art.md{--cu-w:220px}.cu-art.lg{--cu-w:340px}
+:root[data-theme="dark"] .cu-art,:root.dark .cu-art{opacity:.85}
+:root[data-theme="dark"] .cu-art.fade,:root.dark .cu-art.fade{opacity:.3}
+
+/* ---- phones + print ---- */
+@media(max-width:600px){
+  .cu-banner{padding:18px 16px;min-height:104px}
+  .cu-banner .cu-art:not(.at-bottom):not(.at-top){max-width:46%}
+}
+@media print{html{background:#fff}.cu-banner,.cu-art{display:none}}
+
+/* =====================================================================
+   MB SUITE v2 · mbfishing.online adapter (loads after mb-suite-cutouts.css)
+   Fishing has no .top/.app-bar: its accent line is body::before and its tabs are #nav.
+   ===================================================================== */
+/* accent line: the v1 fixed bar becomes the gradient */
+body::before{background:var(--g-line)}
+/* current tab: gradient marker. Phone bottom bar = top marker; wide screens = bottom underline */
+#nav button[aria-current=page]{box-shadow:none!important;background:var(--g-underline) top/100% 2px no-repeat!important}
+@media(min-width:900px){#nav button[aria-current=page]{background:var(--g-underline) bottom/100% 2px no-repeat!important}}
+/* primary buttons: gradient (generic rule), hover feedback, flat disabled state */
+.btn.primary:hover:not(:disabled){filter:brightness(.94)}
+.btn.primary:disabled{background:color-mix(in srgb,var(--accent) 35%,var(--surface-2))!important;border-color:transparent!important;color:color-mix(in srgb,var(--accent-ink) 80%,transparent)!important;filter:none}
+/* progress fills (scroll progress line and meters) */
+.bar i,#prog i{background:var(--g-bar)}
+/* the status card is the hero tile of the Log view */
+.card.status{background:var(--g-tile)}
+/* the banner sits above the two-column Log layout */
+#v-log>.cu-banner{margin-bottom:var(--sp-4)}
+/* phones: keep banner text in its own column so it never meets the art */
+@media(max-width:600px){.cu-banner .cu-txt{max-width:54%}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main" data-act="skip">Skip to content</a>
 <header id="top">
-  <h1><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.1</span></span></a></h1>
+  <h1><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.2</span></span></a></h1>
   <div class="hdr-tools">
     <button id="pill" data-act="go" data-v="log" hidden></button>
     <button class="ib" id="search-btn" data-act="gs-open" aria-label="Search everything"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><span class="lbl">Search everything</span><kbd>/</kbd></button>
@@ -789,7 +920,7 @@ img.logo{border-radius:var(--r)}
   <section id="v-more" class="view" hidden></section>
 </main>
 <nav id="nav" aria-label="Main">
-  <div class="brand"><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.1</span></span></a></div>
+  <div class="brand"><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.2</span></span></a></div>
   <button data-act="go" data-v="log" aria-current="page"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>Log</button>
   <button data-act="go" data-v="catches"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 12c2.5-4 8.5-4.8 12.5 0-4 4.8-10 4-12.5 0z"/><path d="M6.5 12 3 9v6z"/><circle cx="15.5" cy="11.3" r=".9" fill="currentColor" stroke="none"/></svg></span>Catches</button>
   <button data-act="go" data-v="map"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg></span>Map</button>
@@ -1697,12 +1828,18 @@ function setupCard(){
   return`<div class="card setup"><div class="eyebrow">Get set up · ${n} of ${steps.length}</div><div class="bar"><i style="width:${Math.round(n/steps.length*100)}%"></i></div>${steps.map(row).join('')}<button class="btn sm link mt" data-act="setup-hide">Hide this list</button></div>`;
 }
 ACT['setup-hide']=()=>{try{localStorage.setItem(SETUP_KEY,'hidden')}catch(e){}refresh()};
+const CU_BANNER_SVG=`<svg class="cu-art" viewBox="0 0 640 140" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false"><circle class="b" cx="470" cy="142" r="78"/><path class="s" transform="translate(11.6 144) rotate(-81.5) scale(0.42)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(34.9 144) rotate(-107.4) scale(0.70)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(76.6 144) rotate(-77.1) scale(0.61)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(111 144) rotate(-95.8) scale(0.49)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(140.5 144) rotate(-98.5) scale(0.50)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(167.7 144) rotate(-76.5) scale(0.66)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(207.6 144) rotate(-74.7) scale(0.48)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(237.1 144) rotate(-91.6) scale(0.48)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(269 144) rotate(-87.7) scale(0.44)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(301.3 144) rotate(-74.5) scale(0.58)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(337.7 144) rotate(-76.9) scale(0.53)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(374.9 144) rotate(-74) scale(0.56)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(396.2 144) rotate(-101.8) scale(0.46)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(440.3 144) rotate(-82.1) scale(0.61)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(465.4 144) rotate(-76.1) scale(0.56)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(496.2 144) rotate(-106.3) scale(0.45)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(533.6 144) rotate(-88) scale(0.66)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(565.8 144) rotate(-101.5) scale(0.56)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(605.4 144) rotate(-99.5) scale(0.52)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(630.7 144) rotate(-96.5) scale(0.65)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(26.5 146) rotate(-92.6) scale(0.37)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="n" transform="translate(65.2 146) rotate(-77) scale(0.48)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(123.6 146) rotate(-90.3) scale(0.32)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(174 146) rotate(-71.2) scale(0.47)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="n" transform="translate(231.9 146) rotate(-110.2) scale(0.36)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(286.3 146) rotate(-105) scale(0.49)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(332 146) rotate(-69) scale(0.40)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="n" transform="translate(376.7 146) rotate(-74.9) scale(0.31)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(437.1 146) rotate(-77.8) scale(0.39)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(489.5 146) rotate(-100.8) scale(0.44)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="n" transform="translate(533.4 146) rotate(-97.3) scale(0.30)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(594.4 146) rotate(-96.7) scale(0.38)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(645.9 146) rotate(-85.8) scale(0.44)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><circle class="r" cx="120" cy="36" r="7"/><circle class="b" cx="330" cy="22" r="5"/><circle class="r" cx="590" cy="70" r="6"/></svg>`;
+function cuBanner(t,list){
+  const d=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}),n=db.catches.length;
+  const sub=d+(t?' \u00B7 '+list.length+' fish this trip':(n?' \u00B7 '+n+' catch'+(n===1?'':'es')+' logged':''));
+  return `<section class="cu-banner">${CU_BANNER_SVG}<div class="cu-txt"><h2 class="cu-t">Your catch log</h2><p class="cu-s">${esc(sub)}</p></div></section>`;
+}
 function renderLog(){
   const el=$('#v-log'),t=activeTrip(),list=t?catchesOf(t.id):[],P=pbs();
   const counts={};list.forEach(c=>{counts[c.species]=(counts[c.species]||0)+1});
   if(!quickOrder)quickOrder=speciesOrder().slice(0,innerWidth>=560?8:6);
   const recent=t?[]:[...db.catches].sort((a,b)=>b.t-a.t).slice(0,4);
-  el.innerHTML=`<div class="lg"><div class="lg-l">
+  el.innerHTML=`${cuBanner(t,list)}<div class="lg"><div class="lg-l">
   <div class="card status">
     ${t?`<div class="row between"><div><div class="eyebrow">Fishing now</div><div class="big" id="elapsed">${fmtDur(Date.now()-t.start)}</div></div><div class="count"><b>${list.length}</b>fish</div><button class="btn" data-act="trip-end">End trip</button></div>
       <div class="chips" style="margin-top:0">${spotChip(t)}${lureChip()}${lostChip(t)}${wxChip(t)}</div>
@@ -3008,7 +3145,7 @@ async function renderMore(){
   </div>
   <div class="blk" id="faq-blk"><h3>Help &amp; FAQ</h3><button class="btn sm" data-act="tour" style="margin-bottom:10px">▶ Replay the quick tour</button>${faqHTML()}</div>
   </div>
-  <p class="muted sm" style="text-align:center;margin:22px 0 64px"><button class="btn sm" data-act="whats-new">v1.1 · What’s new</button><br><br>mbfishing.online · No account. Your catches stay on this device.<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>`;
+  <p class="muted sm" style="text-align:center;margin:22px 0 64px"><button class="btn sm" data-act="whats-new">v1.2 · What’s new</button><br><br>mbfishing.online · No account. Your catches stay on this device.<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>`;
   try{
     const est=navigator.storage&&navigator.storage.estimate?await navigator.storage.estimate():null,per=navigator.storage&&navigator.storage.persisted?await navigator.storage.persisted():null;
     const s=$('#stor');if(s)s.textContent=`${est?`Using about ${r1((est.usage||0)/1048576)} MB. `:''}${per===true?'Protected from automatic clean-up ✓':per===false?'Not yet protected from automatic clean-up. Back up regularly.':''}`;
@@ -3053,8 +3190,9 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.1';
+const APP_VERSION='1.2';
 const RELEASES=[
+ {v:'1.2',d:'October 2026',n:["Lighter, fresher look (Paper Cutouts): a soft blue tint across the top of each page, a gradient accent line and tab marker, gradient buttons and progress bars, and a leaf-art banner on the Log screen. Layout and features are unchanged.", "New logo and app icons: the same fish on a softer gradient badge, with a matching link preview image.", "Your catches, spots and backups are unchanged."]},
  {v:'1.1',d:'October 2026',n:['Logo redrawn with the fish exactly centered in the app icon, favicon, home-screen icons and link preview image','More space between the site name and the “Official Web App” line in the header']},
  {v:'1.11.5',d:'October 2026',n:['New logo and app icon: a gold fishing hook on a green gradient, with a matching link preview image','The logo in the header now has a one-line description under the site name, and tapping it takes you back to the Log screen']},
  {v:'1.11.3',d:'October 2026',n:['New logo and app icon: a new fish facing left on a richer green gradient, with a full outline and dorsal fin, centered with equal margins','The link preview image now uses the same fish and gradient so the logo, icons and preview match']},
@@ -3168,7 +3306,7 @@ ACT['menu-open']=()=>{
       <button class="item" data-act="faq-go" data-id="privacy"><span class="th">🔒</span><span class="grow"><b>Privacy &amp; your data</b></span></button>
       <button class="item" data-act="menu-backup"><span class="th">💾</span><span class="grow"><b>Save backup now</b><br><span class="muted sm">JSON to your backup folder</span></span></button>
     </div>
-    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · Official Web App · v1.1<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
+    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · Official Web App · v1.2<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
 };
 ACT['menu-backup']=()=>{closeSheet();saveBackupNow()};
 
