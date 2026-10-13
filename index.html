@@ -1,18 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-app-short="Fishing" data-app-domain="mbfishing.online">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-8pg0vtGjQ7nLqe4cF+yCFuGCxFhlnPUaorGmQA6qUSw='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-zTbmo+7a+a5RIfuCyJSFLu0aIJJl9D6RHS/PEs80la0='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B6B8A">
 <title>Fishing | Log</title>
-<meta name="description" content="Log a fish with one tap. No account. Your catches are saved in your browser, not on a server.">
+<meta name="description" content="A free fishing log: tap a species to log a catch, then track trips, spots, personal bests and a bite forecast. No account. Your catches are saved in your browser, not on a server.">
+<link rel="canonical" href="https://mbfishing.online/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fishing">
 <meta property="og:title" content="Fishing: log a fish with one tap">
 <meta property="og:description" content="No account. Your catches are saved in your browser, not on a server.">
 <meta property="og:url" content="https://mbfishing.online/">
-<meta property="og:image" content="https://mbfishing.online/og-image.png?v=2">
+<meta property="og:image" content="https://mbfishing.online/og-image.png?v=3">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -20,15 +21,17 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Fishing: log a fish with one tap">
 <meta name="twitter:description" content="No account. Your catches are saved in your browser, not on a server.">
-<meta name="twitter:image" content="https://mbfishing.online/og-image.png?v=2">
+<meta name="twitter:image" content="https://mbfishing.online/og-image.png?v=3">
+<meta name="twitter:image:alt" content="mbfishing.online: log a fish with one tap. The app's species buttons and a Start a trip button.">
 <script>var __t="light";try{if(localStorage.getItem("mbfishing.theme")==="dark")__t="dark"}catch(e){}document.documentElement.setAttribute("data-theme",__t)</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "mbfishing.online", "alternateName": "Fishing", "url": "https://mbfishing.online/", "description": "A free fishing log that runs in your browser. Log a catch with one tap and track trips, spots, personal bests and a bite forecast. No account; your catches stay on your device.", "applicationCategory": "SportsApplication", "operatingSystem": "Any (runs in a web browser)", "browserRequirements": "Requires JavaScript.", "isAccessibleForFree": true, "image": "https://mbfishing.online/og-image.png", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Fishing">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="favicon.ico?v=2" sizes="48x48">
-<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
+<link rel="icon" href="favicon.ico?v=3" sizes="48x48">
+<link rel="icon" href="favicon.svg?v=3" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=3">
 <style>
 /* Utility theme tokens: neutral desktop-software palette, one chartreuse-olive accent. The app opens in light mode; dark applies only when you pick it. */
 :root{--bg:#f3f4f6;--surface:#fff;--surface2:#f6f7f9;--surface3:#eceef2;--ink:#1b1f24;--ink-2:#48505c;--muted:#5f6773;--line:#dfe2e7;--line-strong:#c6cbd3;--accent:#0b6b8a;--accent-hover:#08566f;--accent-ink:#fff;--accent-soft:rgba(11,107,138,.10);--accent-line:rgba(11,107,138,.38);--gold:#b87900;--gold-ink:#7a5200;--gold-soft:#fbeecb;--good:#16a34a;--danger:#b3321f;--danger-ink:#fff;--shadow:0 1px 2px rgba(20,24,31,.06);--shadow-pop:0 8px 24px -6px rgba(20,24,31,.22),0 1px 3px rgba(20,24,31,.08);color-scheme:light}
@@ -42,28 +45,15 @@ h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute
 p{margin:0 0 10px}
 button{font:inherit;color:inherit;cursor:pointer}
 img{display:block}
-#top{flex:none;position:relative;z-index:60;display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:center;column-gap:2px;padding:calc(env(safe-area-inset-top) + 7px) 10px 7px 16px;background:var(--surface);border-bottom:1px solid var(--line);transition:box-shadow .2s}
-#top.scrolled{box-shadow:0 3px 12px rgba(0,0,0,.14)}
-#top h1{white-space:nowrap;min-width:0}
-.hdr-tools{display:contents}
-#top h1{grid-column:1;grid-row:1}#search-btn{grid-column:2;grid-row:1}#theme-btn{grid-column:3;grid-row:1}#menu-btn{grid-column:4;grid-row:1}#pill{grid-row:2}
 .ib{position:relative;min-width:44px;height:44px;padding:0 8px;border-radius:12px;border:1px solid transparent;background:none;font-size:19px;line-height:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;color:var(--ink)}
 .ib .lbl,.ib kbd{display:none}
 .ib .dot{position:absolute;top:6px;right:6px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid var(--surface);box-sizing:content-box}
 #prog{position:absolute;left:0;right:0;bottom:-1px;height:3px;pointer-events:none;overflow:hidden}
 #prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .08s linear;border-radius:0 3px 3px 0}
-#top h1{font-size:clamp(14px,4.7vw,18px);font-weight:760;letter-spacing:-.01em;overflow:hidden}
-#top h1 .lk-n>span{color:var(--accent)}
 #pill{grid-column:1/-1;border:0;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:0 12px;font-size:14px;font-weight:700;min-height:44px;white-space:nowrap;margin:6px 6px 2px 0}
 main{flex:1;min-height:0;overflow:auto;position:relative;-webkit-overflow-scrolling:touch}
 body.noscroll main{overflow:hidden}
 .view{padding:14px 14px 30px;max-width:760px;margin:0 auto}
-#nav{flex:none;display:grid;grid-template-columns:repeat(6,1fr);background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-#nav button{background:none;border:0;padding:7px 0 6px;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:11px;font-weight:650;color:var(--muted);min-height:58px;position:relative}
-#nav .ic{font-size:21px;line-height:1.15}
-#nav button[aria-current=page]{color:var(--accent)}
-#nav button[aria-current=page] .ic{transform:translateY(-1px)}
-#nav .dot{position:absolute;top:9px;left:calc(50% + 8px);width:9px;height:9px;border-radius:50%;background:var(--gold)}
 
 /* controls */
 .btn{min-height:48px;padding:0 18px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);font-weight:650;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .08s}
@@ -261,7 +251,6 @@ summary{cursor:pointer;font-weight:650;padding:10px 0;color:var(--muted)}
 .pgstar{position:absolute;top:5px;right:8px;color:#ffd34d;font-size:19px;text-shadow:0 1px 3px rgba(0,0,0,.7);font-weight:400}
 
 /* layout helpers (mobile = stacked) */
-.brand{display:none}
 .desk-only{display:none}
 .seg.top{max-width:480px}
 .toolbar>.chips{margin-top:10px}
@@ -298,7 +287,6 @@ mark{background:var(--gold-soft);color:inherit;border-radius:3px;padding:0 1px}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
 /* ---------- UX pass: press feedback, hit areas, onboarding, setup list, disclosures ---------- */
 button,summary,a,select,input{touch-action:manipulation}
-@media(max-width:340px){#top h1 .logo{display:none}}
 .ib:active{background:var(--surface2)}
 .seg button:active{background:var(--accent-soft)}
 #pill:active{filter:brightness(.92)}
@@ -325,7 +313,7 @@ input[aria-invalid=true]{border-color:var(--danger)}
 a:not(.btn):not(.skip){color:var(--accent);text-underline-offset:2px}
 .legal{display:flex;flex-wrap:wrap;justify-content:center;margin:2px 0}
 .legal a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px}
-#main:focus,#view-h:focus,.sheet:focus,.dlg:focus,#lb:focus,#ob:focus{outline:none}
+#main:focus,#page-title:focus,.sheet:focus,.dlg:focus,#lb:focus,#ob:focus{outline:none}
 .setup .th.chk{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:none;font-size:18px;font-weight:800;color:var(--accent-ink)}
 .setup .th.chk.on{background:var(--accent);border-color:var(--accent)}
 .setup .eyebrow{margin:0}
@@ -351,25 +339,11 @@ a:not(.btn):not(.skip){color:var(--accent);text-underline-offset:2px}
 @media(prefers-reduced-motion:no-preference){#ob .ob-main{animation:fadein .25s ease-out}}
 /* ---------- desktop: sidebar + columns + dialogs + map with side panel ---------- */
 @media (min-width:900px){
-  body{display:grid;grid-template-columns:236px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}
-  #nav{grid-column:1;grid-row:1/3;display:flex;flex-direction:column;align-items:stretch;gap:4px;padding:22px 14px;border-top:0;border-right:1px solid var(--line);overflow-y:auto}
-  .brand{display:block;font-size:18px;font-weight:780;letter-spacing:-.02em;padding:2px 12px 20px;white-space:nowrap}
   .desk-only{display:block}
-  .brand .lk-n>span{color:var(--accent)}
-  #nav button{flex-direction:row;justify-content:flex-start;gap:12px;font-size:15px;min-height:46px;padding:0 14px;border-radius:12px;width:100%}
-  #nav button:hover{background:var(--surface2);color:var(--ink)}
-  #nav button[aria-current=page]{background:var(--accent-soft);color:var(--accent)}
-  #nav button[aria-current=page] .ic{transform:none}
-  #nav .ic{font-size:20px;width:26px;text-align:center;line-height:1}
-  #nav .dot{top:19px;left:auto;right:16px}
-  #top{grid-column:2;grid-row:1;padding:10px 36px;display:flex;align-items:center}
-  #top h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-  .hdr-tools{display:flex;align-items:center;gap:8px;margin-left:auto}
   #pill{min-height:36px;padding:0 14px;font-size:13.5px;border-radius:999px;margin:0}
   #search-btn{width:300px;justify-content:flex-start;border-color:var(--line);background:var(--surface2);font-size:14px;color:var(--muted);font-weight:600}
   #search-btn .lbl{display:inline}
   #search-btn kbd{display:inline;margin-left:auto;font:600 12px system-ui;border:1px solid var(--line);border-radius:6px;padding:1px 7px;background:var(--surface)}
-  main{grid-column:2;grid-row:2}
   #totop{bottom:28px;right:28px}
   #notice{left:260px;right:auto;bottom:24px;margin:0;width:min(520px,calc(100vw - 300px))}
   .view{max-width:1200px;padding:30px 36px 56px}
@@ -417,7 +391,6 @@ a:not(.btn):not(.skip){color:var(--accent);text-underline-offset:2px}
   .x:hover{background:var(--accent-soft);color:var(--ink)}
   .rm:hover{filter:brightness(1.25)}
   .ib:hover{background:var(--surface2);border-color:var(--line)}
-  #nav button:hover{color:var(--ink)}
   .fab:hover,#totop:hover{transform:translateY(-2px)}
   .map-list-btn:hover{border-color:var(--accent)}
   .map-hint button:hover{text-decoration:underline}
@@ -459,9 +432,6 @@ h3{font-size:11.5px;letter-spacing:.06em;margin:20px 2px 8px}
   .ib:hover{border-color:transparent}
 }
 /* header: solid app bar */
-#top{box-shadow:var(--shadow);padding-top:calc(env(safe-area-inset-top) + 6px);padding-bottom:6px}
-#top.scrolled{box-shadow:var(--shadow)}
-#top h1{font-size:clamp(14px,4.2vw,15px);font-weight:650}
 #prog{height:2px}
 .ib{border-radius:var(--r-sm);min-width:var(--ctl);height:var(--ctl);font-size:17px}
 #pill{border-radius:var(--r-sm);font-weight:600;min-height:var(--ctl)}
@@ -472,9 +442,6 @@ h3{font-size:11.5px;letter-spacing:.06em;margin:20px 2px 8px}
 .themesw[aria-checked="true"] .sw-th{transform:translateX(24px)}
 .themesw[aria-checked="true"] .sw-th::before{content:"☾"}
 /* nav */
-#nav button{font-weight:600}
-#nav button[aria-current=page]{box-shadow:inset 0 2px 0 var(--accent)}
-#nav .brand{font-size:15px;font-weight:650}
 /* controls */
 .btn{border-radius:var(--r-sm);min-height:var(--ctl);padding:0 14px;font-weight:550;font-size:13.5px;border:1px solid var(--line-strong)}
 .btn.primary{font-weight:600}
@@ -531,21 +498,10 @@ summary,details>summary{min-height:var(--ctl)}
 .ob-dots i{border-radius:2px}
 @media(min-width:900px){
   .sheet{border-radius:8px;transition:transform .12s ease,opacity .12s ease}
-  #nav button{border-radius:0;font-size:14px;min-height:var(--ctl);gap:10px}
-  #nav button:hover{background:var(--surface2)}
-  #nav button[aria-current=page]{background:var(--surface2);box-shadow:inset 3px 0 0 var(--accent)}
   #search-btn{border-radius:var(--r-sm)}
   #search-btn kbd{border-radius:3px;font-family:var(--font)}
   #pill{border-radius:var(--r-sm)}
 }
-img.logo{display:inline-block;vertical-align:-6px;margin-right:8px;border-radius:5px}
-.lockup{display:inline-flex;align-items:stretch;gap:8px;max-width:100%;color:inherit;text-decoration:none;border-radius:8px}
-.lockup img.logo{margin:0;vertical-align:baseline;flex:none;width:28px;height:28px}
-.lockup .lk-t{display:flex;flex-direction:column;justify-content:space-between;min-width:0;text-align:left}
-.lockup .lk-n{line-height:1;color:var(--ink);text-box:trim-both cap alphabetic}
-.lockup .lk-d{font-size:.74em;line-height:1;font-weight:600;letter-spacing:0;color:var(--muted);white-space:nowrap;text-box:trim-both cap alphabetic}
-@supports not (text-box:trim-both cap alphabetic){.lockup .lk-n{margin-top:-.15em}.lockup .lk-d{margin-bottom:-.2em}}
-.lockup:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 /* backup card */
 .bk-last{display:flex;align-items:center;gap:6px 10px;flex-wrap:wrap;padding:8px 10px;margin:0 0 10px;border:1px solid var(--line);border-left:3px solid var(--good);border-radius:var(--r-sm);background:var(--surface2);font-size:13.5px}
 .bk-last.warn{border-left-color:var(--gold)}
@@ -678,22 +634,9 @@ input[type=checkbox],input[type=radio],input[type=range],progress{accent-color:v
 /* ---- MB SUITE v1 · mbfishing.online adapter ---- */
 :root{--line:var(--border);--line-strong:var(--border-strong);--surface2:var(--surface-2);--surface3:var(--surface-3);--danger:var(--crit)}
 /* family signature: 3px accent line across the very top */
-body::before{content:"";position:fixed;left:0;right:0;top:0;height:3px;background:var(--accent);z-index:200;pointer-events:none}
-#top{padding-top:calc(env(safe-area-inset-top) + 9px)}
 /* line icons replace emoji in navigation and header tools */
 .uic{display:block;flex:none}
-#nav .ic{display:grid;place-items:center;height:22px}
-#nav .ic .uic{width:21px;height:21px}
 .ib .uic{width:19px;height:19px}
-@media(min-width:900px){
-  #nav{padding-top:18px}
-  #nav .ic{width:22px;height:20px}
-  #nav .ic .uic{width:18px;height:18px}
-  #nav button[aria-current=page]{background:var(--accent-soft);color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
-  .brand{padding:2px 12px 16px}
-}
-.lockup img.logo{width:28px;height:28px;border-radius:var(--r)}
-img.logo{border-radius:var(--r)}
 /* squared geometry for the last rounded bits */
 .fc-pill{border-radius:var(--r-sm);font-weight:700}
 .fc-now,.fc-tip,.fc-warn{border-radius:var(--r);border-width:1px}
@@ -701,7 +644,6 @@ img.logo{border-radius:var(--r)}
 .fc-key i{border-radius:2px}
 .sp-th,.sp-art{border-radius:var(--r-sm)}
 :root[data-theme="dark"] .sp-th,:root[data-theme="dark"] .sp-art{background:#25303a}
-.lockup{border-radius:var(--r-sm)}
 .ib{border-radius:var(--r-sm)}
 #pill{border-radius:var(--r-sm)}
 .seg{border-radius:var(--r-sm)}
@@ -712,36 +654,9 @@ img.logo{border-radius:var(--r)}
 .tile b{font-variant-numeric:tabular-nums}
 #toast{background:var(--ink);color:var(--surface)}
 :root[data-theme="dark"] #toast{background:#2d3238;color:var(--ink)}
-/* app bar: same title + tab style as mbmoney.online (desktop: top bar + underline tabs, no sidebar) */
-#top h1{font-size:14.5px;font-weight:650;letter-spacing:-.005em}
-.lockup{gap:9px;align-items:center}
-.lockup img.logo{width:28px;height:28px}
-.lockup .lk-t{gap:0;align-self:stretch;padding:1px 0}
-.lockup .lk-d{font-size:11px;font-weight:400;color:var(--muted);letter-spacing:.01em}
-@media(min-width:900px){
-  body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr)}
-  #top,#nav{--gut:max(36px,calc((100% - 1200px) / 2 + 36px))}
-  #top{grid-column:1;grid-row:1;padding:12px var(--gut) 4px;border-bottom:0;box-shadow:none;align-items:center}
-  #top h1{position:static;width:auto;height:auto;overflow:visible;clip:auto;white-space:nowrap}
-  #nav{grid-column:1;grid-row:2;flex-direction:row;align-items:stretch;gap:0;padding:0 var(--gut);border-right:0;border-bottom:1px solid var(--border);box-shadow:var(--shadow);background:var(--surface);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;z-index:59}
-  #nav::-webkit-scrollbar{display:none}
-  #nav .brand{display:none}
-  #nav button{width:auto;flex:none;flex-direction:row;gap:7px;min-height:40px;padding:0 12px;border-radius:0;font-size:14px;font-weight:500;color:var(--ink-2)}
-  #nav button:hover{background:var(--surface-2);color:var(--ink)}
-  #nav button[aria-current=page]{background:none;color:var(--accent);font-weight:600;box-shadow:inset 0 -2px 0 var(--accent)}
-  #nav .ic{width:16px;height:16px;opacity:.75}
-  #nav .ic .uic{width:16px;height:16px}
-  #nav button[aria-current=page] .ic{opacity:1}
-  #nav .dot{top:8px;right:4px;left:auto}
-  main{grid-column:1;grid-row:3}
-  #notice{left:24px}
-}
 /* page width: same container as mbmoney.online (1280px, 16px gutters on every screen size) */
 .view{max-width:var(--page-max);padding-left:max(var(--gutter),env(safe-area-inset-left));padding-right:max(var(--gutter),env(safe-area-inset-right))}
-#top{padding-left:max(var(--gutter),env(safe-area-inset-left));padding-right:max(var(--gutter),env(safe-area-inset-right))}
 @media(min-width:900px){
-  #top,#nav{--gut:max(var(--gutter),calc((100% - var(--page-max)) / 2 + var(--gutter)))}
-  #top{padding-left:var(--gut);padding-right:var(--gut)}
   .view{padding-left:var(--gutter);padding-right:var(--gutter)}
 }
 
@@ -789,7 +704,7 @@ img.logo{border-radius:var(--r)}
 }
 
 /* ---- page wash: accent-derived, fades into the neutral page by ~680px ---- */
-html{background:linear-gradient(180deg,var(--wash-top) 0,var(--wash-mid) 420px,var(--bg) 680px) no-repeat,var(--bg)}
+html{min-height:100%;background:linear-gradient(180deg,var(--wash-top) 0,var(--wash-mid) 420px,var(--bg) 680px) 0 0/100% 680px no-repeat,var(--bg)}  /* v3 fix: fixed 680px size + min-height so short pages don't show a seam */
 body{background:none}
 
 /* ---- app bar: gradient accent line + gradient underline on the current tab ---- */
@@ -858,13 +773,10 @@ body{background:none}
 
 /* =====================================================================
    MB SUITE v2 · mbfishing.online adapter (loads after mb-suite-cutouts.css)
-   Fishing has no .top/.app-bar: its accent line is body::before and its tabs are #nav.
+   v3: the accent line is .mb-shell::before and the nav markers come from mb-suite-sidebar.css.
    ===================================================================== */
 /* accent line: the v1 fixed bar becomes the gradient */
-body::before{background:var(--g-line)}
 /* current tab: gradient marker. Phone bottom bar = top marker; wide screens = bottom underline */
-#nav button[aria-current=page]{box-shadow:none!important;background:var(--g-underline) top/100% 2px no-repeat!important}
-@media(min-width:900px){#nav button[aria-current=page]{background:var(--g-underline) bottom/100% 2px no-repeat!important}}
 /* primary buttons: gradient (generic rule), hover feedback, flat disabled state */
 .btn.primary:hover:not(:disabled){filter:brightness(.94)}
 .btn.primary:disabled{background:color-mix(in srgb,var(--accent) 35%,var(--surface-2))!important;border-color:transparent!important;color:color-mix(in srgb,var(--accent-ink) 80%,transparent)!important;filter:none}
@@ -877,13 +789,219 @@ body::before{background:var(--g-line)}
 /* phones: keep banner text in its own column so it never meets the art */
 @media(max-width:600px){.cu-banner .cu-txt{max-width:54%}}
 </style>
+<style id="mb-suite-v3">
+/* =====================================================================
+   MB SUITE v3 · LEFT SIDEBAR NAVIGATION  (replaces mb-suite-appbar.css)
+   Load order: mb-suite-core.css → app adapter → mb-suite-cutouts.css (v2) → this file → <app>-v3.css
+   Needs v1 tokens (--surface, --border, --accent, --r-sm, --page-max, --gutter …) and, if present,
+   v2's --g-line / --cut-mid for the gradient accents (falls back to flat accent without v2).
+
+   Markup (see v3-updates/demo/index.html for a working page):
+   <body class="mb-shell">
+     <aside class="mb-side" aria-label="App">
+       <a class="brand" href="./" aria-label="mbname.online: go to Home"> .logo + .bt(b + span) </a>
+       <nav class="side-nav" aria-label="Sections"> <button aria-current="page"><svg class="uic"/><span>Home</span></button> … </nav>
+       <nav class="side-nav side-end" aria-label="More"> Settings / Help items (optional) </nav>
+     </aside>
+     <div class="mb-main">
+       <header class="page-bar">
+         <a class="brand phone-brand" href="./" …>  (same brand block; shown on phones only)
+         <h1 class="page-title">Home</h1>
+         <div class="actions"> search · status chip · Data · theme switch · primary action </div>
+       </header>
+       <main class="wrap"> … </main>
+     </div>
+     <nav class="bnav" aria-label="Sections"> phone bottom bar (max 5 items, rest in a More sheet) </nav>
+   </body>
+
+   Breakpoints (identical in every app):
+     ≥1024px  sidebar 240px with labels
+     768–1023 rail 76px: icon over a short label, logo only
+     <768     no sidebar; page-bar becomes the top bar with the brand; docked bottom bar
+   ===================================================================== */
+:root{
+  --side-w:240px; --rail-w:76px; --bar-h:56px;
+  --g-rail:linear-gradient(180deg,var(--accent),var(--cut-mid,var(--accent)));
+}
+
+/* family accent line across the whole window (sidebar included) */
+.mb-shell::before{content:"";position:fixed;left:0;right:0;top:0;height:3px;background:var(--g-line,var(--accent));z-index:60;pointer-events:none}
+
+/* ---- sidebar ---- */
+.mb-side{position:fixed;top:0;bottom:0;left:0;width:var(--side-w);z-index:40;display:flex;flex-direction:column;gap:2px;
+  padding:15px 0 12px;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.mb-side .brand{margin:0 8px 12px;padding:6px 8px}
+.side-nav{display:flex;flex-direction:column;gap:2px;padding:0 8px}
+.side-nav.side-end{margin-top:auto;padding-top:8px;border-top:1px solid var(--border)}
+.side-label{margin:14px 20px 4px;font-size:var(--fs-xs,11.5px);font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.side-nav button,.side-nav a{position:relative;display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:0 12px;border:0;border-radius:var(--r-sm);
+  background:none;font:500 14px var(--font);color:var(--ink-2);text-align:left;text-decoration:none;cursor:pointer;
+  transition:background-color var(--ease),color var(--ease)}
+.side-nav .uic,.side-nav svg{flex:none;width:18px;height:18px;opacity:.75}
+.side-nav button:hover,.side-nav a:hover{background:var(--surface-2);color:var(--ink)}
+.side-nav [aria-current="page"],.side-nav [aria-current="page"]:hover{color:var(--accent);font-weight:600;
+  background:var(--g-rail) left center/3px 60% no-repeat,var(--accent-soft)}
+.side-nav [aria-current="page"] svg{opacity:1}
+.side-nav button:focus-visible,.side-nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.side-nav .count{margin-left:auto;font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.side-nav .dot{position:absolute;left:24px;top:8px;width:8px;height:8px;border-radius:2px;background:var(--warn)}
+
+/* ---- the brand block: ALWAYS a link to the home / start view ---- */
+a.brand{display:flex;align-items:center;gap:9px;min-width:0;border-radius:var(--r-sm);color:inherit;text-decoration:none;transition:background-color var(--ease)}
+a.brand:hover{background:var(--surface-2)}
+a.brand:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.brand .logo,.brand .logo svg{display:block;flex:none;width:28px;height:28px;border-radius:var(--r)}
+.brand .bt{display:flex;flex-direction:column;min-width:0;line-height:1.15}
+.brand b{font-size:14.5px;font-weight:650;letter-spacing:-.005em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .bt span{font-size:11px;color:var(--muted);letter-spacing:.01em;white-space:nowrap}
+
+/* ---- main column + page bar ---- */
+.mb-main{margin-left:var(--side-w);min-width:0}
+.page-bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:12px;min-height:var(--bar-h);
+  padding:3px max(var(--gutter),calc((100% - var(--page-max)) / 2 + var(--gutter))) 0;
+  background:color-mix(in srgb,var(--surface) 96%,transparent);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+.page-bar .phone-brand{display:none}
+.page-title{margin:0;font-size:18px;font-weight:650;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.page-bar .actions{margin-left:auto;display:flex;align-items:center;gap:6px}
+.page-bar .actions>*{min-height:var(--ctl-sm)}
+.mb-main>.wrap{max-width:var(--page-max);margin:0 auto;padding:20px max(var(--gutter),env(safe-area-inset-right)) 48px max(var(--gutter),env(safe-area-inset-left))}
+
+/* ---- phone bottom bar (hidden until <768px) ---- */
+.bnav{display:none}
+
+/* ---- tablet: compact rail ---- */
+@media (max-width:1023px){
+  .mb-side{width:var(--rail-w);padding-top:12px}
+  .mb-side .brand{justify-content:center;margin:0 10px 10px;padding:8px 0}
+  .mb-side .brand .bt,.side-label,.side-nav .count{display:none}
+  .side-nav{padding:0 6px}
+  .side-nav button,.side-nav a{flex-direction:column;justify-content:center;gap:3px;min-height:56px;padding:6px 2px;font-size:10.5px;text-align:center;line-height:1.15}
+  .side-nav [aria-current="page"],.side-nav [aria-current="page"]:hover{background:var(--g-rail) left center/3px 50% no-repeat,var(--accent-soft)}
+  .side-nav .dot{left:auto;right:12px}
+  .mb-main{margin-left:var(--rail-w)}
+}
+/* ---- phones: top bar with the brand + docked bottom bar ---- */
+@media (max-width:767px){
+  .mb-side{display:none}
+  .mb-main{margin-left:0}
+  .page-bar{padding:3px max(12px,env(safe-area-inset-right)) 0 max(12px,env(safe-area-inset-left));gap:8px}
+  .page-bar .phone-brand{display:flex;margin-left:-3px;padding:3px 6px 3px 3px}
+  .page-bar .page-title{display:none}               /* the view's own h2 / banner names the page on phones */
+  .page-bar .actions .hide-phone{display:none}
+  .bnav{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;position:fixed;left:0;right:0;bottom:0;z-index:40;
+    padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);background:var(--surface);border-top:1px solid var(--border-strong)}
+  .bnav button,.bnav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border:0;border-radius:0;background:none;
+    font:500 11px var(--font);color:var(--ink-2);text-decoration:none}
+  .bnav svg{width:20px;height:20px}
+  .bnav [aria-current="page"]{color:var(--accent);font-weight:600;background:var(--g-underline,linear-gradient(var(--accent),var(--accent))) top/100% 2px no-repeat}
+  body.mb-shell{padding-bottom:calc(56px + env(safe-area-inset-bottom))}
+}
+@media (max-width:420px){.page-bar .phone-brand .bt span{display:none}}
+@media print{.mb-side,.bnav,.page-bar .actions,.mb-shell::before{display:none!important}.mb-main{margin-left:0}}
+/* =====================================================================
+   MB SUITE v3 · components: install card (Settings/More) and the share dialog.
+   Load after mb-suite-sidebar.css. Uses v1 tokens only; v2 gradients are picked up where present.
+   ===================================================================== */
+/* ---- install card ---- */
+.mb-install{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);
+  border-radius:var(--r);background:var(--surface)}
+.mb-install>.uic{flex:none;width:22px;height:22px;color:var(--accent)}
+.mb-install>div{flex:1;min-width:0}
+.mb-install b{display:block;font-size:14px;font-weight:600;color:var(--ink)}
+.mb-install p{margin:2px 0 0;font-size:12.5px;color:var(--ink-2)}
+.mb-install p b{display:inline;font-size:inherit}
+.mb-install .btn{flex:none}
+.mb-install.is-done{border-left-color:var(--good)}
+.mb-install.is-done>.uic{color:var(--good-ink)}
+@media (max-width:520px){.mb-install{flex-wrap:wrap}.mb-install .btn{width:100%}}
+
+/* ---- share button (put it where the milestone is shown) ---- */
+.mb-share-btn .uic{width:16px;height:16px}
+
+/* ---- share dialog ---- */
+dialog.mb-share{width:min(460px,calc(100vw - 24px));max-height:calc(100dvh - 24px);padding:0;border:1px solid var(--border);border-radius:var(--r-lg);
+  background:var(--surface);color:var(--ink);box-shadow:var(--shadow-pop);overflow:auto}
+dialog.mb-share::backdrop{background:var(--scrim)}
+.mb-share .ms-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.mb-share h3{margin:0;font-size:16px;font-weight:650}
+.mb-share .ms-prev{position:relative;margin:16px 16px 0;aspect-ratio:1;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface-2)}
+.mb-share .ms-prev img{display:block;width:100%;height:100%}
+.mb-share .ms-wait{position:absolute;inset:0;display:grid;place-items:center;margin:0;color:var(--muted);font-size:13px}
+.mb-share .ms-opts{display:flex;flex-wrap:wrap;gap:4px 16px;padding:12px 16px 0}
+.mb-share .ms-opts:empty{display:none}
+.mb-share .ms-opt{display:inline-flex;align-items:center;gap:8px;min-height:36px;font-size:13.5px}
+.mb-share .ms-note{margin:10px 16px 0;font-size:12px;color:var(--muted)}
+.mb-share .ms-btns{display:flex;justify-content:flex-end;gap:8px;padding:14px 16px 16px;margin-top:12px;border-top:1px solid var(--border)}
+@media (max-width:520px){.mb-share .ms-btns .btn{flex:1}}
+.mb-share [hidden],[data-mb-install][hidden]{display:none!important}
+/* v2 banner on phones: keep the text column clear of the art */
+@media (max-width:600px){:where(.cu-banner) .cu-txt{max-width:54%}}   /* same as the v2 adapters; low specificity so an adapter can override */
+/* =====================================================================
+   MB SUITE v3 · mbfishing.online adapter (loads after mb-suite-sidebar.css and mb-suite-v3.css)
+   Fishing keeps its app-shell scrolling: the window never scrolls, <main> does. The map view needs
+   the full height between the page bar and the bottom of the window, and the scroll-progress line,
+   back-to-top button and modal "inert" handling all key off #main.
+   ===================================================================== */
+body.mb-shell{display:block;height:100dvh;overflow:hidden}
+.mb-main{display:flex;flex-direction:column;height:100%}
+.page-bar{flex:none;position:relative;padding-top:calc(env(safe-area-inset-top) + 3px)}
+.mb-main>main{flex:1;min-height:0}
+/* the logo is the new badge svg; it carries its own rounded square, so no extra radius or border */
+.brand .logo,.brand .logo svg{border-radius:0}
+.brand b{font-weight:650}
+.side-nav .dot{background:var(--gold)}
+/* page bar actions: the app's existing search, theme switch and menu buttons */
+.page-bar .actions{gap:4px}
+.page-bar .ib{height:var(--ctl);min-height:0}
+#prog{bottom:-1px}
+/* trip-in-progress pill: sits before the actions on wider screens, gets its own row on phones */
+.page-bar #pill{grid-column:auto;margin:0 0 0 auto;min-height:var(--ctl-sm);font-size:13px;padding:0 12px}
+.page-bar #pill:not([hidden])~.actions{margin-left:8px}
+/* phone bottom bar: current-item marker comes from v2's .bnav rule; dot = backup due */
+.bnav button{position:relative;cursor:pointer}
+.bnav .dot{position:absolute;top:8px;left:calc(50% + 8px);width:8px;height:8px;border-radius:2px;background:var(--gold)}
+.bnav button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.phone-only{display:none}
+@media (max-width:767px){
+  /* keep a real h1 for screen readers; the brand shows instead */
+  .page-bar .page-title{display:block;position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .page-bar{flex-wrap:wrap;row-gap:0}
+  .page-bar .actions{margin-left:auto}
+  .page-bar #pill{order:9;flex:1 0 100%;margin:2px 0 8px;min-height:var(--ctl)}
+  .page-bar #pill:not([hidden])~.actions{margin-left:auto}
+  .phone-only{display:block}
+}
+/* floating bits clear the rail / sidebar */
+@media (min-width:768px){
+  #notice{left:calc(var(--rail-w) + 16px);right:auto;bottom:24px;margin:0;width:min(520px,calc(100vw - var(--rail-w) - 32px))}
+  #toast{left:calc(50% + var(--rail-w) / 2);bottom:28px}
+  #totop{bottom:28px;right:28px}
+}
+@media (min-width:1024px){
+  #notice{left:calc(var(--side-w) + 24px);width:min(520px,calc(100vw - var(--side-w) - 48px))}
+  #toast{left:calc(50% + var(--side-w) / 2)}
+}
+/* Install card sits in More; hide its section when the browser has nothing to offer */
+.blk:has(> [data-mb-install][hidden]){display:none}
+/* share dialog title: undo the app's small-caps section h3 */
+.mb-share h3{margin:0;font-size:16px;font-weight:650;letter-spacing:-.005em;text-transform:none;color:var(--ink)}
+/* small Ripple art in the empty "recent catches" card */
+.empty-art{display:block;margin:0 auto 6px}
+</style>
 </head>
-<body>
+<body class="mb-shell">
 <a class="skip" href="#main" data-act="skip">Skip to content</a>
-<header id="top">
-  <h1><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.2</span></span></a></h1>
-  <div class="hdr-tools">
-    <button id="pill" data-act="go" data-v="log" hidden></button>
+<aside class="mb-side" id="side" aria-label="App">
+  <a class="brand" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: go to Log"><span class="logo"><svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbfi-g1a" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#2d809a"/><stop offset=".55" stop-color="#0B6B8A"/><stop offset="1" stop-color="#09566e"/></linearGradient><clipPath id="mbfi-c1a"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbfi-c1a)"><rect width="64" height="64" fill="url(#mbfi-g1a)"/><g transform="translate(0,-5.8128604)"><path transform="translate(0.8,-1.5)" d="m 12,51.5 c 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0" stroke="#ffffff" stroke-opacity="0.55" stroke-width="3.5" stroke-linecap="round" fill="none"/><g transform="translate(0.75)"><path d="m 20,32 c 6,-9.5 21,-11.5 30,0 -9,11.5 -24,9.5 -30,0 z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 20,32 12.5,25 V 39 Z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="42.5" cy="29.5" r="2.5999999" fill="#ffffff"/></g></g></g></svg></span><span class="bt"><b>mbfishing<i class="tld">.online</i></b><span>Official Web App · v1.3</span></span></a>
+  <nav class="side-nav" aria-label="Sections"><button type="button" data-act="go" data-v="log" aria-current="page"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span>Log</span></button><button type="button" data-act="go" data-v="catches"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 12c2.5-4 8.5-4.8 12.5 0-4 4.8-10 4-12.5 0z"/><path d="M6.5 12 3 9v6z"/><circle cx="15.5" cy="11.3" r=".9" fill="currentColor" stroke="none"/></svg><span>Catches</span></button><button type="button" data-act="go" data-v="map"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg><span>Map</span></button><button type="button" data-act="go" data-v="stats"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/></svg><span>Stats</span></button><button type="button" data-act="go" data-v="species"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 6.5C10.5 5 8 4.5 4 4.5v13c4 0 6.5.5 8 2 1.5-1.5 4-2 8-2v-13c-4 0-6.5.5-8 2z"/><path d="M12 6.5v13"/></svg><span>Species</span></button></nav>
+  <nav class="side-nav side-end" aria-label="More"><button type="button" data-act="go" data-v="more" class="nav-more"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="5.5" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="18.5" cy="12" r="1.2" fill="currentColor"/></svg><span>More</span></button></nav>
+</aside>
+<div class="mb-main">
+<header class="page-bar" id="pagebar">
+  <a class="brand phone-brand" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: go to Log"><span class="logo"><svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbfi-g1b" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#2d809a"/><stop offset=".55" stop-color="#0B6B8A"/><stop offset="1" stop-color="#09566e"/></linearGradient><clipPath id="mbfi-c1b"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbfi-c1b)"><rect width="64" height="64" fill="url(#mbfi-g1b)"/><g transform="translate(0,-5.8128604)"><path transform="translate(0.8,-1.5)" d="m 12,51.5 c 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0" stroke="#ffffff" stroke-opacity="0.55" stroke-width="3.5" stroke-linecap="round" fill="none"/><g transform="translate(0.75)"><path d="m 20,32 c 6,-9.5 21,-11.5 30,0 -9,11.5 -24,9.5 -30,0 z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 20,32 12.5,25 V 39 Z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="42.5" cy="29.5" r="2.5999999" fill="#ffffff"/></g></g></g></svg></span><span class="bt"><b>mbfishing<i class="tld">.online</i></b><span>Official Web App · v1.3</span></span></a>
+  <h1 class="page-title" id="page-title" tabindex="-1">Log</h1>
+  <button id="pill" data-act="go" data-v="log" hidden></button>
+  <div class="actions">
     <button class="ib" id="search-btn" data-act="gs-open" aria-label="Search everything"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/></svg><span class="lbl">Search everything</span><kbd>/</kbd></button>
     <button class="ib themesw" id="theme-btn" data-act="theme-toggle" role="switch" aria-checked="false" aria-label="Dark mode"><span class="sw-tk"><span class="sw-th"></span></span></button>
     <button class="ib" id="menu-btn" data-act="menu-open" aria-label="Menu"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><i class="dot" hidden></i></button>
@@ -891,7 +1009,6 @@ body::before{background:var(--g-line)}
   <div id="prog" aria-hidden="true"><i></i></div>
 </header>
 <main id="main" tabindex="-1">
-  <h2 class="sr" id="view-h" tabindex="-1">Log</h2>
   <section id="v-log" class="view"></section>
   <section id="v-catches" class="view" hidden></section>
   <section id="v-map" class="view" hidden>
@@ -919,15 +1036,8 @@ body::before{background:var(--g-line)}
   <section id="v-species" class="view" hidden></section>
   <section id="v-more" class="view" hidden></section>
 </main>
-<nav id="nav" aria-label="Main">
-  <div class="brand"><a class="lockup" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: Your catch log. Go to Log"><img class="logo" src="favicon.svg" alt="" width="32" height="32"><span class="lk-t"><span class="lk-n">mbfishing<span>.online</span></span><span class="lk-d">Official Web App · v1.2</span></span></a></div>
-  <button data-act="go" data-v="log" aria-current="page"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span>Log</button>
-  <button data-act="go" data-v="catches"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 12c2.5-4 8.5-4.8 12.5 0-4 4.8-10 4-12.5 0z"/><path d="M6.5 12 3 9v6z"/><circle cx="15.5" cy="11.3" r=".9" fill="currentColor" stroke="none"/></svg></span>Catches</button>
-  <button data-act="go" data-v="map"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg></span>Map</button>
-  <button data-act="go" data-v="stats"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/></svg></span>Stats</button>
-  <button data-act="go" data-v="species"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 6.5C10.5 5 8 4.5 4 4.5v13c4 0 6.5.5 8 2 1.5-1.5 4-2 8-2v-13c-4 0-6.5.5-8 2z"/><path d="M12 6.5v13"/></svg></span>Species</button>
-  <button data-act="go" data-v="more" id="nav-more"><span class="ic"><svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="5.5" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="18.5" cy="12" r="1.2" fill="currentColor"/></svg></span>More</button>
-</nav>
+</div>
+<nav class="bnav" id="bnav" aria-label="Sections"><button type="button" data-act="go" data-v="log" aria-current="page"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span>Log</span></button><button type="button" data-act="go" data-v="catches"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 12c2.5-4 8.5-4.8 12.5 0-4 4.8-10 4-12.5 0z"/><path d="M6.5 12 3 9v6z"/><circle cx="15.5" cy="11.3" r=".9" fill="currentColor" stroke="none"/></svg><span>Catches</span></button><button type="button" data-act="go" data-v="map"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg><span>Map</span></button><button type="button" data-act="go" data-v="stats"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/></svg><span>Stats</span></button><button type="button" data-act="go" data-v="more" class="nav-more"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="5.5" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="18.5" cy="12" r="1.2" fill="currentColor"/></svg><span>More</span></button></nav>
 <button id="totop" data-act="totop" aria-label="Back to top">↑</button>
 <div id="ob" role="dialog" aria-modal="true" aria-labelledby="ob-h" tabindex="-1" hidden></div>
 <aside id="notice" role="region" aria-label="Privacy notice" hidden>
@@ -942,7 +1052,8 @@ body::before{background:var(--g-line)}
 <input type="file" id="gal" accept="image/*" multiple hidden>
 <input type="file" id="imp" accept=".json,.zip,.gpx,application/json,application/zip,application/gpx+xml,text/xml" hidden>
 <noscript><p style="padding:20px">mbfishing.online needs JavaScript turned on.</p></noscript>
-<script src="pixel-kit.js"></script>
+<script src="mb-install.js"></script>
+<script src="mb-share.js"></script>
 <script src="fish-art.js"></script>
 <script src="species-data.js"></script>
 <script>
@@ -1157,7 +1268,7 @@ function hideToast(){clearTimeout(toastT);$('#toast').classList.remove('show')}
    Tab stays inside it, the page behind is inert (not clickable, hidden from screen readers), and on close
    focus goes back to the control that opened it. */
 const LAYERS=['#sheet-root','#ob','#lb','#dlg']; // bottom to top
-const PAGE=['#top','#main','#nav','#totop','#notice'];
+const PAGE=['#side','#pagebar','#main','#bnav','#totop','#notice'];
 const OPENER={};
 const layerOpen=sel=>{const el=$(sel);return !!el&&!el.hidden&&el.childElementCount>0};
 function syncInert(){
@@ -1507,7 +1618,9 @@ document.addEventListener('click',e=>{
 },true);
 document.addEventListener('change',e=>{const el=e.target.closest('[data-chg]');if(el&&CHG[el.dataset.chg])CHG[el.dataset.chg](el,e)},true);
 document.addEventListener('input',e=>{const el=e.target.closest('[data-inp]');if(el&&INP[el.dataset.inp])INP[el.dataset.inp](el,e)},true);
+const shareOpen=()=>!!document.querySelector('dialog.mb-share[open]');
 document.addEventListener('keydown',e=>{
+  if(shareOpen())return; // the share dialog is a native modal <dialog>: it traps focus and closes on Escape itself
   if(e.key==='Tab')trapTab(e);
   if(LB){if(e.key==='Escape')closeLB();else if(e.key==='ArrowLeft')stepLB(-1);else if(e.key==='ArrowRight')stepLB(1);return}
   if(e.key==='Escape'){const bk=$('#dlg:not([hidden]) .dlg-back');if(bk){bk.click();return}closeSheet()}
@@ -1620,10 +1733,7 @@ ACT['gpx-add']=()=>{
 ACT['export-gpx']=()=>exportGPX();
 
 /* ---------- install ---------- */
-let deferredInstall=null;
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;if(typeof V!=='undefined'&&V.tab==='more')renderMore()});
-window.addEventListener('appinstalled',()=>{deferredInstall=null;if(typeof V!=='undefined'&&V.tab==='more')renderMore()});
-ACT.install=async()=>{if(!deferredInstall)return;const d=deferredInstall;deferredInstall=null;try{d.prompt();await d.userChoice}catch(e){}if(typeof refresh==='function')refresh()};
+/* Install as app: handled by mb-install.js (MB Suite). It fills the [data-mb-install] box in More. */
 
 /* =====================================================================
    Model helpers
@@ -1773,9 +1883,10 @@ function celebrate(c,prev){
 function go(tab){
   V.tab=tab;
   for(const t of['log','catches','map','stats','species','more'])$('#v-'+t).hidden=t!==tab;
-  $$('#nav button').forEach(b=>{if(b.dataset.v===tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
+  /* sidebar and phone bar stay in sync; on phones Species lives under More, so More stays marked there */
+  $$('.side-nav button[data-v],.bnav button[data-v]').forEach(b=>{const on=b.dataset.v===tab||(tab==='species'&&b.dataset.v==='more'&&!!b.closest('.bnav'));if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
   $('#main').scrollTop=0;
-  $('#view-h').textContent={log:'Log',catches:'Catches',map:'Map',stats:'Stats',species:'Species',more:'More'}[tab]||'';setTitle();
+  $('#page-title').textContent={log:'Log',catches:'Catches',map:'Map',stats:'Stats',species:'Species',more:'More'}[tab]||'';setTitle();
   refresh();updateScroll();
   if(tab==='map')openMapTab();
 }
@@ -1783,15 +1894,14 @@ function refresh(){
   updatePill();
   const r={log:renderLog,catches:renderCatches,map:()=>M.map&&renderMap(),stats:renderStats,species:renderSpecies,more:renderMore}[V.tab];
   if(r)r();
-  const nag=backupDue();$('#nav-more').querySelector('.dot')?.remove();
-  if(nag)$('#nav-more').insertAdjacentHTML('beforeend','<i class="dot"></i>');
+  const nag=backupDue();$$('.nav-more').forEach(b=>{b.querySelector('.dot')?.remove();if(nag)b.insertAdjacentHTML('beforeend','<i class="dot" aria-hidden="true"></i>')});
   requestAnimationFrame(updateScroll);
 }
 const backupDue=()=>db.catches.length>=5&&Date.now()-(db.settings.lastBackup||0)>14*DAY;
 function updatePill(){
   const t=activeTrip(),p=$('#pill');
-  if(!t){p.hidden=true;$('#top').classList.remove('has-pill');return}
-  p.hidden=V.tab==='log';$('#top').classList.toggle('has-pill',!p.hidden);p.textContent=`🎣 Fishing now · ${fmtDur(Date.now()-t.start)} · ${pl(catchesOf(t.id).length,'fish','fish')}`;
+  if(!t){p.hidden=true;$('#pagebar').classList.remove('has-pill');return}
+  p.hidden=V.tab==='log';$('#pagebar').classList.toggle('has-pill',!p.hidden);p.textContent=`🎣 Fishing now · ${fmtDur(Date.now()-t.start)} · ${pl(catchesOf(t.id).length,'fish','fish')}`;
 }
 
 /* ---------- Log tab ---------- */
@@ -1828,7 +1938,8 @@ function setupCard(){
   return`<div class="card setup"><div class="eyebrow">Get set up · ${n} of ${steps.length}</div><div class="bar"><i style="width:${Math.round(n/steps.length*100)}%"></i></div>${steps.map(row).join('')}<button class="btn sm link mt" data-act="setup-hide">Hide this list</button></div>`;
 }
 ACT['setup-hide']=()=>{try{localStorage.setItem(SETUP_KEY,'hidden')}catch(e){}refresh()};
-const CU_BANNER_SVG=`<svg class="cu-art" viewBox="0 0 640 140" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false"><circle class="b" cx="470" cy="142" r="78"/><path class="s" transform="translate(11.6 144) rotate(-81.5) scale(0.42)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(34.9 144) rotate(-107.4) scale(0.70)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(76.6 144) rotate(-77.1) scale(0.61)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(111 144) rotate(-95.8) scale(0.49)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(140.5 144) rotate(-98.5) scale(0.50)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(167.7 144) rotate(-76.5) scale(0.66)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(207.6 144) rotate(-74.7) scale(0.48)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(237.1 144) rotate(-91.6) scale(0.48)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(269 144) rotate(-87.7) scale(0.44)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(301.3 144) rotate(-74.5) scale(0.58)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(337.7 144) rotate(-76.9) scale(0.53)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(374.9 144) rotate(-74) scale(0.56)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(396.2 144) rotate(-101.8) scale(0.46)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(440.3 144) rotate(-82.1) scale(0.61)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(465.4 144) rotate(-76.1) scale(0.56)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(496.2 144) rotate(-106.3) scale(0.45)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(533.6 144) rotate(-88) scale(0.66)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(565.8 144) rotate(-101.5) scale(0.56)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="s" transform="translate(605.4 144) rotate(-99.5) scale(0.52)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="m" transform="translate(630.7 144) rotate(-96.5) scale(0.65)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(26.5 146) rotate(-92.6) scale(0.37)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="n" transform="translate(65.2 146) rotate(-77) scale(0.48)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(123.6 146) rotate(-90.3) scale(0.32)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(174 146) rotate(-71.2) scale(0.47)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="n" transform="translate(231.9 146) rotate(-110.2) scale(0.36)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(286.3 146) rotate(-105) scale(0.49)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(332 146) rotate(-69) scale(0.40)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="n" transform="translate(376.7 146) rotate(-74.9) scale(0.31)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(437.1 146) rotate(-77.8) scale(0.39)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(489.5 146) rotate(-100.8) scale(0.44)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="n" transform="translate(533.4 146) rotate(-97.3) scale(0.30)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(594.4 146) rotate(-96.7) scale(0.38)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><path class="d" transform="translate(645.9 146) rotate(-85.8) scale(0.44)" d="M0 0 C 20 -34 66 -40 96 -6 C 70 28 22 34 0 0Z"/><circle class="r" cx="120" cy="36" r="7"/><circle class="b" cx="330" cy="22" r="5"/><circle class="r" cx="590" cy="70" r="6"/></svg>`;
+/* MB Suite v3 nature art: NA-03 Shoal (fish, waves, reeds) */
+const CU_BANNER_SVG=`<svg class="cu-art" viewBox="0 0 640 140" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false"><circle class="b" cx="566" cy="92" r="40"/><path class="s" d="M230 104 Q246 97 262 104 Q278 111 294 104 Q310 97 326 104 Q342 111 358 104 Q374 97 390 104 Q406 111 422 104 Q438 97 454 104 Q470 111 486 104 Q502 97 518 104 Q534 111 550 104 Q566 97 582 104 Q598 111 614 104 Q630 97 646 104 L646 144 L230 144Z"/><path class="m" d="M300 118 Q313.5 124 327 118 Q340.5 112 354 118 Q367.5 124 381 118 Q394.5 112 408 118 Q421.5 124 435 118 Q448.5 112 462 118 Q475.5 124 489 118 Q502.5 112 516 118 Q529.5 124 543 118 Q556.5 112 570 118 Q583.5 124 597 118 Q610.5 112 624 118 Q637.5 124 651 118 L651 148 L300 148Z"/><path class="d" d="M380 130 Q391.5 125 403 130 Q414.5 135 426 130 Q437.5 125 449 130 Q460.5 135 472 130 Q483.5 125 495 130 Q506.5 135 518 130 Q529.5 125 541 130 Q552.5 135 564 130 Q575.5 125 587 130 Q598.5 135 610 130 Q621.5 125 633 130 Q644.5 135 656 130 L656 150 L380 150Z"/><path class="d" transform="translate(410 80) rotate(-6) scale(0.6)" d="M0 0 C18 -22 58 -24 80 0 C58 24 18 22 0 0Z M4 0 L-16 -14 C-12 -5 -12 5 -16 14Z"/><path class="n" transform="translate(492 60) rotate(8) scale(-0.5 0.5)" d="M0 0 C18 -22 58 -24 80 0 C58 24 18 22 0 0Z M4 0 L-16 -14 C-12 -5 -12 5 -16 14Z"/><path class="m" transform="translate(340 96) rotate(4) scale(0.4)" d="M0 0 C18 -22 58 -24 80 0 C58 24 18 22 0 0Z M4 0 L-16 -14 C-12 -5 -12 5 -16 14Z"/><path class="n" transform="translate(612 128) rotate(6)" d="M0 0 C-7 -41.4 -2.8 -78.2 2.1 -92 C5.6 -55.2 5.6 -27.6 0 0Z"/><path class="m" transform="translate(624 128) rotate(-8)" d="M0 0 C-7 -31.5 -2.8 -59.5 2.1 -70 C5.6 -42 5.6 -21 0 0Z"/><path class="d" transform="translate(600 128) rotate(-4)" d="M0 0 C-7 -27.9 -2.8 -52.7 2.1 -62 C5.6 -37.2 5.6 -18.6 0 0Z"/><circle class="s" cx="448" cy="44" r="5"/><circle class="s" cx="458" cy="30" r="3.5"/><circle class="r" cx="380" cy="40" r="6"/></svg>`;
 function cuBanner(t,list){
   const d=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}),n=db.catches.length;
   const sub=d+(t?' \u00B7 '+list.length+' fish this trip':(n?' \u00B7 '+n+' catch'+(n===1?'':'es')+' logged':''));
@@ -1855,7 +1966,7 @@ function renderLog(){
   ${fcCard()}
   </div><div class="lg-r">
   ${setupCard()}
-  ${!list.length&&!recent.length?`<div class="card desk-only muted" style="text-align:center;padding:40px 20px"><div style="font-size:34px">🐟</div>${t?'Fish you log on this trip will show up here.':'Your recent catches will show up here.'}</div>`:''}
+  ${!list.length&&!recent.length?`<div class="card desk-only muted" style="text-align:center;padding:32px 20px"><svg class="cu-art inline empty-art" style="--cu-w:104px" viewBox="0 0 320 320" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><path class="d" transform="translate(272 160) rotate(90) scale(0.6)" d="M0 0 C18 -22 58 -24 80 0 C58 24 18 22 0 0Z M4 0 L-16 -14 C-12 -5 -12 5 -16 14Z"/><path class="n" transform="translate(216 257) rotate(150) scale(0.6)" d="M0 0 C18 -22 58 -24 80 0 C58 24 18 22 0 0Z M4 0 L-16 -14 C-12 -5 -12 5 -16 14Z"/><path class="m" transform="translate(104 257) rotate(210) scale(0.6)" d="M0 0 C18 -22 58 -24 80 0 C58 24 18 22 0 0Z M4 0 L-16 -14 C-12 -5 -12 5 -16 14Z"/><path class="s" transform="translate(48 160) rotate(270) scale(0.6)" d="M0 0 C18 -22 58 -24 80 0 C58 24 18 22 0 0Z M4 0 L-16 -14 C-12 -5 -12 5 -16 14Z"/><path class="d" transform="translate(104 63) rotate(330) scale(0.6)" d="M0 0 C18 -22 58 -24 80 0 C58 24 18 22 0 0Z M4 0 L-16 -14 C-12 -5 -12 5 -16 14Z"/><path class="n" transform="translate(216 63) rotate(390) scale(0.6)" d="M0 0 C18 -22 58 -24 80 0 C58 24 18 22 0 0Z M4 0 L-16 -14 C-12 -5 -12 5 -16 14Z"/><circle class="b" cx="277.8" cy="228" r="4"/><circle class="s" cx="160" cy="296" r="6"/><circle class="b" cx="42.2" cy="228" r="4"/><circle class="s" cx="42.2" cy="92" r="6"/><circle class="b" cx="160" cy="24" r="4"/><circle class="s" cx="277.8" cy="92" r="6"/></svg>${t?'Fish you log on this trip will show up here.':'Your recent catches will show up here.'}</div>`:''}
   ${list.length?`<h3>This trip</h3>${list.slice(0,6).map(c=>catchRow(c,P)).join('')}${list.length>6?`<button class="btn sm" data-act="trip-open" data-id="${t.id}">See all ${list.length}</button>`:''}`:''}
   ${recent.length?`<h3>Recent catches</h3>${recent.map(c=>catchRow(c,P)).join('')}`:''}
   ${memCard()}
@@ -2519,6 +2630,7 @@ function openCatchSheet(c,isNew=false){
       <label for="cs-time">When</label><input id="cs-time" type="datetime-local" value="${toLocalInput(d.t)}" data-orig="${toLocalInput(d.t)}">
       <label for="cs-notes">Notes</label><textarea id="cs-notes" placeholder="Conditions, what worked, who was with you…">${esc(d.notes)}</textarea>
     </details>
+    ${isNew?'':`<button class="btn block mt mb-share-btn" data-act="catch-share" data-id="${d.id}"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 12v7h14v-7"/></svg>${isBest(c,pbs())?'Share personal best':'Share this catch'}</button>`}
     <div class="row gap sticky-save">${isNew?'':'<button class="btn danger" data-act="cs-del">Delete</button>'}<button class="btn primary tall grow" data-act="cs-save">Save</button></div>`,
     {onClose:()=>{if(!st.saved)st.added.forEach(dropPhoto);CS=null}});
   bindPlaceSearch('cs-ps',r=>{if(!CS)return;CS.d.lat=r.lat;CS.d.lng=r.lng;$('#cs-loc').textContent=`📍 ${r.coords?'':r.name+' · '}${r.lat.toFixed(5)}, ${r.lng.toFixed(5)}`;$('#cs-ps').value=''});
@@ -2608,7 +2720,7 @@ function openTripSheet(id,opts={}){
       ${t.end?`<label for="tr-end">End</label><input id="tr-end" type="datetime-local" value="${toLocalInput(t.end)}" data-orig="${toLocalInput(t.end)}">`:''}
     </details>
     <div class="row gap mt"><button class="btn danger" data-act="tr-del" data-id="${id}">Delete</button><button class="btn primary tall grow" data-act="tr-save" data-id="${id}">Save</button></div>
-    ${cs.length?`<button class="btn block mt" data-act="trip-share" data-id="${id}">📤 Share trip card</button>`:''}
+    ${cs.length?`<button class="btn block mt mb-share-btn" data-act="trip-share" data-id="${id}"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 12v7h14v-7"/></svg>Share trip image</button>`:''}
     ${cs.length?`<h3>Fish</h3>${cs.map(c=>catchRow(c,P)).join('')}`:'<p class="muted mt">No fish logged on this trip.</p>'}`);
 }
 ACT['tr-save']=el=>{
@@ -2749,77 +2861,42 @@ CHG['f-sp']=el=>{V.fSp=el.value;V.lim=60;updateFilterChip();renderCatchList()};
 CHG['f-spot']=el=>{V.fSpot=el.value;V.lim=60;updateFilterChip();renderCatchList()};
 CHG['f-sort']=el=>{V.sort=el.value;updateFilterChip();renderCatchList()};
 
-/* ---------- share card (image): never includes location ---------- */
-async function shareTrip(id){
+/* ---------- share images (MB Suite MBShare, mb-share.js) ----------
+   Drawn on this device. Privacy rule for every card: never a spot name, coordinates, map or notes. */
+const shareArt=()=>{const t=document.createElement('template');t.innerHTML=CU_BANNER_SVG;return t.content.firstElementChild};
+const monYr=t=>new Date(t).toLocaleDateString(undefined,{month:'short',year:'numeric'});
+const shareGo=cfg=>{if(!window.MBShare){toast('Sharing isn’t available right now. Reload and try again.');return}
+  MBShare.open(Object.assign({art:shareArt()},cfg))};
+function shareTrip(id){
   const t=tripById(id);if(!t)return;
-  const cs=catchesOf(id),best=bestOf(cs),lure=(sortedGroups(group(cs.filter(c=>c.lure),c=>c.lure))[0]||[])[0];
-  const lost=(t.lost||[]).length,sp=sortedGroups(group(cs,c=>nm(c))),PK=window.PixelKit,FA=window.FishArt;
-  toast(busy('Making your card…'),[],4000);
-  const W=1080,c=document.createElement('canvas');c.width=W;c.height=W;const g=c.getContext('2d');g.imageSmoothingEnabled=false;
-  const R=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(x,y,w,h)};
-  /* 16-bit water: smooth stepped gradient, soft light ripples, a few bubbles with highlights */
-  const mixc=(a,b,k)=>{const p=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));const A=p(a),B=p(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*k).toString(16).padStart(2,'0')).join('')};
-  const water=(x,y,w,h,top,bot,seed)=>{
-    const st=Math.ceil(h/24);
-    for(let i=0;i<st;i++)R(x,y+i*24,w,Math.min(24,h-i*24),mixc(top,bot,i/Math.max(1,st-1)));
-    const rc=mixc(top,'#c8f0ff',.35);
-    for(let r=0;r<Math.ceil(h/96);r++)for(let k=0;k<5;k++){const rx=x+((seed*37+r*211+k*197)%(w-80)),ry=y+r*96+18+((k*29+seed)%48);R(rx,ry,48,6,rc);R(rx+12,ry+6,24,6,mixc(rc,top,.5))}
-  };
-  water(0,0,W,W,'#3a9cc4','#10304a',3);
-  [[40,700,12],[1030,600,12],[1010,640,8],[70,880,8],[540,990,8],[980,860,12]].forEach(b=>{R(b[0],b[1],b[2],b[2],'#8fd0ea');R(b[0],b[1],b[2]/2,b[2]/2,'#e4f8ff')});
-  const artFor=name=>{const s=window.SPECIES&&guideFor(name);return FA.grid(Object.assign({s:s?s.id:'fish'},s?s.art:{t:'bass',back:'#4a6a5a',side:'#9ab0a0',belly:'#eef0e8',fin:'#6a8a7a'}))};
-  const fish=(gr,x,y,sc,flip)=>{g.save();if(flip){g.translate(x+gr.w*sc,y);g.scale(-1,1);PK.sprite(g,gr,0,0,sc)}else PK.sprite(g,gr,x,y,sc);g.restore()};
-  const T=(txt,x,y,s,col,al,maxW)=>{while(maxW&&s>1&&PK.width(txt,s)>maxW)s--;PK.text(g,txt,x+s,y+s,s,'rgba(0,0,0,.5)',al);PK.text(g,txt,x,y,s,col,al);return s};
-  /* top panel: your best photo, or a little scene with your top fish */
-  const X=60,Y=60,PW=960,PHt=420;
-  let drew=false;const pc=[best,...cs].find(x=>x&&x.photos&&x.photos[0]);
-  g.save();g.beginPath();g.rect(X,Y,PW,PHt);g.clip();
-  if(pc){try{const r=await PH.get(pc.photos[0]);if(r){const b=await createImageBitmap(r.blob),s=Math.max(PW/b.width,PHt/b.height),w=b.width*s,h=b.height*s;g.imageSmoothingEnabled=true;g.drawImage(b,X+(PW-w)/2,Y+(PHt-h)/2,w,h);g.imageSmoothingEnabled=false;drew=true;if(b.close)b.close()}}catch(e){}}
-  if(!drew){
-    water(X,Y,PW,PHt,'#7cc8e4','#1f5f86',5);
-    [[120,200,12],[160,150,8],[820,160,12],[860,300,8],[500,330,8]].forEach(b=>{R(X+b[0],Y+b[1],b[2],b[2],'#8fd0ea');R(X+b[0],Y+b[1],b[2]/2,b[2]/2,'#e4f8ff')});
-    if(sp.length&&FA&&PK){const gr=artFor(sp[0][0]);fish(gr,X+(PW-gr.w*9)/2,Y+(PHt-gr.h*9)/2+10,9,false)}
-    else T('NO CATCHES YET',X+PW/2,Y+PHt/2-20,6,'#ffffff','center');
-  }
-  g.restore();
-  /* chunky frame */
-  R(X-8,Y-8,PW+16,8,'#0c2030');R(X-8,Y+PHt,PW+16,8,'#0c2030');R(X-8,Y,8,PHt,'#0c2030');R(X+PW,Y,8,PHt,'#0c2030');
-  /* the count */
-  let y=Y+PHt+34;
-  const nf=cs.length;
-  const nw=cs.filter(c=>{const g=guideFor(c.species);return g&&g.k}).length,unit=nw?'FINDS':'FISH';
-  const w1=T(`${nf} ${unit}`,X,y,12,'#ffffff','left',PW),sw=PK.width(`${nf} ${unit}`,w1);
-  if(sp.length>1)T(`${sp.length} SPECIES`,X+PW,y+34,5,'#f2b640','right',PW-sw-40);
-  y+=7*12+34;
-  /* species tally: art and how many of each */
-  if(sp.length===1&&!drew){T(`×${sp[0][1].length}  ${sp[0][0]}`,X+PW/2,y,6,'#ffffff','center',PW);y+=42+40}
-  else if(sp.length&&FA&&PK){
-    const shown=sp.length>4?sp.slice(0,3):sp,more=sp.length>4?sp.length-3:0,n=shown.length+(more?1:0),sc=n<=3?4:3,cw=PW/n;
-    shown.forEach(([name,list],i)=>{
-      const gr=artFor(name),cx=X+cw*i+cw/2;
-      fish(gr,cx-gr.w*sc/2,y,sc,i%2===1);
-      T(`×${list.length}`,cx,y+gr.h*sc+6,5,'#ffffff','center');
-      T(name,cx,y+gr.h*sc+50,2,'#cfe8f5','center',cw-12);
-    });
-    if(more){const cx=X+cw*shown.length+cw/2;T(`+${more}`,cx,y+gr0(sc)/2-20,6,'#f2b640','center');T('MORE SPECIES',cx,y+gr0(sc)+50,2,'#cfe8f5','center',cw-12)}
-    y+=30*sc+76;
-  }
-  function gr0(sc){return 30*sc}
-  /* best catch, weather, trip bits */
-  if(best){T(`BEST: ${nm(best)}${sizeStr(best)?' '+sizeStr(best):''}`,X,y,4,'#f2b640','left',PW);y+=28+22}
-  const wxs=wxText(t.weather),wi=PK&&PK.wxIcon(t.weather);
-  if(wxs){let x0=X;if(wi)x0+=PK.icon(g,wi,X,y-10,3)+16;T(wxs,x0,y,4,'#ffffff','left',PW-(x0-X));y+=28+22}
-  const bits=[t.manual?'':fmtDur(tripDur(t)),lure||'',lost?`${lost} got away`:''].filter(Boolean).join('  ·  ');
-  if(bits){T(bits,X,y,3,'#cfe8f5','left',PW);y+=21+20}
-  T(fmtDateY(t.start),X,1030,3,'#cfe8f5','left');
-  T('MBFISHING.ONLINE',X+PW,1022,4,'#ffffff','right');
-  const blob=await new Promise(r=>c.toBlob(r,'image/png'));
-  const file=new File([blob],`mbfishing-trip_${ymd(t.start)}.png`,{type:'image/png'});
-  hideToast();
-  try{if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'My fishing trip'});return}}catch(e){if(e&&e.name==='AbortError')return}
-  download(blob,file.name);toast('Card saved ✓ It has no location.',[],4500);
+  const cs=catchesOf(id);if(!cs.length)return;
+  const best=bestOf(cs),sp=sortedGroups(group(cs,c=>nm(c))),nsp=sp.length;
+  const stats=[{label:'Fish',value:String(cs.length)},{label:'Species',value:String(nsp)}];
+  if(best)stats.push({label:'Best fish',value:sizeStr(best).split(' · ')[0]});
+  else if(!t.manual)stats.push({label:'On the water',value:fmtDur(tripDur(t))});
+  shareGo({title:'Share this trip',kicker:'Trip',headline:`${pl(cs.length,'fish','fish')} on ${fmtDateY(t.start)}`,
+    sub:sp.slice(0,3).map(([n,l])=>`${l.length} ${n}`).join(', ')+(nsp>3?` and ${nsp-3} more`:''),
+    stats,date:monYr(t.start),fileName:`mbfishing-trip_${ymd(t.start)}.png`});
+}
+function shareCatch(id){
+  const c=db.catches.find(x=>x.id===id);if(!c)return;
+  const pb=isBest(c,pbs()),stats=[];
+  if(c.length)stats.push({label:'Length',value:fmtLen(c.length)});
+  if(c.weight)stats.push({label:'Weight',value:fmtWt(c.weight)});
+  stats.push({label:'Kept or released',value:c.fate==='kept'?'Kept':'Released'});
+  shareGo({title:pb?'Share your personal best':'Share this catch',kicker:pb?'Personal best':'Catch',headline:nm(c),
+    sub:fmtDateY(c.t)+(c.lure?' · on a '+c.lure:''),stats,date:monYr(c.t),fileName:`mbfishing-catch_${ymd(c.t)}.png`});
+}
+function shareSpecies(){
+  const n=new Set(db.catches.map(c=>c.species).filter(Boolean)).size;if(!n)return;
+  const first=Math.min(...db.catches.map(c=>c.t));
+  shareGo({title:'Share your species count',kicker:'Milestone',headline:`${pl(n,'species','species')} logged`,
+    sub:`Since ${monYr(first)}`,stats:[{label:'Species',value:String(n)},{label:'Fish',value:String(db.catches.length)},{label:'Trips',value:String(db.trips.length)}],
+    date:monYr(Date.now()),fileName:'mbfishing-species.png'});
 }
 ACT['trip-share']=el=>shareTrip(el.dataset.id);
+ACT['catch-share']=el=>shareCatch(el.dataset.id);
+ACT['species-share']=()=>shareSpecies();
 ACT['mem-stats']=()=>go('stats');
 
 /* =====================================================================
@@ -3023,7 +3100,7 @@ function renderStats(){
   const ins=insightsFor(cs,'fish');
   const favs=db.catches.filter(c=>c.fav).sort((a,b)=>b.t-a.t),pb2=pbs();
   el.innerHTML=seg+`
-  <div class="seg mt" style="max-width:300px"><button data-act="set" data-k="statPeriod" data-v="year" aria-pressed="${!all}">This year</button><button data-act="set" data-k="statPeriod" data-v="all" aria-pressed="${all}">All time</button></div>
+  <div class="row wrap gap mt"><div class="seg grow" style="max-width:300px"><button data-act="set" data-k="statPeriod" data-v="year" aria-pressed="${!all}">This year</button><button data-act="set" data-k="statPeriod" data-v="all" aria-pressed="${all}">All time</button></div><button class="btn sm mb-share-btn" data-act="species-share"><svg class="uic" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M5 12v7h14v-7"/></svg>Share species count</button></div>
   <div class="masonry mt"><div class="blk">
   <div class="tiles">
     <div class="tile"><b>${cs.length}</b><span>fish</span></div>
@@ -3101,7 +3178,8 @@ async function renderMore(){
   const el=$('#v-more'),lb=db.settings.lastBackup,np=new Set(db.catches.flatMap(c=>c.photos||[])).size;
   const ago=lb?Math.floor((Date.now()-lb)/DAY):null,dir=BK.dir,dots=canSave()?'…':'';
   const info=(()=>{try{return JSON.parse(localStorage.getItem(BK_INFO))||{}}catch(e){return{}}})();
-  el.innerHTML=`<div class="masonry">
+  el.innerHTML=`<div class="phone-only"><button class="item" data-act="go" data-v="species"><span class="th"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 6.5C10.5 5 8 4.5 4 4.5v13c4 0 6.5.5 8 2 1.5-1.5 4-2 8-2v-13c-4 0-6.5.5-8 2z"/><path d="M12 6.5v13"/></svg></span><span class="grow"><b>Species guide</b><br><span class="muted sm">ID tips and how to catch them</span></span><span class="muted" aria-hidden="true">›</span></button></div>
+  <div class="masonry">
   <div class="blk"><h3 style="margin-top:4px">Back up your log</h3>
   <div class="card">
     <div class="bk-last${!lb?' none':backupDue()?' warn':''}" role="status"><span>${lb?`<b>Backed up last:</b> ${esc(fmtDateY(lb))}, ${esc(fmtTime(lb))} (${ago===0?'today':ago+' day'+(ago===1?'':'s')+' ago'})`:'<b>No backup yet.</b>'}</span>${lb&&info.k?`<span class="muted sm">${esc(info.k)}${info.w?' to '+esc(info.w):''}</span>`:''}${backupDue()?'<span class="tag gold">due</span>':''}</div>
@@ -3119,8 +3197,7 @@ async function renderMore(){
     <div class="row gap mt"><button class="btn grow" data-act="import">⬆ Import a backup${dots}</button></div>
     <p class="muted sm" style="margin:8px 0 0">${canSave()?'Each one asks where to save, and opens in your backup folder if you set one. ':''}Import takes your ZIP or JSON backup, or a GPX file of waypoints (they become spots). Spots GPX saves your spots as a standard GPX file.</p>`)}
   </div></div>
-  ${deferredInstall?`<div class="blk"><h3>Install</h3><div class="card"><button class="btn primary block" data-act="install">📲 Install mbfishing.online</button><p class="muted sm" style="margin:8px 0 0">Opens full screen, like an app. Logging works with no signal once it has loaded.</p></div></div>`
-    :/iphone|ipad/i.test(navigator.userAgent)&&!matchMedia('(display-mode: standalone)').matches?`<div class="blk"><h3>Install</h3><div class="card"><p style="margin:0">On iPhone: tap <b>Share</b>, then <b>Add to Home Screen</b>. It opens full screen and logging works with no signal once it has loaded.</p></div></div>`:''}
+  <div class="blk"><h3>Install</h3><div data-mb-install data-app-name="Fishing" data-note="Opens in its own window with its own icon. Logging works with no signal once it has loaded."></div></div>
   <div class="blk"><h3>Settings</h3>
   <div class="card">
     <label style="margin-top:0">Units</label>
@@ -3145,7 +3222,8 @@ async function renderMore(){
   </div>
   <div class="blk" id="faq-blk"><h3>Help &amp; FAQ</h3><button class="btn sm" data-act="tour" style="margin-bottom:10px">▶ Replay the quick tour</button>${faqHTML()}</div>
   </div>
-  <p class="muted sm" style="text-align:center;margin:22px 0 64px"><button class="btn sm" data-act="whats-new">v1.2 · What’s new</button><br><br>mbfishing.online · No account. Your catches stay on this device.<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>`;
+  <p class="muted sm" style="text-align:center;margin:22px 0 64px"><button class="btn sm" data-act="whats-new">v1.3 · What’s new</button><br><br>mbfishing.online · No account. Your catches stay on this device.<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>`;
+  if(window.MBInstall)MBInstall.render();
   try{
     const est=navigator.storage&&navigator.storage.estimate?await navigator.storage.estimate():null,per=navigator.storage&&navigator.storage.persisted?await navigator.storage.persisted():null;
     const s=$('#stor');if(s)s.textContent=`${est?`Using about ${r1((est.usage||0)/1048576)} MB. `:''}${per===true?'Protected from automatic clean-up ✓':per===false?'Not yet protected from automatic clean-up. Back up regularly.':''}`;
@@ -3190,8 +3268,9 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.2';
+const APP_VERSION='1.3';
 const RELEASES=[
+ {v:'1.3',d:'October 13, 2026',n:['Navigation moved to a sidebar on the left on computers (a slim icon rail on tablets). Phones keep a bottom bar: Log, Catches, Map, Stats and More. The Species guide is at the top of More on phones','Updated logo and app icons, with a matching link preview image. If you installed the app, your device may keep the old icon until you reinstall it','A new fish-and-water banner on the Log screen','Install card in More now says “Installed on this device” when you are using the installed app','New share images, made on your device in the app’s colors with the new logo: share a trip, a catch or personal best, or your species count. Preview first, then Share or Save image. They never include your spot, location or map','The installed app is now named Fishing','Your catches, spots, photos and backups are unchanged']},
  {v:'1.2',d:'October 2026',n:["Lighter, fresher look (Paper Cutouts): a soft blue tint across the top of each page, a gradient accent line and tab marker, gradient buttons and progress bars, and a leaf-art banner on the Log screen. Layout and features are unchanged.", "New logo and app icons: the same fish on a softer gradient badge, with a matching link preview image.", "Your catches, spots and backups are unchanged."]},
  {v:'1.1',d:'October 2026',n:['Logo redrawn with the fish exactly centered in the app icon, favicon, home-screen icons and link preview image','More space between the site name and the “Official Web App” line in the header']},
  {v:'1.11.5',d:'October 2026',n:['New logo and app icon: a gold fishing hook on a green gradient, with a matching link preview image','The logo in the header now has a one-line description under the site name, and tapping it takes you back to the Log screen']},
@@ -3232,7 +3311,7 @@ function updateScroll(){
   const m=$('#main');if(!m)return;
   const max=m.scrollHeight-m.clientHeight,y=m.scrollTop;
   $('#prog i').style.width=max>8?Math.min(100,y/max*100)+'%':'0';
-  $('#top').classList.toggle('scrolled',y>4);
+  $('#pagebar').classList.toggle('scrolled',y>4);
   $('#totop').classList.toggle('show',y>400);
 }
 $('#main').addEventListener('scroll',updateScroll,{passive:true});
@@ -3254,7 +3333,7 @@ const FAQ=[
   {id:'folder',q:'Can I choose where backups are saved?',a:'<ul><li><b>Chrome or Edge on a computer:</b> More → <b>Choose folder…</b> once. After that, <b>Save backup now</b> writes straight into it. Every other export asks where to save and opens there. The browser only tells the app the folder’s <i>name</i>, never its full path, and may ask you to allow saving there again after you reopen the app.</li><li>Chrome won’t accept Documents, Desktop or Downloads themselves. Make a folder inside one and pick that.</li><li><b>Firefox, Safari and phones</b> can’t remember a folder, so backups go to the Downloads folder.</li></ul>'},
   {id:'privacy',q:'What leaves my device?',a:'<p>Only these, and only when you use them. Each one also sees your IP address:</p><ul><li><b>Place search</b> sends what you type, plus a rough area (about 11 km), to Photon, a free OpenStreetMap service.</li><li><b>Weather</b> sends your location, rounded to about 1 km, to Open-Meteo when a trip starts, and when you open the bite forecast. Turn it off in More → Settings.</li><li><b>The map</b> loads map tiles from OpenFreeMap. They see the area you’re viewing.</li><li><b>Directions</b> opens Google Maps with that spot’s location, only when you tap it.</li><li><b>Species guide source links</b> open other websites only when you tap one. The guide itself loads from this site and works offline.</li></ul><p>Your catches, photos and notes never leave. The app has no account, no analytics, no ads and sets no cookies. Whoever hosts this site may keep ordinary server logs.</p><p><a class="btn sm" href="privacy.html" target="_blank" rel="noopener">Read the full privacy page</a></p>'},
   {id:'rules',q:'Does it tell me what’s legal to keep?',a:'<p>No. It only records what you enter. Check your state’s fishing rules for licenses, size and bag limits, seasons and closed waters. Ask permission before fishing on private property.</p>'},
-  {id:'share',q:'Can I share a trip without giving away my spot?',a:'<p>Yes. Open a trip and tap <b>Share trip card</b>. The image has your best photo, pixel art of the fish you caught with a count for each, the totals, the date and a short weather line. It has no spot name and no location.</p>'},
+  {id:'share',q:'Can I share a trip without giving away my spot?',a:'<p>Yes. Open a trip and tap <b>Share trip image</b>, open a catch and tap <b>Share this catch</b>, or use <b>Share species count</b> on Stats. The image is made on your device and shows only what the preview shows: species, counts, sizes and the date. It never has a spot name, location or map.</p>'},
   {id:'sync',q:'Can I use it on my phone and my computer?',a:'<p>Yes, but nothing syncs automatically. Export a backup on one device and import it on the other. Importing merges, so it’s safe to do more than once.</p>'}]},
  {sec:'Location and map problems',items:[
   {id:'loc',q:'Why isn’t my location working?',a:'<ul><li>The site must load over <b>https</b>. A file opened straight from your computer usually blocks location.</li><li>Click the 🔒 icon next to the address bar and allow <b>Location</b>.</li><li>On Windows, check Settings → Privacy → Location.</li></ul><p>Computers have no GPS, so they only get a rough guess from Wi-Fi or IP. You can always <b>search for a place</b> instead.</p>'},
@@ -3306,7 +3385,7 @@ ACT['menu-open']=()=>{
       <button class="item" data-act="faq-go" data-id="privacy"><span class="th">🔒</span><span class="grow"><b>Privacy &amp; your data</b></span></button>
       <button class="item" data-act="menu-backup"><span class="th">💾</span><span class="grow"><b>Save backup now</b><br><span class="muted sm">JSON to your backup folder</span></span></button>
     </div>
-    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · Official Web App · v1.2<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
+    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · Official Web App · v1.3<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
 };
 ACT['menu-backup']=()=>{closeSheet();saveBackupNow()};
 
@@ -3383,6 +3462,7 @@ document.addEventListener('keydown',e=>{
   if(OB){if(e.key==='Escape')ACT['ob-skip']();return}
   if(typeof LB!=='undefined'&&LB)return;
   const d=$('#dlg');if(d&&!d.hidden)return;
+  if(shareOpen())return;
   const t=e.target,typing=t&&(/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)||t.isContentEditable);
   if(((e.key==='k'||e.key==='K')&&(e.ctrlKey||e.metaKey))||(e.key==='/'&&!typing&&!e.ctrlKey&&!e.metaKey&&!e.altKey)){e.preventDefault();openSearch()}
 });
@@ -3466,7 +3546,8 @@ ACT.tour=()=>{closeSheet();obShow(1)};
   go('log');
   if(firstRun)obShow(1);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
-  if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+  if(window.MBInstall)MBInstall.registerSW('sw.js');
+  else if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
 })();
 </script>
 </body>

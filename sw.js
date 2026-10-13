@@ -1,9 +1,12 @@
-/* mbfishing.online service worker. Only does anything when the app is served over https.
-   It lets the app open with no signal (the app files, plus the map code once you've opened the map)
-   and remembers map tiles you've already viewed. Your fishing data is never touched by this file.
-   "Delete all data" in the app also empties the tile cache below. */
-const VERSION = 'mbfishing-v29';
-const SHELL = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png', 'favicon.svg', 'privacy.html', 'terms.html', 'fish-art.js', 'pixel-kit.js', 'species-data.js'];
+/* mbfishing.online service worker. Only does anything when the app is served over https (or localhost).
+   It lets the app open with no signal (the app files, plus the map code and tide files once you've used them)
+   and remembers map tiles you've already viewed. Your fishing data (local storage and the photo database)
+   is never touched by this file. "Delete all data" in the app also empties the tile cache below.
+   BUMP VERSION ON EVERY RELEASE so old cached files are dropped. */
+const VERSION = 'mbfishing-v31';
+const SHELL = ['./', 'index.html', 'manifest.json', 'favicon.svg', 'favicon.ico', 'icon-192.png', 'icon-512.png',
+  'icon-maskable-512.png', 'apple-touch-icon.png', 'privacy.html', 'terms.html',
+  'mb-install.js', 'mb-share.js', 'fish-art.js', 'species-data.js'];
 const RUNTIME = 'mbfishing-runtime-v1';
 const MAX_RUNTIME = 900;
 
@@ -11,10 +14,11 @@ self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });
 
+/* Only this app's own caches are cleaned up; anything else on the origin is left alone. */
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k !== VERSION && k !== RUNTIME).map(k => caches.delete(k))))
+      .then(keys => Promise.all(keys.filter(k => k.startsWith('mbfishing-') && k !== VERSION && k !== RUNTIME).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -33,13 +37,14 @@ self.addEventListener('fetch', e => {
   if (url.origin === location.origin) {
     e.respondWith(
       fetch(req)
-        .then(res => { if (res.ok) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); } return res; })
-        .catch(() => caches.match(req).then(r => r || caches.match('index.html')))
+        .then(res => { if (res.ok && res.type === 'basic') { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); } return res; })
+        .catch(() => caches.match(req).then(r => r || (req.mode === 'navigate' ? caches.match('index.html') : undefined)))
     );
     return;
   }
 
   // Map tiles: show the cached copy instantly, refresh it in the background.
+  // Everything else from other sites (weather, place search) is left alone and never cached.
   if (/(^|\.)openfreemap\.org$/.test(url.hostname)) {
     e.respondWith(
       caches.open(RUNTIME).then(async cache => {

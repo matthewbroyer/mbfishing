@@ -44,8 +44,9 @@ Rules for adding or editing a species: only cite a page you actually read, tie e
 ## Fonts, images, icons, media
 
 - **Fonts:** none loaded. The app uses the system font stack of the visitor's device.
-- **Icons in the interface:** emoji, drawn by the visitor's own device font. No icon library.
-- **App icon** (`icon-192.png`, `icon-512.png`): created for this project. No stock or third-party artwork.
+- **Icons in the interface:** simple line icons drawn as inline SVG for the MB Suite theme (navigation, search, menu, install), plus emoji from the visitor's own device font. No icon library.
+- **Banner and empty-state art:** flat paper-cutout shapes (fish, waves, reeds, ripples) from the MB Suite nature library (templates NA-03 and NA-12), drawn for this family of apps. No stock artwork.
+- **Logo, app icons and link preview image** (`favicon.svg`, `favicon.ico`, `icon-*.png`, `apple-touch-icon.png`, `og-image.png`): the MB Suite badge (a fish over a wave on a blue rounded square), made for this project by its owner. No stock or third-party artwork.
 - **Fish drawings** (`fish-art.js`): original 16-bit style pixel-art illustrations (shaded, highlighted, colored outlines, at most 16 colors each) drawn in code for this project. Shapes, colors and markings were checked against freely licensed reference photos (Wikipedia/Wikimedia Commons lead images) used only as visual references; no photo pixels or traces are used. They are simplified, not photos.
 - **Photos:** only the visitor's own, stored on their device.
 - **Music, video, stock images:** none.
@@ -55,5 +56,4 @@ Rules for adding or editing a species: only cite a page you actually read, tie e
 - **Open-Meteo is free for non-commercial use only.** If the app ever gets ads or a paid plan, buy their commercial plan or switch weather providers first.
 - **Photon's public server is a fair-use demo.** If traffic grows, run your own Photon instance or use another geocoder.
 - **Name and domain:** "mbfishing.online" was not checked against trademark registries. Run a search (USPTO TESS/trademark search and a general web search for "mbfishing") before building a brand around it.
-- **Logo, icons and OG image** (`favicon.svg`, `icon-*.png`, `apple-touch-icon.png`, `og-image.png`): original 16-bit style pixel art made for this project.
-- **Pixel font and weather icons** (`pixel-kit.js`): a 5x7 bitmap font and small 16-bit weather icons drawn in code for the share card.
+- **Share images** (`mb-share.js`): drawn on the device with the system font, the app badge and the NA-03 art. No third-party code or artwork.
