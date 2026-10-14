@@ -2,6 +2,14 @@
 
 The same notes show in the app under Menu → What’s new. Newest first.
 
+## 1.5 · 2026-10-14
+- On computers, the search box, backup status and logo spacing now look exactly like the other mb apps: same size, same "Search…" text and the same "/" shortcut.
+- The top bar now matches the other mb apps. Search, Data and the light/dark switch are always in the bar, on phones too.
+- New Data button: save a backup, back up everything with photos, import, or jump to all backup options. A small dot on it means a backup is due.
+- The ≡ menu keeps Help, What’s new and Privacy.
+- On the Log screen your current lure now sits next to Start a trip, so there’s no extra line under it.
+- Your catches, spots, photos and backups are unchanged.
+
 ## 1.4 · 2026-10-14
 - New logo, redrawn in the same style as the other mb apps (app icon, tab icon, share image and pages all updated).
 
