@@ -2,7 +2,7 @@
 <html lang="en" data-app-short="Fishing" data-app-domain="mbfishing.online">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-zTbmo+7a+a5RIfuCyJSFLu0aIJJl9D6RHS/PEs80la0='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-AQcgw3QsikccOQscMMUMW0Rfqv4LnLrk8Cee+yrlqqE=' 'sha256-pmnawmplBYowD5acjWljvTBW+sgtb1anw4EXbraUv0g='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tiles.openfreemap.org; connect-src 'self' https://api.open-meteo.com https://photon.komoot.io https://tiles.openfreemap.org; worker-src 'self' blob:; child-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B6B8A">
 <title>Fishing | Log</title>
@@ -914,6 +914,19 @@ a.brand:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .mb-install.is-done{border-left-color:var(--good)}
 .mb-install.is-done>.uic{color:var(--good-ink)}
 @media (max-width:520px){.mb-install{flex-wrap:wrap}.mb-install .btn{width:100%}}
+/* ---- about card (bottom of Settings/More, below the Install card · SUITE-STANDARDS §1 · kit v3.1) ---- */
+.mb-about{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;margin-top:12px;border:1px solid var(--border);border-left:3px solid var(--accent);
+  border-radius:var(--r);background:var(--surface)}
+.mb-about>.uic{flex:none;width:22px;height:22px;color:var(--accent)}
+.mb-about>div{flex:1;min-width:0}
+.mb-about b{display:block;font-size:14px;font-weight:600;color:var(--ink)}
+.mb-about p{margin:2px 0 0;font-size:12.5px;color:var(--ink-2)}
+.mb-about .mb-about-links{display:flex;flex-wrap:wrap;gap:0 14px;margin-top:4px}
+.mb-about .mb-about-links a,.mb-about .mb-about-links button{display:inline-flex;align-items:center;min-height:28px;padding:0;border:0;background:none;
+  font:inherit;color:var(--accent);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+.mb-about .mb-about-links a:hover,.mb-about .mb-about-links button:hover{color:var(--accent-hover)}
+.mb-about .mb-about-copy{margin-top:4px;color:var(--muted,var(--ink-2))}
+.more-end{max-width:560px;margin:8px 0 64px}
 
 /* ---- share button (put it where the milestone is shown) ---- */
 .mb-share-btn .uic{width:16px;height:16px}
@@ -988,17 +1001,20 @@ body.mb-shell{display:block;height:100dvh;overflow:hidden}
 /* small Ripple art in the empty "recent catches" card */
 .empty-art{display:block;margin:0 auto 6px}
 </style>
+
+<!-- release tags added by mb-release 2026-10-14 -->
+<meta name="application-name" content="Fishing">
 </head>
 <body class="mb-shell">
 <a class="skip" href="#main" data-act="skip">Skip to content</a>
 <aside class="mb-side" id="side" aria-label="App">
-  <a class="brand" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: go to Log"><span class="logo"><svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbfi-g1a" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#2d809a"/><stop offset=".55" stop-color="#0B6B8A"/><stop offset="1" stop-color="#09566e"/></linearGradient><clipPath id="mbfi-c1a"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbfi-c1a)"><rect width="64" height="64" fill="url(#mbfi-g1a)"/><g transform="translate(0,-5.8128604)"><path transform="translate(0.8,-1.5)" d="m 12,51.5 c 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0" stroke="#ffffff" stroke-opacity="0.55" stroke-width="3.5" stroke-linecap="round" fill="none"/><g transform="translate(0.75)"><path d="m 20,32 c 6,-9.5 21,-11.5 30,0 -9,11.5 -24,9.5 -30,0 z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 20,32 12.5,25 V 39 Z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="42.5" cy="29.5" r="2.5999999" fill="#ffffff"/></g></g></g></svg></span><span class="bt"><b>mbfishing<i class="tld">.online</i></b><span>Official Web App · v1.3</span></span></a>
+  <a class="brand" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: go to Log"><span class="logo"><svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbfi-g1a" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#2d809a"/><stop offset=".55" stop-color="#0B6B8A"/><stop offset="1" stop-color="#09566e"/></linearGradient><clipPath id="mbfi-c1a"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbfi-c1a)"><rect width="64" height="64" fill="url(#mbfi-g1a)"/><g transform="translate(0,-5.8128604)"><path transform="translate(0.8,-1.5)" d="m 12,51.5 c 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0" stroke="#ffffff" stroke-opacity="0.55" stroke-width="3.5" stroke-linecap="round" fill="none"/><g transform="translate(0.75)"><path d="m 20,32 c 6,-9.5 21,-11.5 30,0 -9,11.5 -24,9.5 -30,0 z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 20,32 12.5,25 V 39 Z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="42.5" cy="29.5" r="2.5999999" fill="#ffffff"/></g></g></g></svg></span><span class="bt"><b>mbfishing<i class="tld">.online</i></b><span>Official Web App · v1.4</span></span></a>
   <nav class="side-nav" aria-label="Sections"><button type="button" data-act="go" data-v="log" aria-current="page"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span>Log</span></button><button type="button" data-act="go" data-v="catches"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 12c2.5-4 8.5-4.8 12.5 0-4 4.8-10 4-12.5 0z"/><path d="M6.5 12 3 9v6z"/><circle cx="15.5" cy="11.3" r=".9" fill="currentColor" stroke="none"/></svg><span>Catches</span></button><button type="button" data-act="go" data-v="map"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg><span>Map</span></button><button type="button" data-act="go" data-v="stats"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/></svg><span>Stats</span></button><button type="button" data-act="go" data-v="species"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 6.5C10.5 5 8 4.5 4 4.5v13c4 0 6.5.5 8 2 1.5-1.5 4-2 8-2v-13c-4 0-6.5.5-8 2z"/><path d="M12 6.5v13"/></svg><span>Species</span></button></nav>
   <nav class="side-nav side-end" aria-label="More"><button type="button" data-act="go" data-v="more" class="nav-more"><svg class="uic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="5.5" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="18.5" cy="12" r="1.2" fill="currentColor"/></svg><span>More</span></button></nav>
 </aside>
 <div class="mb-main">
 <header class="page-bar" id="pagebar">
-  <a class="brand phone-brand" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: go to Log"><span class="logo"><svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbfi-g1b" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#2d809a"/><stop offset=".55" stop-color="#0B6B8A"/><stop offset="1" stop-color="#09566e"/></linearGradient><clipPath id="mbfi-c1b"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbfi-c1b)"><rect width="64" height="64" fill="url(#mbfi-g1b)"/><g transform="translate(0,-5.8128604)"><path transform="translate(0.8,-1.5)" d="m 12,51.5 c 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0" stroke="#ffffff" stroke-opacity="0.55" stroke-width="3.5" stroke-linecap="round" fill="none"/><g transform="translate(0.75)"><path d="m 20,32 c 6,-9.5 21,-11.5 30,0 -9,11.5 -24,9.5 -30,0 z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 20,32 12.5,25 V 39 Z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="42.5" cy="29.5" r="2.5999999" fill="#ffffff"/></g></g></g></svg></span><span class="bt"><b>mbfishing<i class="tld">.online</i></b><span>Official Web App · v1.3</span></span></a>
+  <a class="brand phone-brand" href="./" data-act="go" data-v="log" aria-label="mbfishing.online: go to Log"><span class="logo"><svg aria-hidden="true" focusable="false" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mbfi-g1b" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="54" y2="64"><stop offset="0" stop-color="#2d809a"/><stop offset=".55" stop-color="#0B6B8A"/><stop offset="1" stop-color="#09566e"/></linearGradient><clipPath id="mbfi-c1b"><rect width="64" height="64" rx="18"/></clipPath></defs><g clip-path="url(#mbfi-c1b)"><rect width="64" height="64" fill="url(#mbfi-g1b)"/><g transform="translate(0,-5.8128604)"><path transform="translate(0.8,-1.5)" d="m 12,51.5 c 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0 3.2,-2.6 6.4,-2.6 9.6,0 3.2,2.6 6.4,2.6 9.6,0" stroke="#ffffff" stroke-opacity="0.55" stroke-width="3.5" stroke-linecap="round" fill="none"/><g transform="translate(0.75)"><path d="m 20,32 c 6,-9.5 21,-11.5 30,0 -9,11.5 -24,9.5 -30,0 z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 20,32 12.5,25 V 39 Z" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="42.5" cy="29.5" r="2.5999999" fill="#ffffff"/></g></g></g></svg></span><span class="bt"><b>mbfishing<i class="tld">.online</i></b><span>Official Web App · v1.4</span></span></a>
   <h1 class="page-title" id="page-title" tabindex="-1">Log</h1>
   <button id="pill" data-act="go" data-v="log" hidden></button>
   <div class="actions">
@@ -3197,7 +3213,6 @@ async function renderMore(){
     <div class="row gap mt"><button class="btn grow" data-act="import">⬆ Import a backup${dots}</button></div>
     <p class="muted sm" style="margin:8px 0 0">${canSave()?'Each one asks where to save, and opens in your backup folder if you set one. ':''}Import takes your ZIP or JSON backup, or a GPX file of waypoints (they become spots). Spots GPX saves your spots as a standard GPX file.</p>`)}
   </div></div>
-  <div class="blk"><h3>Install</h3><div data-mb-install data-app-name="Fishing" data-note="Opens in its own window with its own icon. Logging works with no signal once it has loaded."></div></div>
   <div class="blk"><h3>Settings</h3>
   <div class="card">
     <label style="margin-top:0">Units</label>
@@ -3222,7 +3237,19 @@ async function renderMore(){
   </div>
   <div class="blk" id="faq-blk"><h3>Help &amp; FAQ</h3><button class="btn sm" data-act="tour" style="margin-bottom:10px">▶ Replay the quick tour</button>${faqHTML()}</div>
   </div>
-  <p class="muted sm" style="text-align:center;margin:22px 0 64px"><button class="btn sm" data-act="whats-new">v1.3 · What’s new</button><br><br>mbfishing.online · No account. Your catches stay on this device.<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>`;
+  <p class="muted sm" style="text-align:center;margin:22px 0 0">No account. Your catches stay on this device.<span class="legal"><a href="privacy.html#credits" target="_blank" rel="noopener">Credits</a></span>Map © OpenFreeMap, OpenMapTiles, OpenStreetMap contributors. Weather by Open-Meteo.com.</p>
+  <div class="more-end">
+  <div class="blk"><h3>Install</h3><div data-mb-install data-app-name="Fishing" data-note="Opens in its own window with its own icon. Logging works with no signal once it has loaded."></div></div>
+  <div class="mb-about" role="group" aria-label="About this app">
+    <svg class="uic" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.5v.01"/></svg>
+    <div>
+      <b>mbfishing.online™</b>
+      <p>Version 1.4 · Oct 14, 2026</p>
+      <p class="mb-about-links"><button type="button" data-act="whats-new">What's new</button><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="https://matthewbroyer.com/">More free apps at matthewbroyer.com</a></p>
+      <p class="mb-about-copy">© 2026 Matthew Broyer. All rights reserved.</p>
+    </div>
+  </div>
+  </div>`;
   if(window.MBInstall)MBInstall.render();
   try{
     const est=navigator.storage&&navigator.storage.estimate?await navigator.storage.estimate():null,per=navigator.storage&&navigator.storage.persisted?await navigator.storage.persisted():null;
@@ -3268,8 +3295,9 @@ ACT.wipe=async()=>{
 /* =====================================================================
    App shell: theme, header, menu, search, help, release notes, privacy note
    ===================================================================== */
-const APP_VERSION='1.3';
+const APP_VERSION='1.4';
 const RELEASES=[
+ {v:'1.4',d:'October 14, 2026',n:['About card at the bottom of More: version, release date, links and copyright in one place','Installing from matthewbroyer.com: the hub’s Install button opens the app with a short install prompt','New “page not found” page that matches the app and links back to it']},
  {v:'1.3',d:'October 13, 2026',n:['Navigation moved to a sidebar on the left on computers (a slim icon rail on tablets). Phones keep a bottom bar: Log, Catches, Map, Stats and More. The Species guide is at the top of More on phones','Updated logo and app icons, with a matching link preview image. If you installed the app, your device may keep the old icon until you reinstall it','A new fish-and-water banner on the Log screen','Install card in More now says “Installed on this device” when you are using the installed app','New share images, made on your device in the app’s colors with the new logo: share a trip, a catch or personal best, or your species count. Preview first, then Share or Save image. They never include your spot, location or map','The installed app is now named Fishing','Your catches, spots, photos and backups are unchanged']},
  {v:'1.2',d:'October 2026',n:["Lighter, fresher look (Paper Cutouts): a soft blue tint across the top of each page, a gradient accent line and tab marker, gradient buttons and progress bars, and a leaf-art banner on the Log screen. Layout and features are unchanged.", "New logo and app icons: the same fish on a softer gradient badge, with a matching link preview image.", "Your catches, spots and backups are unchanged."]},
  {v:'1.1',d:'October 2026',n:['Logo redrawn with the fish exactly centered in the app icon, favicon, home-screen icons and link preview image','More space between the site name and the “Official Web App” line in the header']},
@@ -3385,7 +3413,7 @@ ACT['menu-open']=()=>{
       <button class="item" data-act="faq-go" data-id="privacy"><span class="th">🔒</span><span class="grow"><b>Privacy &amp; your data</b></span></button>
       <button class="item" data-act="menu-backup"><span class="th">💾</span><span class="grow"><b>Save backup now</b><br><span class="muted sm">JSON to your backup folder</span></span></button>
     </div>
-    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · Official Web App · v1.3<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
+    <p class="muted sm" style="text-align:center;margin:14px 0 0">mbfishing.online · Official Web App · v${APP_VERSION}<span class="legal"><a href="privacy.html" target="_blank" rel="noopener">Privacy</a><a href="terms.html" target="_blank" rel="noopener">Terms</a></span></p>`);
 };
 ACT['menu-backup']=()=>{closeSheet();saveBackupNow()};
 

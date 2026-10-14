@@ -3,10 +3,8 @@
    and remembers map tiles you've already viewed. Your fishing data (local storage and the photo database)
    is never touched by this file. "Delete all data" in the app also empties the tile cache below.
    BUMP VERSION ON EVERY RELEASE so old cached files are dropped. */
-const VERSION = 'mbfishing-v31';
-const SHELL = ['./', 'index.html', 'manifest.json', 'favicon.svg', 'favicon.ico', 'icon-192.png', 'icon-512.png',
-  'icon-maskable-512.png', 'apple-touch-icon.png', 'privacy.html', 'terms.html',
-  'mb-install.js', 'mb-share.js', 'fish-art.js', 'species-data.js'];
+const VERSION = 'mbfishing-20261014-325d7e7f';
+const SHELL = ['./', 'index.html', 'manifest.json', 'favicon.ico', 'favicon.svg', 'apple-touch-icon.png', 'mb-install.js', 'mb-share.js', 'fish-art.js', 'species-data.js', 'privacy.html', 'terms.html', 'vendor/LICENSES.txt', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
 const RUNTIME = 'mbfishing-runtime-v1';
 const MAX_RUNTIME = 900;
 

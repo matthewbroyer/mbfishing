@@ -2,6 +2,14 @@
 
 The same notes show in the app under Menu → What’s new. Newest first.
 
+## 1.4 · 2026-10-14
+
+- About card at the bottom of More (the app's Settings page): version, release date, links and copyright in one place.
+- Installing from matthewbroyer.com: the hub's Install button opens the app with a short install prompt.
+- New "page not found" page that matches the app and links back to it.
+- The Install card moved to the bottom of More, just above the About card.
+- Privacy and Terms pages now end with a link to matthewbroyer.com.
+
 ## v1.3 · October 13, 2026
 
 - Navigation moved to a sidebar on the left on computers (a slim icon rail on tablets). Phones keep a bottom bar: Log, Catches, Map, Stats and More. The Species guide is at the top of More on phones
