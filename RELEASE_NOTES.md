@@ -3,6 +3,7 @@
 The same notes show in the app under Menu → What’s new. Newest first.
 
 ## 1.4 · 2026-10-14
+- New logo, redrawn in the same style as the other mb apps (app icon, tab icon, share image and pages all updated).
 
 - About card at the bottom of More (the app's Settings page): version, release date, links and copyright in one place.
 - Installing from matthewbroyer.com: the hub's Install button opens the app with a short install prompt.
